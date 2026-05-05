@@ -592,7 +592,7 @@
   .cb-next-btn:disabled { background: var(--border); color: var(--text-muted); cursor: default; }
   .cb-next-btn:not(:disabled):hover { background: var(--purple-dark); }
 
-  /* ── WIZARD ── */
+  /* ── Create Your Hero button ── */
   .wz-create-btn {
     width: 100%;
     background: transparent;
@@ -609,101 +609,6 @@
     transition: background 0.15s, color 0.15s;
   }
   .wz-create-btn:hover { background: var(--hunter-green); color: #fff; }
-  .wz-arch-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
-  .wz-arch-card {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 16px 8px 14px;
-    cursor: pointer;
-    text-align: center;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .wz-arch-card:hover { border-color: var(--hunter-green); background: var(--green-light); }
-  .wz-arch-card.selected { border-color: var(--hunter-green); background: var(--green-light); box-shadow: inset 0 0 0 1px var(--hunter-green); }
-  .wz-arch-icon { font-size: 28px; display: block; margin-bottom: 6px; }
-  .wz-arch-name { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-  .wz-arch-desc { font-size: 10px; color: var(--text-muted); font-weight: 500; }
-  .wz-name-input {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 13px 14px;
-    font-size: 20px;
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    color: var(--text);
-    background: var(--card);
-    margin-bottom: 14px;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .wz-name-input:focus { border-color: var(--hunter-green); }
-  .wz-name-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-  .wz-name-chip {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 6px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.12s;
-  }
-  .wz-name-chip:hover { border-color: var(--hunter-green); color: var(--hunter-green); background: var(--green-light); }
-  .wz-name-chip.selected { background: var(--hunter-green); color: #fff; border-color: var(--hunter-green); }
-  .wz-traits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 10px; }
-  .wz-trait-chip {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 8px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-muted);
-    cursor: pointer;
-    text-align: center;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.12s;
-  }
-  .wz-trait-chip:hover { border-color: var(--royal-blue); color: var(--royal-blue); background: rgba(65,105,225,0.06); }
-  .wz-trait-chip.selected { background: var(--royal-blue); color: #fff; border-color: var(--royal-blue); }
-  .wz-trait-count { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-bottom: 20px; text-align: right; }
-  .wz-power-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-bottom: 20px; }
-  .wz-power-card {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 16px 12px 14px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .wz-power-card:hover { border-color: var(--purple); background: var(--purple-light); }
-  .wz-power-card.selected { border-color: var(--purple); background: var(--purple-light); box-shadow: inset 0 0 0 1px var(--purple); }
-  .wz-power-icon { font-size: 24px; display: block; margin-bottom: 6px; }
-  .wz-power-name { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .wz-power-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; font-weight: 500; }
-  .wz-summary-card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
-  .wz-summary-hero { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 0.5px solid var(--border); }
-  .wz-summary-icon { font-size: 40px; }
-  .wz-summary-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); }
-  .wz-summary-type { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.08em; }
-  .wz-summary-row { margin-bottom: 14px; font-size: 14px; color: var(--text); }
-  .wz-summary-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 6px; }
-  .wz-summary-traits { display: flex; flex-wrap: wrap; gap: 6px; }
-  .wz-clinical-notice {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 500;
-    line-height: 1.6;
-    margin-bottom: 16px;
-    padding: 10px 12px;
-    background: var(--green-light);
-    border-left: 3px solid var(--hunter-green);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  }
 
   /* ── Wizard shell ── */
   .wz-header { text-align: center; margin-bottom: 20px; }
