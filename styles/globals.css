@@ -324,6 +324,7 @@ h1 {
 }
 .past-client-card:hover { border-color: var(--color-border-hover); opacity: 0.85; }
 .past-client-card:hover .restore-btn { opacity: 1; }
+.past-client-card:hover .delete-perm-btn { opacity: 1; }
 
 .restore-btn {
   position: absolute;
@@ -337,6 +338,24 @@ h1 {
   opacity: 0;
   transition: opacity .15s;
   color: var(--color-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.delete-perm-btn {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--color-danger-bg, #fff0eb);
+  border: 1px solid var(--color-danger, #c0392b);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s;
+  color: var(--color-danger, #c0392b);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.04em;

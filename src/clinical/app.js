@@ -264,6 +264,7 @@ async function renderPastClients() {
       : '';
     return `
       <div class="past-client-card" onclick="openClientById('${c.id}')">
+        <button class="delete-perm-btn" onclick="event.stopPropagation(); deleteClient('${c.id}')" title="Permanently delete client">Delete</button>
         <button class="restore-btn" onclick="event.stopPropagation(); restoreClient('${c.id}')" title="Restore client">Restore</button>
         <div class="av" style="background:${color};filter:grayscale(0.5);">${c.avatar}</div>
         <div class="cn">${c.name}</div>
@@ -290,6 +291,32 @@ async function archiveClient(id) {
 
 async function restoreClient(id) {
   await db.from('clients').update({ archived: false, archived_at: null }).eq('id', id);
+  renderClients();
+}
+
+async function deleteClient(id) {
+  const client = _pastClients.find(c => c.id === id);
+  const name   = client?.name || 'this client';
+  const confirmed = confirm(
+    `Permanently delete ${name}?\n\n` +
+    `This will erase all of their session history, activities, scores, and responses. ` +
+    `This data cannot be recovered.\n\n` +
+    `Do you want to continue?`
+  );
+  if (!confirmed) return;
+
+  await db.from('session_summaries').delete().eq('client_id', id);
+  await db.from('session_responses').delete().eq('client_id', id);
+  await db.from('sessions').delete().eq('client_id', id);
+
+  const { data: acts } = await db.from('activities').select('id').eq('client_id', id);
+  if (acts?.length) {
+    await db.from('scores').delete().in('activity_id', acts.map(a => a.id));
+  }
+
+  await db.from('activities').delete().eq('client_id', id);
+  await db.from('clients').delete().eq('id', id);
+
   renderClients();
 }
 
