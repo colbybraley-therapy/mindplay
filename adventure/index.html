@@ -934,33 +934,8 @@
       <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
       <div class="xp-sub"><span id="xp-cur">0 XP</span><span>100 XP to next level</span></div>
     </div>
-    <div class="section-title">Choose an activity</div>
-    <div class="activity-grid">
-      <div class="act-card purple" onclick="go('quiz')">
-        <span class="act-icon">🧠</span>
-        <div class="act-title">Coping Skills Quiz</div>
-        <div class="act-desc">Test your coping knowledge</div>
-        <span class="xp-badge purple">+10 XP each</span>
-      </div>
-      <div class="act-card teal" onclick="go('breathing')">
-        <span class="act-icon">🌬️</span>
-        <div class="act-title">Breathing Garden</div>
-        <div class="act-desc">Calm your mind with guided breath</div>
-        <span class="xp-badge teal">+15 XP</span>
-      </div>
-      <div class="act-card amber" onclick="go('journal')">
-        <span class="act-icon">📓</span>
-        <div class="act-title">Reflection Journal</div>
-        <div class="act-desc">Guided prompts for self-discovery</div>
-        <span class="xp-badge amber">+20 XP</span>
-      </div>
-      <div class="act-card coral" onclick="go('emotions')">
-        <span class="act-icon">🎭</span>
-        <div class="act-title">Emotion Explorer</div>
-        <div class="act-desc">Name feelings & find coping tools</div>
-        <span class="xp-badge coral">+15 XP</span>
-      </div>
-    </div>
+    <div class="section-title">Your activities</div>
+    <div class="activity-grid" id="activity-grid"></div>
     <div class="home-footer">Complete activities to level up ✨</div>
   </div>
 
@@ -1387,11 +1362,7 @@ function confirmCharacter() {
   }
   setCharBg(true);
   document.getElementById('character-builder').classList.remove('active');
-  if (currentSession) {
-    go(currentSession.activity_type);
-  } else {
-    document.getElementById('home').classList.add('active');
-  }
+  go('home');
 }
 
 /* ── SUPABASE ── */
@@ -1493,7 +1464,7 @@ async function joinSession() {
     document.getElementById('character-builder').classList.add('active');
     document.getElementById('cb-screen-1').classList.add('active');
   } else {
-    go(session.activity_type);
+    go('home');
   }
 }
 
@@ -1558,9 +1529,52 @@ function go(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   setCharBg(!!heroName);
-  if (id === 'quiz') renderQuiz();
-  if (id === 'journal') renderJournal();
+  if (id === 'home')     renderAssignedActivities();
+  if (id === 'quiz')     renderQuiz();
+  if (id === 'journal')  renderJournal();
   if (id === 'emotions') renderEmotions();
+}
+
+const ACTIVITY_STYLES = {
+  quiz:      { icon: '🧠', color: 'purple', xp: '+10 XP each', desc: 'Test your coping knowledge' },
+  breathing: { icon: '🌬️', color: 'teal',   xp: '+15 XP',     desc: 'Calm your mind with guided breath' },
+  journal:   { icon: '📓', color: 'amber',  xp: '+20 XP',     desc: 'Guided prompts for self-discovery' },
+  emotions:  { icon: '🎭', color: 'coral',  xp: '+15 XP',     desc: 'Name feelings & find coping tools' },
+  custom:    { icon: '✏️', color: 'amber',  xp: '',           desc: 'Complete this activity' },
+};
+
+async function renderAssignedActivities() {
+  const grid = document.getElementById('activity-grid');
+  if (!currentSession) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:14px;">No session active. Join a session with your therapist to begin.</div>`;
+    return;
+  }
+
+  grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:1rem;color:var(--text-muted);font-size:13px;">Loading...</div>`;
+
+  const { data: activities } = await db
+    .from('activities')
+    .select('*')
+    .eq('client_id', currentSession.client_id)
+    .eq('done', false)
+    .order('created_at', { ascending: true });
+
+  if (!activities?.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:14px;">No activities assigned yet. Your therapist will add some soon.</div>`;
+    return;
+  }
+
+  grid.innerHTML = activities.map(a => {
+    const s = ACTIVITY_STYLES[a.activity_type] || ACTIVITY_STYLES.custom;
+    const icon = a.activity_icon || s.icon;
+    return `
+      <div class="act-card ${s.color}" onclick="go('${a.activity_type}')">
+        <span class="act-icon">${icon}</span>
+        <div class="act-title">${a.name}</div>
+        <div class="act-desc">${s.desc}</div>
+        ${s.xp ? `<span class="xp-badge ${s.color}">${s.xp}</span>` : ''}
+      </div>`;
+  }).join('');
 }
 
 function launchAdventure(activityType) {
@@ -2102,8 +2116,7 @@ function finishWizard() {
   setCharBg(true);
   document.getElementById('cb-wizard').style.display = 'none';
   document.getElementById('character-builder').classList.remove('active');
-  if (currentSession) { go(currentSession.activity_type); }
-  else                { document.getElementById('home').classList.add('active'); }
+  go('home');
 }
 </script>
 </body>
