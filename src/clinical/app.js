@@ -799,6 +799,14 @@ function listenForSession(sessionId) {
         showClientConnected();
         updatePrompts(session.activity_type, session.client_step);
       }
+      if (session.status === 'client_disconnected') {
+        const statusEl = document.getElementById('session-status-live');
+        if (statusEl) {
+          statusEl.textContent = '⚠️ Client closed their window — ending session…';
+          statusEl.className = 'session-status waiting';
+        }
+        setTimeout(() => endSession(true), 1500);
+      }
       if (session.client_step !== undefined) {
         updatePrompts(session.activity_type, session.client_step);
       }
@@ -994,9 +1002,9 @@ function addResponseToPanel(response) {
 }
 
 /* End the session */
-async function endSession() {
+async function endSession(skipConfirm = false) {
   if (!activeSession) return;
-  if (!confirm('End this session? A summary will be saved.')) return;
+  if (!skipConfirm && !confirm('End this session? A summary will be saved.')) return;
 
   // Mark session completed
   await db.from('sessions').update({ status: 'completed' }).eq('id', activeSession.id);
