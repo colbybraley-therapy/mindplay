@@ -704,6 +704,168 @@
     border-left: 3px solid var(--hunter-green);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
+
+  /* ── Wizard shell ── */
+  .wz-header { text-align: center; margin-bottom: 20px; }
+  .wz-step-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+  }
+  .wz-title {
+    font-family: 'Playfair Display', serif; font-size: 22px;
+    font-weight: 700; color: var(--text); margin-bottom: 4px; line-height: 1.3;
+  }
+  .wz-sub { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+
+  /* ── Step pills ── */
+  .wz-pills {
+    display: flex; justify-content: center; gap: 6px; margin-bottom: 22px;
+  }
+  .wz-pill {
+    height: 4px; border-radius: 2px; background: var(--border);
+    transition: background 0.3s, width 0.3s;
+    width: 24px;
+  }
+  .wz-pill.active { background: var(--hunter-green); width: 32px; }
+  .wz-pill.done   { background: var(--purple); }
+
+  /* ── Archetype grid (step 1) ── */
+  .wz-arch-grid {
+    display: grid; grid-template-columns: repeat(2,1fr);
+    gap: 12px; margin-bottom: 20px;
+  }
+  .wz-arch-card {
+    position: relative; border-radius: 14px; overflow: hidden;
+    cursor: pointer; aspect-ratio: 3/4;
+    border: 2.5px solid transparent;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .wz-arch-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.13); }
+  .wz-arch-card.selected { border-color: var(--hunter-green); box-shadow: 0 0 0 2px var(--hunter-green); }
+  .wz-arch-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: top center; display: block;
+  }
+  .wz-arch-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 30%, rgba(0,0,0,0.72) 100%);
+  }
+  .wz-arch-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; }
+  .wz-arch-name {
+    font-family: 'Playfair Display', serif; font-size: 14px;
+    font-weight: 700; color: #fff; margin-bottom: 2px;
+  }
+  .wz-arch-tag { font-size: 10px; color: rgba(255,255,255,0.8); font-style: italic; }
+
+  /* ── Name step ── */
+  .wz-name-input {
+    width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 13px 14px; font-size: 20px; font-family: 'Playfair Display', serif;
+    font-weight: 500; color: var(--text); background: var(--card);
+    margin-bottom: 14px; outline: none; transition: border-color 0.15s;
+  }
+  .wz-name-input:focus { border-color: var(--hunter-green); }
+  .wz-name-suggestions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .wz-name-chip {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 4px; padding: 6px 14px; font-size: 13px;
+    font-weight: 600; color: var(--text-muted); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.12s;
+  }
+  .wz-name-chip:hover { border-color: var(--hunter-green); color: var(--hunter-green); background: var(--green-light); }
+  .wz-name-chip.selected { background: var(--hunter-green); color: #fff; border-color: var(--hunter-green); }
+
+  /* ── Tile grid (appearance / items / powers / traits) ── */
+  .wz-tile-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 9px; margin-bottom: 14px;
+  }
+  .wz-tile {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 12px 6px 10px;
+    text-align: center; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    min-height: 72px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 5px;
+  }
+  .wz-tile:hover { border-color: var(--hunter-green); background: var(--green-light); transform: translateY(-1px); }
+  .wz-tile.selected { border-color: var(--hunter-green); background: var(--green-light); box-shadow: inset 0 0 0 1px var(--hunter-green); }
+  .wz-tile.selected-power { border-color: var(--purple); background: var(--purple-light); box-shadow: inset 0 0 0 1px var(--purple); }
+  .wz-tile.selected-trait { border-color: var(--royal-blue); background: rgba(65,105,225,0.07); box-shadow: inset 0 0 0 1px var(--royal-blue); }
+  .wz-tile-icon { font-size: 20px; line-height: 1; }
+  .wz-tile-label { font-size: 10px; color: var(--text-muted); font-weight: 600; line-height: 1.3; }
+  .wz-tile.selected .wz-tile-label { color: var(--hunter-green); }
+  .wz-tile.selected-power .wz-tile-label { color: var(--purple-dark); }
+  .wz-tile.selected-trait .wz-tile-label { color: var(--royal-blue); }
+
+  /* ── Selection counter ── */
+  .wz-sel-count {
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    text-align: right; margin-bottom: 16px;
+  }
+
+  /* ── Summary card ── */
+  .wz-summary-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; margin-bottom: 14px;
+  }
+  .wz-summary-hero {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 16px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .wz-summary-char-img {
+    width: 56px; height: 72px; border-radius: 8px;
+    object-fit: cover; object-position: top center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  .wz-summary-name {
+    font-family: 'Playfair Display', serif; font-size: 20px;
+    font-weight: 700; color: var(--text);
+  }
+  .wz-summary-type {
+    font-size: 11px; color: var(--text-muted); font-weight: 600;
+    margin-top: 3px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .wz-summary-row { margin-bottom: 12px; }
+  .wz-summary-label {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-muted); font-weight: 600; display: block; margin-bottom: 6px;
+  }
+  .wz-summary-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .wz-summary-chip {
+    padding: 4px 10px; border-radius: 4px; font-size: 12px;
+    font-weight: 600; display: inline-block;
+  }
+  .wz-summary-chip.green { background: var(--green-light); color: var(--hunter-green); }
+  .wz-summary-chip.purple { background: var(--purple-light); color: var(--purple-dark); }
+  .wz-summary-chip.blue { background: rgba(65,105,225,0.1); color: var(--royal-blue); }
+  .wz-clinical-notice {
+    font-size: 11px; color: var(--text-muted); font-weight: 500;
+    line-height: 1.6; margin-bottom: 16px; padding: 10px 12px;
+    background: var(--green-light); border-left: 3px solid var(--hunter-green);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  /* ── Nav buttons ── */
+  .wz-next-btn {
+    width: 100%; background: var(--hunter-green); color: #fff;
+    border: none; border-radius: var(--radius-sm); padding: 13px;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: background 0.15s;
+    margin-bottom: 8px;
+  }
+  .wz-next-btn:disabled { background: var(--border); color: var(--text-muted); cursor: default; }
+  .wz-next-btn:not(:disabled):hover { background: var(--purple-dark); }
+  .wz-skip-btn {
+    width: 100%; background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: background 0.12s;
+  }
+  .wz-skip-btn:hover { background: var(--green-light); color: var(--hunter-green); }
+
 </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -807,7 +969,7 @@
     <!-- Custom hero wizard -->
     <div id="cb-wizard" style="display:none;">
       <button class="back-btn" onclick="wizardBack()">← Back</button>
-      <div class="cb-step-pills" id="wz-pills" style="margin-top:4px;"></div>
+      <div class="wz-pills" id="wz-pills"></div>
       <div id="wz-content"></div>
     </div>
   </div>
@@ -981,43 +1143,81 @@ let jIdx = 0;
 let bPattern = null, bRunning = false, bTimer = null, bPhase = 0, bCycle = 0;
 let sessionEnded = false;
 
-/* ── WIZARD STATE ── */
-let wizardStep   = 1;
-let wizardType   = null;
-let wizardName   = '';
-let wizardTraits = [];
-let wizardPower  = null;
+/* ══ WIZARD STATE ══ */
+let wizardStep      = 1;
+const WZ_TOTAL_STEPS = 6;
+let wizardArchetype = null;   // e.g. 'scout'
+let wizardName      = '';
+let wizardItems     = [];     // array of item ids
+let wizardAppearance = [];    // array of appearance ids
+let wizardPowers    = [];     // array of power ids
+let wizardTraits    = [];     // array of trait ids
 
-/* ── WIZARD DATA ── */
-const WIZARD_ARCHETYPES = [
-  { id:'protector', icon:'🛡️', name:'Protector', desc:'You keep others safe'      },
-  { id:'explorer',  icon:'🧭', name:'Explorer',  desc:'You go first'               },
-  { id:'healer',    icon:'💚', name:'Healer',    desc:'You help others heal'       },
-  { id:'sage',      icon:'📖', name:'Sage',      desc:'You know what matters'      },
-  { id:'spark',     icon:'⚡', name:'Spark',     desc:'You light the way'          },
-  { id:'builder',   icon:'🔨', name:'Builder',   desc:'You make things better'     },
+/* ══ WIZARD DATA — 8 roster archetypes ══ */
+const WZ_ARCHETYPES = [
+  { id:'scout',    name:'The Scout',    tag:'Curious & Brave',          img: CHAR_IMG_URLS?.scout    || '' },
+  { id:'voyager',  name:'The Voyager',  tag:'Driven & Resilient',       img: CHAR_IMG_URLS?.voyager  || '' },
+  { id:'warden',   name:'The Warden',   tag:'Steadfast & Protective',   img: CHAR_IMG_URLS?.warden   || '' },
+  { id:'gardener', name:'The Gardener', tag:'Compassionate & Patient',  img: CHAR_IMG_URLS?.gardener || '' },
+  { id:'dreamer',  name:'The Dreamer',  tag:'Visionary & Hopeful',      img: CHAR_IMG_URLS?.dreamer  || '' },
+  { id:'weaver',   name:'The Weaver',   tag:'Creative & Empathic',      img: CHAR_IMG_URLS?.weaver   || '' },
+  { id:'anchor',   name:'The Anchor',   tag:'Grounded & Steady',        img: CHAR_IMG_URLS?.anchor   || '' },
+  { id:'sage',     name:'The Sage',     tag:'Wise & Reflective',        img: CHAR_IMG_URLS?.sage     || '' },
 ];
-const WIZARD_NAMES = {
-  protector: ['Vale','Hardin','Steele','Kira','Roan','Marsh'],
-  explorer:  ['Scout','River','North','Dash','Quinn','Ember'],
-  healer:    ['Laurel','Haven','Wren','Calla','Finn','Reed'],
-  sage:      ['Lumen','Oren','Tael','Mira','Seren','Wyn'],
-  spark:     ['Flint','Nova','Zara','Remy','Blaze','Cove'],
-  builder:   ['Bram','Reid','Forrest','Thalia','Crowe','Mason'],
+
+/* Suggested names per archetype */
+const WZ_NAMES = {
+  scout:    ['Rowan','Dash','Quinn','North','River','Ember'],
+  voyager:  ['Cove','Marina','Reef','Sable','Tide','Blue'],
+  warden:   ['Vale','Steele','Hardin','Kira','Roan','Marsh'],
+  gardener: ['Laurel','Fern','Wren','Calla','Reed','Briar'],
+  dreamer:  ['Lumen','Nova','Seren','Mira','Haze','Lyra'],
+  weaver:   ['Iris','Thread','Finn','Tael','Sable','Wren'],
+  anchor:   ['Bram','Forrest','Reid','Thalia','Crowe','Stone'],
+  sage:     ['Oren','Wyn','Lore','Tael','Seren','Mira'],
 };
-const WIZARD_TRAITS = ['Brave','Kind','Clever','Calm','Strong','Playful'];
-const WIZARD_POWERS = [
-  { id:'force_field', icon:'🛡️', name:'Force Field', desc:'Protect yourself and others'              },
-  { id:'clear_sight', icon:'👁️', name:'Clear Sight',  desc:'See through confusion to what matters'   },
-  { id:'truth_voice', icon:'💬', name:'Truth Voice',  desc:'Words that heal and inspire'             },
-  { id:'swift_wind',  icon:'🌬️', name:'Swift Wind',   desc:'Move through challenges with ease'       },
-  { id:'deep_roots',  icon:'🌱', name:'Deep Roots',   desc:'Stay grounded when things get hard'      },
-  { id:'heart_link',  icon:'💛', name:'Heart Link',   desc:"Understand others' feelings deeply"      },
+
+/* Shared options, themed per archetype */
+const WZ_ITEMS = [
+  { id:'blade', icon:'🗡️', themed:{ scout:'Scout Knife', voyager:'Sea Dagger', warden:'Iron Sword', weaver:'Thread Blade', dreamer:'Dream Shard', anchor:'Anchor Hook', sage:'Runed Staff', gardener:'Pruning Shears' } },
+  { id:'shield', icon:'🛡️', themed:{ scout:'Bark Shield', voyager:'Wave Shield', warden:'Iron Bulwark', weaver:'Woven Ward', dreamer:'Mirror Shield', anchor:'Harbor Guard', sage:'Glyph Disc', gardener:'Leaf Shield' } },
+  { id:'compass', icon:'🧭', themed:{ scout:'Trail Finder', voyager:'Star Chart', warden:'Watch Compass', weaver:'Thread Map', dreamer:'Dream Compass', anchor:'True North', sage:'Ancient Astrolabe', gardener:'Root Map' } },
+  { id:'tome', icon:'📖', themed:{ scout:'Field Journal', voyager:"Captain's Log", warden:'Code of Honor', weaver:'Pattern Book', dreamer:'Dream Diary', anchor:'Harbor Record', sage:'Ancient Codex', gardener:'Seed Ledger' } },
+  { id:'orb', icon:'🔮', themed:{ scout:'Signal Flare', voyager:'Tide Stone', warden:'Ward Crystal', weaver:'Binding Gem', dreamer:'Vision Orb', anchor:'Storm Glass', sage:'Truth Crystal', gardener:'Growth Stone' } },
+  { id:'staff', icon:'🪄', themed:{ scout:'Walking Stick', voyager:"Helmsman's Rod", warden:"Guardian's Spear", weaver:'Loom Staff', dreamer:'Starweave Rod', anchor:'Iron Staff', sage:'Ancient Rod', gardener:'Tending Staff' } },
 ];
-const ARCHETYPE_TO_CHAR = {
-  protector:'warden', explorer:'scout', healer:'gardener',
-  sage:'sage', spark:'dreamer', builder:'anchor',
-};
+
+const WZ_APPEARANCE = [
+  { id:'cloak-green', icon:'🟢', themed:{ scout:'Forest Cloak', voyager:'Sea Cloak', warden:'Iron Mantle', weaver:'Silk Wrap', dreamer:'Starlight Veil', anchor:'Harbor Cape', sage:'Wisdom Robe', gardener:'Leaf Cloak' } },
+  { id:'cloak-blue', icon:'🔵', themed:{ scout:'Sky Cloak', voyager:'Wave Cape', warden:'Noble Mantle', weaver:'River Wrap', dreamer:'Moonlight Veil', anchor:'Deep Cloak', sage:'Celestial Robe', gardener:'Rain Cloak' } },
+  { id:'cloak-purple', icon:'🟣', themed:{ scout:'Twilight Cloak', voyager:'Deep Sea Cape', warden:'Royal Mantle', weaver:'Dream Wrap', dreamer:'Astral Veil', anchor:'Storm Cape', sage:'Arcane Robe', gardener:'Bloom Cloak' } },
+  { id:'gloves', icon:'🧤', themed:{ scout:'Grip Gloves', voyager:"Sailor's Mitts", warden:'Iron Gauntlets', weaver:'Loom Gloves', dreamer:'Startouch Gloves', anchor:'Rope Mitts', sage:'Scribe Gloves', gardener:'Soil Gloves' } },
+  { id:'boots', icon:'👢', themed:{ scout:'Trail Boots', voyager:'Sea Boots', warden:'Iron Greaves', weaver:'Silent Slippers', dreamer:'Cloud Boots', anchor:'Anchor Boots', sage:"Wanderer's Shoes", gardener:'Root Boots' } },
+  { id:'pack', icon:'🎒', themed:{ scout:'Explorer Pack', voyager:"Sailor's Sack", warden:'Supply Pouch', weaver:'Thread Bag', dreamer:'Star Satchel', anchor:'Harbor Bag', sage:'Scroll Satchel', gardener:'Seed Sack' } },
+];
+
+const WZ_POWERS = [
+  { id:'flow', icon:'🌊', themed:{ scout:'Pathfinding', voyager:'Tideread', warden:'Iron Will', weaver:'Thread Sight', dreamer:'Dream Walk', anchor:'Stillwater', sage:'Truth Sight', gardener:'Root Sense' } },
+  { id:'fire', icon:'🔥', themed:{ scout:'Trailblaze', voyager:'Sea Fire', warden:'Battle Fury', weaver:'Spark Weave', dreamer:'Dream Flame', anchor:'Ember Hold', sage:'Forge Wisdom', gardener:'Growth Flame' } },
+  { id:'calm', icon:'❄️', themed:{ scout:'Still Mind', voyager:'Eye of Storm', warden:'Steadfast', weaver:'Quiet Weave', dreamer:'Dream Clarity', anchor:'Deep Calm', sage:'Inner Peace', gardener:'Patient Root' } },
+  { id:'speed', icon:'⚡', themed:{ scout:'Swift Trail', voyager:'Ocean Sprint', warden:'Quick Guard', weaver:'Fast Weave', dreamer:'Starleap', anchor:'Surge Hold', sage:'Flash Knowing', gardener:'Fast Growth' } },
+  { id:'healing', icon:'🌿', themed:{ scout:'First Aid', voyager:'Sea Remedy', warden:'Shield Heal', weaver:'Mend Weave', dreamer:'Rest Aura', anchor:'Safe Harbor', sage:'Ancient Cure', gardener:'Bloom Heal' } },
+  { id:'awareness', icon:'👁️', themed:{ scout:'Sharp Eye', voyager:'Horizon Watch', warden:'Sentinel Eye', weaver:'Thread Read', dreamer:'Dream Eye', anchor:'Deep Watch', sage:'All Seeing', gardener:'Root Awareness' } },
+];
+
+const WZ_TRAITS = [
+  { id:'brave',       icon:'💪', themed:{ scout:'Fearless', voyager:'Daring', warden:'Courageous', weaver:'Bold', dreamer:'Visionary', anchor:'Unshakeable', sage:'Resolute', gardener:'Tenacious' } },
+  { id:'kind',        icon:'💛', themed:{ scout:'Open-Hearted', voyager:'Generous', warden:'Loyal', weaver:'Caring', dreamer:'Gentle', anchor:'Nurturing', sage:'Compassionate', gardener:'Tender' } },
+  { id:'clever',      icon:'🧠', themed:{ scout:'Resourceful', voyager:'Adaptive', warden:'Strategic', weaver:'Pattern-Minded', dreamer:'Creative', anchor:'Grounded', sage:'Wise', gardener:'Patient' } },
+  { id:'focused',     icon:'🎯', themed:{ scout:'Determined', voyager:'Purposeful', warden:'Disciplined', weaver:'Precise', dreamer:'Intentional', anchor:'Steadfast', sage:'Mindful', gardener:'Dedicated' } },
+  { id:'hopeful',     icon:'🌟', themed:{ scout:'Optimistic', voyager:'Adventurous', warden:'Steadfast', weaver:'Curious', dreamer:'Radiant', anchor:'Faithful', sage:'Knowing', gardener:'Blooming' } },
+  { id:'trustworthy', icon:'🤝', themed:{ scout:'Reliable', voyager:'True North', warden:'Honorable', weaver:'Consistent', dreamer:'Sincere', anchor:'Dependable', sage:'Honest', gardener:'Rooted' } },
+];
+
+/* Helper: get themed label for an option */
+function wzLabel(option) {
+  return option.themed[wizardArchetype] || option.themed.scout;
+}
 
 /* ── ARCHETYPE MODULE SYSTEM ── */
 const ARCHETYPE_MODULE_SLOTS = {
@@ -1305,13 +1505,14 @@ async function restoreSavedCharacter(clientId) {
   if (typeof charData === 'string') { try { charData = JSON.parse(charData); } catch(e) {} }
 
   if (charData?.character === 'custom' && charData?.name) {
-    const mappedChar = ARCHETYPE_TO_CHAR[charData.heroType] || 'scout';
-    CHAR_IMG_URLS['custom']  = CHAR_IMG_URLS[mappedChar];
+    wizardArchetype = charData.archetype || null;
+    CHAR_IMG_URLS['custom']  = CHAR_IMG_URLS[wizardArchetype] || CHAR_IMG_URLS.scout;
     CHAR_CONGRATS['custom']  = `${charData.name}, you showed up today. That's what matters.`;
-    wizardType   = charData.heroType  || null;
     wizardName   = charData.name;
     wizardTraits = charData.traits    || [];
-    wizardPower  = charData.power     || null;
+    wizardItems  = charData.items     || [];
+    wizardPowers = charData.powers    || [];
+    wizardAppearance = charData.appearance || [];
     heroCharacter = 'custom';
     heroName      = charData.name;
     setCharBg(true);
@@ -1697,9 +1898,11 @@ function pickEmotion(i) {
   addXP(15, 'Emotion explored!');
 }
 
-/* ══ CUSTOM HERO WIZARD ══ */
+/* ══ WIZARD NAV ══ */
 function openWizard() {
-  wizardStep = 1; wizardType = null; wizardName = ''; wizardTraits = []; wizardPower = null;
+  wizardStep = 1;
+  wizardArchetype = null; wizardName = '';
+  wizardItems = []; wizardAppearance = []; wizardPowers = []; wizardTraits = [];
   document.getElementById('cb-screen-1').classList.remove('active');
   document.getElementById('cb-wizard').style.display = 'block';
   renderWizardStep();
@@ -1717,173 +1920,267 @@ function wizardBack() {
 }
 
 function renderWizardStep() {
+  /* Pills */
   const pills = document.getElementById('wz-pills');
-  pills.innerHTML = Array.from({length:4},(_,i) =>
-    `<div class="cb-step-pill ${i < Math.min(wizardStep,4) ? 'active' : ''}"></div>`
-  ).join('');
+  pills.innerHTML = Array.from({ length: WZ_TOTAL_STEPS }, (_, i) => {
+    let cls = 'wz-pill';
+    if (i + 1 === wizardStep) cls += ' active';
+    else if (i + 1 < wizardStep) cls += ' done';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
   const el = document.getElementById('wz-content');
-  if      (wizardStep === 1) renderWzStep1(el);
-  else if (wizardStep === 2) renderWzStep2(el);
-  else if (wizardStep === 3) renderWzStep3(el);
-  else if (wizardStep === 4) renderWzStep4(el);
-  else                       renderWzSummary(el);
+  const steps = [renderWzArchetype, renderWzName, renderWzAppearance, renderWzItems, renderWzPowersTraits, renderWzSummary];
+  (steps[wizardStep - 1] || renderWzSummary)(el);
 }
 
-function renderWzStep1(el) {
+/* ── Step 1: Archetype ── */
+function renderWzArchetype(el) {
   el.innerHTML = `
-    <div class="cb-header">
-      <h2 class="cb-title">What kind of hero are you?</h2>
-      <p class="cb-sub">Choose your archetype</p>
+    <div class="wz-header">
+      <div class="wz-step-label">Step 1 of ${WZ_TOTAL_STEPS}</div>
+      <h2 class="wz-title">What kind of hero are you?</h2>
+      <p class="wz-sub">Choose your archetype</p>
     </div>
     <div class="wz-arch-grid">
-      ${WIZARD_ARCHETYPES.map(a=>`
-        <div class="wz-arch-card${wizardType===a.id?' selected':''}" onclick="wzPickType('${a.id}',this)">
-          <span class="wz-arch-icon">${a.icon}</span>
-          <div class="wz-arch-name">${a.name}</div>
-          <div class="wz-arch-desc">${a.desc}</div>
+      ${WZ_ARCHETYPES.map(a => `
+        <div class="wz-arch-card ${wizardArchetype === a.id ? 'selected' : ''}"
+             onclick="wzPickArchetype('${a.id}', this)">
+          <img class="wz-arch-img" src="${a.img}" alt="${a.name}" />
+          <div class="wz-arch-overlay"></div>
+          <div class="wz-arch-info">
+            <div class="wz-arch-name">${a.name}</div>
+            <div class="wz-arch-tag">${a.tag}</div>
+          </div>
         </div>`).join('')}
     </div>
-    <button class="cb-next-btn" id="wz-next" onclick="wizardStep++;renderWizardStep()" ${wizardType?'':'disabled'}>Continue →</button>`;
+    <button class="wz-next-btn" id="wz-next"
+      onclick="wizardStep++;renderWizardStep()"
+      ${wizardArchetype ? '' : 'disabled'}>
+      Continue →
+    </button>`;
 }
 
-function wzPickType(id, el) {
-  wizardType = id;
-  document.querySelectorAll('.wz-arch-card').forEach(c=>c.classList.remove('selected'));
+function wzPickArchetype(id, el) {
+  wizardArchetype = id;
+  document.querySelectorAll('.wz-arch-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('wz-next').disabled = false;
 }
 
-function renderWzStep2(el) {
-  const suggestions = WIZARD_NAMES[wizardType] || [];
+/* ── Step 2: Name ── */
+function renderWzName(el) {
+  const suggestions = WZ_NAMES[wizardArchetype] || [];
   el.innerHTML = `
-    <div class="cb-header">
-      <h2 class="cb-title">Give your hero a name.</h2>
-      <p class="cb-sub">Or choose one below</p>
+    <div class="wz-header">
+      <div class="wz-step-label">Step 2 of ${WZ_TOTAL_STEPS}</div>
+      <h2 class="wz-title">Give your hero a name.</h2>
+      <p class="wz-sub">Or choose one below</p>
     </div>
-    <input type="text" id="wz-name-input" class="wz-name-input" maxlength="20"
-      placeholder="Enter a name…" value="${wizardName}"
+    <input type="text" id="wz-name-input" class="wz-name-input"
+      maxlength="20" placeholder="Enter a name…" value="${wizardName}"
       oninput="wizardName=this.value.trim();document.getElementById('wz-next').disabled=!this.value.trim();" />
     <div class="wz-name-suggestions">
-      ${suggestions.map(n=>`<button class="wz-name-chip${wizardName===n?' selected':''}" onclick="wzPickName('${n}',this)">${n}</button>`).join('')}
+      ${suggestions.map(n => `
+        <button class="wz-name-chip ${wizardName === n ? 'selected' : ''}"
+          onclick="wzPickName('${n}',this)">${n}</button>`).join('')}
     </div>
-    <button class="cb-next-btn" id="wz-next" onclick="wizardStep++;renderWizardStep()" ${wizardName?'':'disabled'}>Continue →</button>`;
-  setTimeout(()=>document.getElementById('wz-name-input')?.focus(), 50);
+    <button class="wz-next-btn" id="wz-next"
+      onclick="wizardStep++;renderWizardStep()"
+      ${wizardName ? '' : 'disabled'}>
+      Continue →
+    </button>`;
+  setTimeout(() => document.getElementById('wz-name-input')?.focus(), 50);
 }
 
 function wzPickName(name, el) {
   wizardName = name;
   document.getElementById('wz-name-input').value = name;
-  document.querySelectorAll('.wz-name-chip').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.wz-name-chip').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('wz-next').disabled = false;
 }
 
-function renderWzStep3(el) {
+/* ── Step 3: Appearance ── */
+function renderWzAppearance(el) {
   el.innerHTML = `
-    <div class="cb-header">
-      <h2 class="cb-title">What defines ${wizardName||'your hero'}?</h2>
-      <p class="cb-sub">Pick up to 3 traits</p>
+    <div class="wz-header">
+      <div class="wz-step-label">Step 3 of ${WZ_TOTAL_STEPS}</div>
+      <h2 class="wz-title">How does ${wizardName} look?</h2>
+      <p class="wz-sub">Pick as many as you like</p>
     </div>
-    <div class="wz-traits-grid">
-      ${WIZARD_TRAITS.map(t=>`
-        <button class="wz-trait-chip${wizardTraits.includes(t)?' selected':''}" onclick="wzToggleTrait('${t}',this)">${t}</button>`
-      ).join('')}
-    </div>
-    <p class="wz-trait-count" id="wz-trait-count">${wizardTraits.length}/3 selected</p>
-    <button class="cb-next-btn" id="wz-next" onclick="wizardStep++;renderWizardStep()" ${wizardTraits.length>0?'':'disabled'}>Continue →</button>`;
-}
-
-function wzToggleTrait(trait, el) {
-  if (wizardTraits.includes(trait)) {
-    wizardTraits = wizardTraits.filter(t=>t!==trait);
-    el.classList.remove('selected');
-  } else if (wizardTraits.length < 3) {
-    wizardTraits.push(trait);
-    el.classList.add('selected');
-  }
-  const c = document.getElementById('wz-trait-count');
-  if (c) c.textContent = `${wizardTraits.length}/3 selected`;
-  const n = document.getElementById('wz-next');
-  if (n) n.disabled = wizardTraits.length === 0;
-}
-
-function renderWzStep4(el) {
-  el.innerHTML = `
-    <div class="cb-header">
-      <h2 class="cb-title">Choose your special power.</h2>
-      <p class="cb-sub">What sets your hero apart</p>
-    </div>
-    <div class="wz-power-grid">
-      ${WIZARD_POWERS.map(p=>`
-        <div class="wz-power-card${wizardPower===p.id?' selected':''}" onclick="wzPickPower('${p.id}',this)">
-          <span class="wz-power-icon">${p.icon}</span>
-          <div class="wz-power-name">${p.name}</div>
-          <div class="wz-power-desc">${p.desc}</div>
+    <div class="wz-tile-grid">
+      ${WZ_APPEARANCE.map(opt => `
+        <div class="wz-tile ${wizardAppearance.includes(opt.id) ? 'selected' : ''}"
+             onclick="wzToggle('${opt.id}','appearance',this)">
+          <span class="wz-tile-icon">${opt.icon}</span>
+          <span class="wz-tile-label">${wzLabel(opt)}</span>
         </div>`).join('')}
     </div>
-    <button class="cb-next-btn" id="wz-next" onclick="wizardStep++;renderWizardStep()" ${wizardPower?'':'disabled'}>Continue →</button>`;
+    <button class="wz-next-btn" onclick="wizardStep++;renderWizardStep()">Continue →</button>
+    <button class="wz-skip-btn" onclick="wizardAppearance=[];wizardStep++;renderWizardStep()">Skip for now</button>`;
 }
 
-function wzPickPower(id, el) {
-  wizardPower = id;
-  document.querySelectorAll('.wz-power-card').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('wz-next').disabled = false;
-}
-
-function renderWzSummary(el) {
-  const arch  = WIZARD_ARCHETYPES.find(a=>a.id===wizardType);
-  const power = WIZARD_POWERS.find(p=>p.id===wizardPower);
+/* ── Step 4: Items ── */
+function renderWzItems(el) {
   el.innerHTML = `
-    <div class="cb-header">
-      <h2 class="cb-title">Meet ${wizardName}.</h2>
-      <p class="cb-sub">Your hero is ready</p>
+    <div class="wz-header">
+      <div class="wz-step-label">Step 4 of ${WZ_TOTAL_STEPS}</div>
+      <h2 class="wz-title">What does ${wizardName} carry?</h2>
+      <p class="wz-sub">Choose your signature items</p>
+    </div>
+    <div class="wz-tile-grid">
+      ${WZ_ITEMS.map(opt => `
+        <div class="wz-tile ${wizardItems.includes(opt.id) ? 'selected' : ''}"
+             onclick="wzToggle('${opt.id}','items',this)">
+          <span class="wz-tile-icon">${opt.icon}</span>
+          <span class="wz-tile-label">${wzLabel(opt)}</span>
+        </div>`).join('')}
+    </div>
+    <button class="wz-next-btn" onclick="wizardStep++;renderWizardStep()">Continue →</button>
+    <button class="wz-skip-btn" onclick="wizardItems=[];wizardStep++;renderWizardStep()">Skip for now</button>`;
+}
+
+/* ── Step 5: Powers & Traits ── */
+function renderWzPowersTraits(el) {
+  el.innerHTML = `
+    <div class="wz-header">
+      <div class="wz-step-label">Step 5 of ${WZ_TOTAL_STEPS}</div>
+      <h2 class="wz-title">Powers & Traits</h2>
+      <p class="wz-sub">What makes ${wizardName} special?</p>
+    </div>
+    <p class="wz-step-label" style="text-align:left;margin-bottom:10px;">Choose powers</p>
+    <div class="wz-tile-grid">
+      ${WZ_POWERS.map(opt => `
+        <div class="wz-tile ${wizardPowers.includes(opt.id) ? 'selected-power' : ''}"
+             onclick="wzToggle('${opt.id}','powers',this)">
+          <span class="wz-tile-icon">${opt.icon}</span>
+          <span class="wz-tile-label">${wzLabel(opt)}</span>
+        </div>`).join('')}
+    </div>
+    <p class="wz-step-label" style="text-align:left;margin:14px 0 10px;">Choose traits <span style="font-weight:400;text-transform:none;letter-spacing:0;">(up to 3)</span></p>
+    <div class="wz-tile-grid">
+      ${WZ_TRAITS.map(opt => `
+        <div class="wz-tile ${wizardTraits.includes(opt.id) ? 'selected-trait' : ''}"
+             onclick="wzToggleTrait('${opt.id}',this)">
+          <span class="wz-tile-icon">${opt.icon}</span>
+          <span class="wz-tile-label">${wzLabel(opt)}</span>
+        </div>`).join('')}
+    </div>
+    <p class="wz-sel-count" id="wz-trait-count">${wizardTraits.length}/3 traits selected</p>
+    <button class="wz-next-btn" onclick="wizardStep++;renderWizardStep()">Continue →</button>
+    <button class="wz-skip-btn" onclick="wizardPowers=[];wizardTraits=[];wizardStep++;renderWizardStep()">Skip for now</button>`;
+}
+
+/* ── Step 6: Summary ── */
+function renderWzSummary(el) {
+  const arch  = WZ_ARCHETYPES.find(a => a.id === wizardArchetype);
+  const itemLabels     = WZ_ITEMS.filter(o => wizardItems.includes(o.id)).map(o => wzLabel(o));
+  const appearLabels   = WZ_APPEARANCE.filter(o => wizardAppearance.includes(o.id)).map(o => wzLabel(o));
+  const powerLabels    = WZ_POWERS.filter(o => wizardPowers.includes(o.id)).map(o => wzLabel(o));
+  const traitLabels    = WZ_TRAITS.filter(o => wizardTraits.includes(o.id)).map(o => wzLabel(o));
+
+  const chips = (labels, cls) =>
+    labels.length
+      ? labels.map(l => `<span class="wz-summary-chip ${cls}">${l}</span>`).join('')
+      : `<span style="font-size:13px;color:var(--text-muted);">None chosen</span>`;
+
+  el.innerHTML = `
+    <div class="wz-header">
+      <div class="wz-step-label">Step 6 of ${WZ_TOTAL_STEPS}</div>
+      <h2 class="wz-title">Meet ${wizardName}.</h2>
+      <p class="wz-sub">Your hero is ready for the adventure</p>
     </div>
     <div class="wz-summary-card">
       <div class="wz-summary-hero">
-        <span class="wz-summary-icon">${arch?.icon}</span>
+        <img class="wz-summary-char-img" src="${arch?.img || ''}" alt="${arch?.name || ''}" />
         <div>
           <div class="wz-summary-name">${wizardName}</div>
-          <div class="wz-summary-type">The ${arch?.name}</div>
+          <div class="wz-summary-type">${arch?.name || ''} · ${arch?.tag || ''}</div>
         </div>
       </div>
+      ${appearLabels.length ? `
+      <div class="wz-summary-row">
+        <span class="wz-summary-label">Appearance</span>
+        <div class="wz-summary-chips">${chips(appearLabels,'green')}</div>
+      </div>` : ''}
+      ${itemLabels.length ? `
+      <div class="wz-summary-row">
+        <span class="wz-summary-label">Signature Items</span>
+        <div class="wz-summary-chips">${chips(itemLabels,'green')}</div>
+      </div>` : ''}
+      ${powerLabels.length ? `
+      <div class="wz-summary-row">
+        <span class="wz-summary-label">Powers</span>
+        <div class="wz-summary-chips">${chips(powerLabels,'purple')}</div>
+      </div>` : ''}
+      ${traitLabels.length ? `
       <div class="wz-summary-row">
         <span class="wz-summary-label">Traits</span>
-        <div class="wz-summary-traits">
-          ${wizardTraits.map(t=>`<span class="wz-name-chip selected" style="cursor:default;">${t}</span>`).join('')}
-        </div>
-      </div>
-      <div class="wz-summary-row">
-        <span class="wz-summary-label">Special Power</span>
-        <div>${power?.icon} <strong>${power?.name}</strong>
-          <span style="color:var(--text-muted);font-size:13px;"> — ${power?.desc}</span></div>
-      </div>
+        <div class="wz-summary-chips">${chips(traitLabels,'blue')}</div>
+      </div>` : ''}
     </div>
     <p class="wz-clinical-notice">
       Your hero's details are shared with your therapist to help personalize your sessions.
     </p>
-    <button class="cb-next-btn" onclick="finishWizard()">Begin the adventure →</button>`;
+    <button class="wz-next-btn" onclick="finishWizard()">✦ Begin the adventure</button>`;
 }
 
-function finishWizard() {
-  const mappedChar = ARCHETYPE_TO_CHAR[wizardType] || 'scout';
-  const arch       = WIZARD_ARCHETYPES.find(a=>a.id===wizardType);
-  const traitStr   = wizardTraits.slice(0,2).join(' and ');
+/* ── Toggle helpers ── */
+function wzToggle(id, category, el) {
+  const sets = { items: wizardItems, appearance: wizardAppearance, powers: wizardPowers };
+  const s = sets[category];
+  const selectedClass = category === 'powers' ? 'selected-power' : 'selected';
+  if (s.includes(id)) {
+    sets[category] = s.filter(x => x !== id);
+    el.classList.remove(selectedClass);
+  } else {
+    sets[category].push(id);
+    el.classList.add(selectedClass);
+  }
+  if (category === 'items') wizardItems = sets.items;
+  if (category === 'appearance') wizardAppearance = sets.appearance;
+  if (category === 'powers') wizardPowers = sets.powers;
+}
 
-  CHAR_IMG_URLS['custom']  = CHAR_IMG_URLS[mappedChar];
-  CHAR_CONGRATS['custom']  = `${wizardName}, you showed up today as ${arch?.name ? 'a ' + arch.name : 'yourself'}${traitStr ? ' — ' + traitStr : ''}. That's real. Keep going.`;
+function wzToggleTrait(id, el) {
+  if (wizardTraits.includes(id)) {
+    wizardTraits = wizardTraits.filter(x => x !== id);
+    el.classList.remove('selected-trait');
+  } else if (wizardTraits.length < 3) {
+    wizardTraits.push(id);
+    el.classList.add('selected-trait');
+  }
+  const c = document.getElementById('wz-trait-count');
+  if (c) c.textContent = `${wizardTraits.length}/3 traits selected`;
+}
+
+/* ── Finish ── */
+function finishWizard() {
+  const arch = WZ_ARCHETYPES.find(a => a.id === wizardArchetype);
+  const traitStr = WZ_TRAITS
+    .filter(o => wizardTraits.includes(o.id))
+    .map(o => wzLabel(o))
+    .slice(0, 2).join(' and ');
+
+  CHAR_IMG_URLS['custom']  = CHAR_IMG_URLS[wizardArchetype] || CHAR_IMG_URLS.scout;
+  CHAR_CONGRATS['custom']  =
+    `${wizardName}, you showed up today as ${arch ? arch.name : 'yourself'}` +
+    `${traitStr ? ' — ' + traitStr : ''}. That's real. Keep going.`;
 
   heroCharacter = 'custom';
   heroName      = wizardName;
 
   if (currentSession) {
     saveResponse(-1, {
-      type:      'character_selected',
-      character: 'custom',
-      heroType:  wizardType,
-      name:      wizardName,
-      traits:    wizardTraits,
-      power:     wizardPower,
+      type:        'character_selected',
+      character:   'custom',
+      archetype:   wizardArchetype,
+      name:        wizardName,
+      appearance:  wizardAppearance,
+      items:       wizardItems,
+      powers:      wizardPowers,
+      traits:      wizardTraits,
     });
   }
 
