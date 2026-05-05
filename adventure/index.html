@@ -886,7 +886,7 @@
 
       <div class="cb-character-grid">
 
-        <div class="cb-char-card" onclick="selectCharacter('scout', this)">
+        <div class="cb-char-card" onclick="selectCharacter('scout')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Scout.png" alt="The Scout">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -895,7 +895,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('voyager', this)">
+        <div class="cb-char-card" onclick="selectCharacter('voyager')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Voyager.png" alt="The Voyager" style="object-position: 75% center;">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -904,7 +904,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('warden', this)">
+        <div class="cb-char-card" onclick="selectCharacter('warden')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Warden.png" alt="The Warden">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -913,7 +913,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('gardener', this)">
+        <div class="cb-char-card" onclick="selectCharacter('gardener')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Gardener.png" alt="The Gardener">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -922,7 +922,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('dreamer', this)">
+        <div class="cb-char-card" onclick="selectCharacter('dreamer')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Dreamer.png" alt="The Dreamer">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -931,7 +931,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('weaver', this)">
+        <div class="cb-char-card" onclick="selectCharacter('weaver')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Weaver.png" alt="The Weaver">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -940,7 +940,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('anchor', this)">
+        <div class="cb-char-card" onclick="selectCharacter('anchor')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Anchor.png" alt="The Anchor">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -949,7 +949,7 @@
           </div>
         </div>
 
-        <div class="cb-char-card" onclick="selectCharacter('sage', this)">
+        <div class="cb-char-card" onclick="selectCharacter('sage')">
           <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Sage.png" alt="The Sage">
           <div class="cb-char-overlay"></div>
           <div class="cb-char-info">
@@ -1142,6 +1142,18 @@ let qIdx = 0, qScore = 0;
 let jIdx = 0;
 let bPattern = null, bRunning = false, bTimer = null, bPhase = 0, bCycle = 0;
 let sessionEnded = false;
+
+const _BASE = 'https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters';
+const CHAR_IMG_URLS = {
+  scout:    `${_BASE}/The%20Scout.png`,
+  voyager:  `${_BASE}/The%20Voyager.png`,
+  warden:   `${_BASE}/The%20Warden.png`,
+  gardener: `${_BASE}/The%20Gardener.png`,
+  dreamer:  `${_BASE}/The%20Dreamer.png`,
+  weaver:   `${_BASE}/The%20Weaver.png`,
+  anchor:   `${_BASE}/The%20Anchor.png`,
+  sage:     `${_BASE}/The%20Sage.png`,
+};
 
 /* ══ WIZARD STATE ══ */
 let wizardStep      = 1;
@@ -1401,18 +1413,6 @@ const CHAR_CONGRATS = {
   sage:     "You sat with yourself honestly today. That kind of quiet courage takes real wisdom.",
 };
 
-const _BASE = 'https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters';
-const CHAR_IMG_URLS = {
-  scout:    `${_BASE}/The%20Scout.png`,
-  voyager:  `${_BASE}/The%20Voyager.png`,
-  warden:   `${_BASE}/The%20Warden.png`,
-  gardener: `${_BASE}/The%20Gardener.png`,
-  dreamer:  `${_BASE}/The%20Dreamer.png`,
-  weaver:   `${_BASE}/The%20Weaver.png`,
-  anchor:   `${_BASE}/The%20Anchor.png`,
-  sage:     `${_BASE}/The%20Sage.png`,
-};
-
 function closeCongrats() {
   document.getElementById('congrats').style.display = 'none';
   sessionEnded = false;
@@ -1456,11 +1456,13 @@ function setCharBg(show) {
   }
 }
 
-function selectCharacter(id, el) {
-  heroCharacter = id;
-  document.querySelectorAll('.cb-char-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('cb-next-1').disabled = false;
+function selectCharacter(id) {
+  wizardArchetype = id;
+  wizardName = ''; wizardItems = []; wizardAppearance = []; wizardPowers = []; wizardTraits = [];
+  wizardStep = 2;
+  document.getElementById('cb-screen-1').classList.remove('active');
+  document.getElementById('cb-wizard').style.display = 'block';
+  renderWizardStep();
 }
 
 function confirmCharacter() {
