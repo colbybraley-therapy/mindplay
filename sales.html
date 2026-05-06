@@ -143,25 +143,37 @@
   }
   .hero-content {
     position: relative;
-    max-width: 780px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 56px;
+  }
+  .hero-left { flex: 0 1 560px; }
+  .hero-visual {
+    flex: 0 0 42%;
+    aspect-ratio: 16 / 11;
+    background: linear-gradient(135deg, var(--green) 0%, var(--purple-deep) 100%);
+    border-radius: 8px;
+    box-shadow: 0 16px 48px rgba(26, 31, 27, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    opacity: 0.92;
+  }
+  .hero-visual-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: rgba(248, 250, 249, 0.82);
   }
   .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12px;
-    letter-spacing: 0.14em;
+    font-size: 11px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--green);
     font-weight: 500;
-    margin-bottom: 28px;
-    padding: 6px 14px;
-    background: var(--green-tint);
-    border-radius: 100px;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: var(--green);
-    border-radius: 50%;
+    margin-bottom: 24px;
   }
   .hero h1 {
     font-size: clamp(42px, 6vw, 68px);
@@ -758,6 +770,8 @@
     .container { padding: 0 24px; }
     .nav-links a:not(.nav-cta) { display: none; }
     .hero { padding: 64px 0 80px; }
+    .hero-content { flex-direction: column; gap: 0; }
+    .hero-visual { display: none; }
     .section { padding: 72px 0; }
     .steps,
     .features-grid,
@@ -807,25 +821,30 @@
 <!-- ─── HERO ────────────────────────────────── -->
 <section class="hero">
   <div class="container hero-content">
-    <div class="hero-eyebrow">For licensed therapists</div>
-    <h1>Therapeutic work, made <em>memorable</em>.</h1>
-    <p class="hero-sub">
-      Cypress Mind is a clinical platform that turns each session into an immersive, story-driven experience —
-      giving children and adolescents a reason to show up, and giving you the structured insight to do your most meaningful work.
-    </p>
-    <div class="hero-actions">
-      <a href="#signup" class="btn-primary">
-        Start free trial
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <a href="#how" class="btn-secondary">See how it works</a>
+    <div class="hero-left">
+      <p class="hero-eyebrow">For licensed therapists</p>
+      <h1>Therapeutic work, made <em>memorable</em>.</h1>
+      <p class="hero-sub">
+        Cypress Mind is a clinical platform that turns each session into an immersive, story-driven experience —
+        giving children and adolescents a reason to show up, and giving you the structured insight to do your most meaningful work.
+      </p>
+      <div class="hero-actions">
+        <a href="#signup" class="btn-primary">
+          Start free trial
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#how" class="btn-secondary">See how it works</a>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><span class="hero-meta-dot"></span> 14-day free trial</span>
+        <span class="hero-meta-item"><span class="hero-meta-dot"></span> No credit card required</span>
+        <span class="hero-meta-item"><span class="hero-meta-dot"></span> Cancel anytime</span>
+      </div>
     </div>
-    <div class="hero-meta">
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span> 14-day free trial</span>
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span> No credit card required</span>
-      <span class="hero-meta-item"><span class="hero-meta-dot"></span> Cancel anytime</span>
+    <div class="hero-visual">
+      <span class="hero-visual-label">Clinical Dashboard Preview</span>
     </div>
   </div>
 </section>
