@@ -780,103 +780,9 @@
 
   <!-- CHARACTER BUILDER -->
   <div id="character-builder" class="screen">
-    <div id="cb-screen-1" class="cb-screen active">
-      <div class="cb-header">
-        <div class="cb-step-pills">
-          <div class="cb-step-pill active"></div>
-        </div>
-        <h2 class="cb-title">Every great adventure<br>starts with a hero.</h2>
-        <p class="cb-sub">Who will you be?</p>
-      </div>
-
-      <div class="cb-character-grid">
-
-        <div class="cb-char-card" onclick="selectCharacter('scout')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Scout.png" alt="The Scout">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Scout</div>
-            <div class="cb-char-tag">Curious &amp; Brave</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('voyager')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Voyager.png" alt="The Voyager" style="object-position: 75% center;">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Voyager</div>
-            <div class="cb-char-tag">Driven &amp; Resilient</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('warden')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Warden.png" alt="The Warden">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Warden</div>
-            <div class="cb-char-tag">Steadfast &amp; Protective</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('gardener')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Gardener.png" alt="The Gardener">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Gardener</div>
-            <div class="cb-char-tag">Compassionate &amp; Patient</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('dreamer')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Dreamer.png" alt="The Dreamer">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Dreamer</div>
-            <div class="cb-char-tag">Visionary &amp; Hopeful</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('weaver')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Weaver.png" alt="The Weaver">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Weaver</div>
-            <div class="cb-char-tag">Creative &amp; Empathic</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('anchor')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Anchor.png" alt="The Anchor">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Anchor</div>
-            <div class="cb-char-tag">Grounded &amp; Steady</div>
-          </div>
-        </div>
-
-        <div class="cb-char-card" onclick="selectCharacter('sage')">
-          <img class="cb-char-img" src="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/characters/The%20Sage.png" alt="The Sage">
-          <div class="cb-char-overlay"></div>
-          <div class="cb-char-info">
-            <div class="cb-char-name">The Sage</div>
-            <div class="cb-char-tag">Wise &amp; Reflective</div>
-          </div>
-        </div>
-
-      </div>
-
-      <button class="wz-create-btn" onclick="openWizard()">✦ Create Your Hero</button>
-      <button class="cb-next-btn" id="cb-next-1" onclick="confirmCharacter()" disabled>
-        Choose this hero →
-      </button>
-    </div>
-
-    <!-- Custom hero wizard -->
-    <div id="cb-wizard" style="display:none;">
-      <button class="back-btn" onclick="wizardBack()">← Back</button>
-      <div class="wz-pills" id="wz-pills"></div>
-      <div id="wz-content"></div>
-    </div>
+    <button class="back-btn" id="wz-back-btn" onclick="wizardBack()">← Back</button>
+    <div class="wz-pills" id="wz-pills"></div>
+    <div id="wz-content"></div>
   </div>
 
   <!-- JOIN SCREEN -->
@@ -1340,29 +1246,9 @@ function setCharBg(show) {
 
 function editHero() {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('cb-wizard').style.display = 'none';
-  document.getElementById('cb-screen-1').classList.add('active');
   document.getElementById('character-builder').classList.add('active');
-}
-
-function selectCharacter(id) {
-  heroCharacter = id;
-  document.querySelectorAll('.cb-char-card').forEach(c => c.classList.remove('selected'));
-  const card = document.querySelector(`.cb-char-card[onclick*="'${id}'"]`);
-  if (card) card.classList.add('selected');
-  document.getElementById('cb-next-1').disabled = false;
-}
-
-function confirmCharacter() {
-  if (!heroCharacter) return;
-  heroName = heroCharacter;
-  // Persist character so therapist can see it
-  if (currentSession) {
-    saveResponse(-1, { type: 'character_selected', character: heroCharacter });
-  }
-  setCharBg(true);
-  document.getElementById('character-builder').classList.remove('active');
-  go('home');
+  wizardStep = 1;
+  renderWizardStep();
 }
 
 /* ── SUPABASE ── */
@@ -1406,10 +1292,7 @@ async function restoreSavedCharacter(clientId) {
     heroCharacter = charData.character;
     heroName      = charData.character;
     setCharBg(true);
-    setTimeout(() => {
-      const card = document.querySelector(`.cb-char-card[onclick*="'${heroCharacter}'"]`);
-      if (card) { card.classList.add('selected'); document.getElementById('cb-next-1').disabled = false; }
-    }, 100);
+    // heroCharacter restored — no further DOM work needed
   }
 }
 
@@ -1462,7 +1345,7 @@ async function joinSession() {
   document.getElementById('join-screen').classList.remove('active');
   if (!heroName) {
     document.getElementById('character-builder').classList.add('active');
-    document.getElementById('cb-screen-1').classList.add('active');
+    openWizard();
   } else {
     go('home');
   }
@@ -1472,7 +1355,7 @@ function skipJoin() {
   document.getElementById('join-screen').classList.remove('active');
   if (!heroName) {
     document.getElementById('character-builder').classList.add('active');
-    document.getElementById('cb-screen-1').classList.add('active');
+    openWizard();
   } else {
     document.getElementById('home').classList.add('active');
   }
@@ -1583,7 +1466,7 @@ function launchAdventure(activityType) {
     // Show character builder first
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('character-builder').classList.add('active');
-    document.getElementById('cb-screen-1').classList.add('active');
+    openWizard();
   } else {
     go(activityType);
   }
@@ -1832,14 +1715,16 @@ function openWizard() {
   wizardStep = 1;
   wizardArchetype = null; wizardName = '';
   wizardItems = []; wizardAppearance = []; wizardPowers = []; wizardTraits = [];
-  document.getElementById('cb-screen-1').classList.remove('active');
-  document.getElementById('cb-wizard').style.display = 'block';
   renderWizardStep();
 }
 
 function closeWizard() {
-  document.getElementById('cb-wizard').style.display = 'none';
-  document.getElementById('cb-screen-1').classList.add('active');
+  document.getElementById('character-builder').classList.remove('active');
+  if (currentSession) {
+    go(currentSession.activity_type);
+  } else {
+    document.getElementById('home').classList.add('active');
+  }
 }
 
 function wizardBack() {
@@ -2114,9 +1999,9 @@ function finishWizard() {
   }
 
   setCharBg(true);
-  document.getElementById('cb-wizard').style.display = 'none';
   document.getElementById('character-builder').classList.remove('active');
-  go('home');
+  if (currentSession) { go(currentSession.activity_type); }
+  else                { document.getElementById('home').classList.add('active'); }
 }
 
 /* ── Notify therapist when client closes the window ── */
