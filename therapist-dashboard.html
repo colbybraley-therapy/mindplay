@@ -1588,6 +1588,7 @@
 
     const { error } = await db.from('activities').insert({
       client_id: currentClient.id,
+      user_id: currentUser.id,
       activity_type: selectedActivityType,
       name,
       done: false,
