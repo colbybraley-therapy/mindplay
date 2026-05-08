@@ -1001,6 +1001,7 @@
           <label>Activity name</label>
           <input type="text" id="ls-name" placeholder="e.g. Module 1 — Introduction" maxlength="60" />
         </div>
+        <p id="assign-error" style="color:#c00;font-size:12px;margin:4px 0 0;min-height:16px;"></p>
         <div class="modal-row">
           <button class="btn-cancel" onclick="closeOverlay('add-lesson-overlay')">Cancel</button>
           <button class="btn-save" onclick="saveLesson()">Assign</button>
@@ -1084,6 +1085,7 @@
   const SUPABASE_KEY = 'sb_publishable_-cIPFr0xt1CfC8fwh0e_ew_Q6LIbcX5';
   const { createClient } = supabase;
   const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+  let currentUser = null;
 
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1170,6 +1172,7 @@
   async function loadApp() {
     const { data: { user } } = await db.auth.getUser();
     if (!user) return;
+    currentUser = user;
     const name = user.user_metadata?.full_name || user.email.split('@')[0];
     document.getElementById('tb-name').textContent = name;
     showPage('pg-app');
@@ -1500,8 +1503,13 @@
      ACTIVITIES
   ───────────────────────────────────────── */
   async function loadActivities() {
-    const { data: activities } = await db.from('activities').select('*').eq('client_id', currentClient.id).order('created_at', { ascending: false });
     const list = document.getElementById('lesson-list');
+    const { data: activities, error } = await db.from('activities').select('*').eq('client_id', currentClient.id).order('created_at', { ascending: false });
+    if (error) {
+      console.error('loadActivities error:', error);
+      list.innerHTML = `<div class="empty-state" style="color:#c00;">Error loading activities: ${error.message}</div>`;
+      return;
+    }
     if (!activities?.length) {
       list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div>No activities assigned yet.</div>`;
       return;
@@ -1567,21 +1575,33 @@
   }
 
   async function saveLesson() {
-    if (!selectedActivityType || !currentClient) return;
+    const errEl = document.getElementById('assign-error');
+    if (errEl) errEl.textContent = '';
+
+    if (!selectedActivityType) { if (errEl) errEl.textContent = 'Please select an activity type.'; return; }
+    if (!currentClient) { if (errEl) errEl.textContent = 'No client selected.'; return; }
+    if (!currentUser) { if (errEl) errEl.textContent = 'Session expired — please sign in again.'; return; }
+
     const m = ACTIVITY_META[selectedActivityType] || ACTIVITY_META.custom;
     const customName = document.getElementById('ls-name')?.value.trim();
     const name = selectedActivityType === 'custom' && customName ? customName : m.label;
-    const { data: { user } } = await db.auth.getUser();
+
     const { error } = await db.from('activities').insert({
       client_id: currentClient.id,
-      user_id: user.id,
+      user_id: currentUser.id,
       activity_type: selectedActivityType,
       name,
       done: false,
     });
-    if (error) { alert('Could not assign activity. Please try again.'); return; }
+
+    if (error) {
+      console.error('saveLesson error:', error);
+      if (errEl) errEl.textContent = 'Could not assign: ' + error.message;
+      return;
+    }
+
     closeOverlay('add-lesson-overlay');
-    loadActivities();
+    await loadActivities();
     loadClientStats();
   }
 
