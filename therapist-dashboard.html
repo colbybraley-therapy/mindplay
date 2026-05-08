@@ -1189,7 +1189,7 @@
 
   async function renderClientGrid() {
     const { data: { user } } = await db.auth.getUser();
-    const { data: clients } = await db.from('clients').select('*').eq('therapist_id', user.id).order('created_at', { ascending: false });
+    const { data: clients } = await db.from('clients').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
     allClientsCache = clients || [];
     await renderRosterStats(clients || []);
     renderFilteredClients(clients || []);
@@ -1200,7 +1200,7 @@
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
 
-    const { data: sessions } = await db.from('sessions').select('*').eq('therapist_id', user.id).gte('created_at', monthStart).catch(() => ({ data: [] }));
+    const { data: sessions } = await db.from('sessions').select('*').eq('user_id', user.id).gte('created_at', monthStart).catch(() => ({ data: [] }));
     const { data: allActivities } = await db.from('activities').select('*').in('client_id', clients.map(c => c.id)).catch(() => ({ data: [] }));
 
     const active = clients.length;
@@ -1308,7 +1308,7 @@
     const name = document.getElementById('cl-name').value.trim();
     if (!name) return;
     const { data: { user } } = await db.auth.getUser();
-    await db.from('clients').insert({ name, avatar: selectedAvatar, therapist_id: user.id });
+    await db.from('clients').insert({ name, avatar: selectedAvatar, user_id: user.id });
     closeOverlay('add-client-overlay');
     await renderClientGrid();
   }
