@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cypress Mind – Therapy Activity Hub</title>
+<link rel="icon" type="image/png" href="https://vfpxovpwwabisfjjqkpm.supabase.co/storage/v1/object/public/assets/favicon.png" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1247,8 +1248,7 @@ function setCharBg(show) {
 function editHero() {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('character-builder').classList.add('active');
-  wizardStep = 1;
-  renderWizardStep();
+  openWizard();
 }
 
 /* ── SUPABASE ── */
@@ -1321,6 +1321,11 @@ async function joinSession() {
 
   currentSession = session;
   currentClientId = session.client_id;
+
+  // Reset all character state so previous client's data doesn't bleed through
+  heroName = ''; heroCharacter = null;
+  wizardArchetype = null; wizardName = '';
+  wizardItems = []; wizardAppearance = []; wizardPowers = []; wizardTraits = [];
 
   // Mark session as active
   await db.from('sessions').update({ status: 'active' }).eq('id', session.id);
