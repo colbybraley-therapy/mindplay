@@ -1001,7 +1001,6 @@
           <label>Activity name</label>
           <input type="text" id="ls-name" placeholder="e.g. Module 1 — Introduction" maxlength="60" />
         </div>
-        <p id="assign-error" style="color:#c00;font-size:12px;margin:4px 0 0;min-height:16px;"></p>
         <div class="modal-row">
           <button class="btn-cancel" onclick="closeOverlay('add-lesson-overlay')">Cancel</button>
           <button class="btn-save" onclick="saveLesson()">Assign</button>
@@ -1581,62 +1580,26 @@
   }
 
   async function saveLesson() {
-    try {
-      const errEl = document.getElementById('assign-error');
-      if (errEl) errEl.textContent = '';
+    if (!selectedActivityType || !currentClient) return;
 
-      if (!selectedActivityType) { alert('No activity type selected'); return; }
-      if (!currentClient)        { alert('No client selected'); return; }
+    const m = ACTIVITY_META[selectedActivityType] || ACTIVITY_META.custom;
+    const at = ACTIVITY_TYPES.find(t => t.type === selectedActivityType);
+    const customName = document.getElementById('ls-name')?.value.trim();
+    const name = selectedActivityType === 'custom' && customName ? customName : m.label;
 
-      const m = ACTIVITY_META[selectedActivityType] || ACTIVITY_META.custom;
-      const at = ACTIVITY_TYPES.find(t => t.type === selectedActivityType);
-      const customName = document.getElementById('ls-name')?.value.trim();
-      const name = selectedActivityType === 'custom' && customName ? customName : m.label;
+    const { error } = await db.from('activities').insert({
+      client_id: currentClient.id,
+      activity_type: selectedActivityType,
+      activity_icon: selectedActivityType !== 'custom' ? (at?.icon || m.icon) : null,
+      name,
+      done: false,
+    });
 
-      const payload = {
-        client_id: currentClient.id,
-        activity_type: selectedActivityType,
-        activity_icon: selectedActivityType !== 'custom' ? (at?.icon || m.icon) : null,
-        name,
-        done: false,
-      };
-      console.log('saveLesson payload:', payload);
+    if (error) { console.error('saveLesson error:', error); return; }
 
-      const { data, error } = await db.from('activities').insert(payload).select();
-      console.log('saveLesson result — data:', data, 'error:', error);
-
-      if (error) {
-        const msg = `${error.code}: ${error.message} | ${error.details} | ${error.hint}`;
-        console.warn('🔴 SAVE LESSON FAILED:', msg, error);
-        // Show error in a fixed banner impossible to miss
-        let banner = document.getElementById('debug-banner');
-        if (!banner) {
-          banner = document.createElement('div');
-          banner.id = 'debug-banner';
-          banner.style = 'position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;font-size:13px;padding:10px 16px;z-index:9999;font-family:monospace;white-space:pre-wrap;cursor:pointer;';
-          banner.onclick = () => banner.remove();
-          document.body.appendChild(banner);
-        }
-        banner.textContent = 'ACTIVITY INSERT ERROR (click to dismiss):\n' + msg;
-        if (errEl) errEl.textContent = msg;
-        return;
-      }
-
-      closeOverlay('add-lesson-overlay');
-      await loadActivities();
-      loadClientStats();
-    } catch(e) {
-      console.error('saveLesson threw:', e);
-      let banner = document.getElementById('debug-banner');
-      if (!banner) {
-        banner = document.createElement('div');
-        banner.id = 'debug-banner';
-        banner.style = 'position:fixed;top:0;left:0;right:0;background:#900;color:#fff;font-size:13px;padding:10px 16px;z-index:9999;font-family:monospace;white-space:pre-wrap;cursor:pointer;';
-        banner.onclick = () => banner.remove();
-        document.body.appendChild(banner);
-      }
-      banner.textContent = 'saveLesson exception: ' + e.message;
-    }
+    closeOverlay('add-lesson-overlay');
+    await loadActivities();
+    loadClientStats();
   }
 
   /* ─────────────────────────────────────────
