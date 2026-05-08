@@ -1170,7 +1170,8 @@
      APP LOAD
   ───────────────────────────────────────── */
   async function loadApp() {
-    const { data: { user } } = await db.auth.getUser();
+    const { data: { session } } = await db.auth.getSession();
+    const user = session?.user;
     if (!user) return;
     currentUser = user;
     const name = user.user_metadata?.full_name || user.email.split('@')[0];
@@ -1188,7 +1189,9 @@
   let activeFilter = 'all';
 
   async function renderClientGrid() {
-    const { data: { user } } = await db.auth.getUser();
+    const { data: { session } } = await db.auth.getSession();
+    const user = session?.user;
+    if (!user) return;
     const { data: clients } = await db.from('clients').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
     allClientsCache = clients || [];
     await renderRosterStats(clients || []);
@@ -1196,7 +1199,9 @@
   }
 
   async function renderRosterStats(clients) {
-    const { data: { user } } = await db.auth.getUser();
+    const { data: { session } } = await db.auth.getSession();
+    const user = session?.user;
+    if (!user) return;
     const now = new Date();
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
 
@@ -1307,8 +1312,9 @@
   async function saveClient() {
     const name = document.getElementById('cl-name').value.trim();
     if (!name) return;
-    const { data: { user } } = await db.auth.getUser();
-    await db.from('clients').insert({ name, avatar: selectedAvatar, user_id: user.id });
+    const { data: { session } } = await db.auth.getSession();
+    if (!session?.user?.id) return;
+    await db.from('clients').insert({ name, avatar: selectedAvatar, user_id: session.user.id });
     closeOverlay('add-client-overlay');
     await renderClientGrid();
   }
@@ -1582,11 +1588,12 @@
       if (!selectedActivityType) { alert('No activity type selected'); return; }
       if (!currentClient)        { alert('No client selected'); return; }
 
-      const { data: { user: freshUser } } = await db.auth.getUser();
-      if (!freshUser?.id) {
+      const { data: { session } } = await db.auth.getSession();
+      const freshUserId = session?.user?.id;
+      if (!freshUserId) {
         let banner = document.getElementById('debug-banner');
         if (!banner) { banner = document.createElement('div'); banner.id = 'debug-banner'; banner.style = 'position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;font-size:13px;padding:10px 16px;z-index:9999;font-family:monospace;cursor:pointer;'; banner.onclick = () => banner.remove(); document.body.appendChild(banner); }
-        banner.textContent = 'Not logged in — please sign in and try again';
+        banner.textContent = 'Not logged in — session.user is null. Please sign out and sign back in.';
         return;
       }
 
@@ -1597,7 +1604,7 @@
 
       const payload = {
         client_id: currentClient.id,
-        user_id: freshUser.id,
+        user_id: freshUserId,
         activity_type: selectedActivityType,
         activity_icon: selectedActivityType !== 'custom' ? (at?.icon || m.icon) : null,
         name,
