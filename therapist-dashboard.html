@@ -174,7 +174,7 @@
     /* ── MODAL ── */
     .overlay { display: none; position: fixed; inset: 0; background: rgba(26,46,26,0.45); z-index: 300; align-items: center; justify-content: center; }
     .overlay.open { display: flex; }
-    .modal { background: #fff; border: 0.5px solid var(--border); border-radius: 8px; padding: 32px; width: 380px; max-width: 95vw; }
+    .modal { background: #fff; border: 0.5px solid var(--border); border-radius: 8px; padding: 32px; width: 380px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
     .modal-title { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--ink); margin: 0 0 24px; }
     .modal-row { display: flex; gap: 8px; margin-top: 24px; justify-content: flex-end; }
     .btn-cancel { font-family: var(--sans); font-size: 13px; color: var(--slate); background: none; border: 0.5px solid var(--border); padding: 9px 20px; border-radius: 4px; cursor: pointer; }
@@ -1103,6 +1103,10 @@
   const db = createClient(SUPABASE_URL, SUPABASE_KEY);
   let currentUser = null;
 
+  function esc(s) {
+    return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -1281,10 +1285,10 @@
 
     return `<div class="client-card" onclick="openClient('${c.id}')">
       <div class="client-card-top">
-        <div class="client-card-av">${c.avatar || '🌿'}</div>
+        <div class="client-card-av">${esc(c.avatar || '🌿')}</div>
         <div class="client-card-status ${statusClass}"></div>
       </div>
-      <div class="client-card-name">${c.name}</div>
+      <div class="client-card-name">${esc(c.name)}</div>
       <div class="client-card-since">Since ${sinceDate}</div>
       ${charPill}
       <div class="client-mini-stats">
@@ -1503,7 +1507,7 @@
     if (charId) {
       wrap.style.display = 'block';
       const dispName = charId === 'custom' && charData2?.name ? charData2.name : charName;
-      pill.innerHTML = `<span style="font-size:14px;">${charId === 'custom' ? '✦' : '🧭'}</span> ${dispName || 'Hero chosen'}`;
+      pill.innerHTML = `<span style="font-size:14px;">${charId === 'custom' ? '✦' : '🧭'}</span> ${esc(dispName || 'Hero chosen')}`;
 
       // Sidebar
       const imgWrap = document.getElementById('sidebar-char-img');
@@ -1544,7 +1548,7 @@
       return `<div class="activity-item ${a.activity_type} ${a.done ? 'done' : ''}">
         <div class="activity-icon">${m.icon}</div>
         <div class="activity-info">
-          <div class="activity-name">${a.name || m.label}</div>
+          <div class="activity-name">${esc(a.name || m.label)}</div>
           <div class="activity-meta">Assigned ${formatDate(a.created_at)}${a.done ? ' · Completed' : ''}</div>
         </div>
         ${a.score !== null && a.score !== undefined ? `<span class="activity-score">${a.score}%</span>` : ''}
@@ -1748,8 +1752,8 @@
     }
     list.innerHTML = currentNotes.slice().reverse().map(n => `
       <div class="note-item">
-        <div class="note-text">${n.text}</div>
-        <div class="note-date">${n.date}</div>
+        <div class="note-text">${esc(n.text)}</div>
+        <div class="note-date">${esc(n.date)}</div>
       </div>`).join('');
   }
 
@@ -1780,22 +1784,22 @@
       let content = '';
       if (rd?.question) {
         content = `<div class="response-label">Quiz Question</div>
-          <div class="response-text">${rd.question}</div>
-          <div class="response-text" style="margin-top:6px;"><strong>Answer:</strong> ${rd.answer || '—'} 
+          <div class="response-text">${esc(rd.question)}</div>
+          <div class="response-text" style="margin-top:6px;"><strong>Answer:</strong> ${esc(rd.answer || '—')}
             <span class="${rd.correct ? 'response-correct' : 'response-wrong'}">${rd.correct ? '✓ Correct' : '✗ Incorrect'}</span>
           </div>`;
       } else if (rd?.prompt) {
         content = `<div class="response-label">Journal Entry</div>
-          <div class="response-text" style="font-style:italic;color:var(--slate);">"${rd.prompt}"</div>
-          <div class="response-text" style="margin-top:6px;">${rd.response || '—'}</div>`;
+          <div class="response-text" style="font-style:italic;color:var(--slate);">"${esc(rd.prompt)}"</div>
+          <div class="response-text" style="margin-top:6px;">${esc(rd.response || '—')}</div>`;
       } else if (rd?.emotion) {
         content = `<div class="response-label">Emotion Check-in</div>
-          <div class="response-text">${rd.icon || ''} Reported feeling: <strong>${rd.emotion}</strong></div>`;
+          <div class="response-text">${esc(rd.icon || '')} Reported feeling: <strong>${esc(rd.emotion)}</strong></div>`;
       } else if (rd?.technique) {
         content = `<div class="response-label">Breathing Exercise</div>
-          <div class="response-text">Completed ${rd.cycles || 0} cycle(s) · ${rd.completed ? '✓ Finished' : 'Partial'}</div>`;
+          <div class="response-text">Completed ${Number(rd.cycles) || 0} cycle(s) · ${rd.completed ? '✓ Finished' : 'Partial'}</div>`;
       } else {
-        content = `<div class="response-label">Session Data</div><div class="response-text">${JSON.stringify(rd)}</div>`;
+        content = `<div class="response-label">Session Data</div><div class="response-text">${esc(JSON.stringify(rd))}</div>`;
       }
 
       return `<div class="response-item">
