@@ -129,6 +129,20 @@
     .drawer-copy-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: #185FA5; margin-bottom: 7px; }
     .drawer-copy-text { font-size: 14px; color: #2a2a2a; line-height: 1.75; }
 
+    /* ── ACTIVITY ASSIGN DRAWER ── */
+    .act-drawer-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; background: #fff;
+      border: 0.5px solid var(--border); border-radius: 8px;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+      text-align: left; width: 100%; font-family: var(--sans);
+    }
+    .act-drawer-card:hover { border-color: var(--border-strong); background: var(--green-faint); }
+    .act-drawer-icon { font-size: 26px; width: 44px; text-align: center; flex-shrink: 0; }
+    .act-drawer-label { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+    .act-drawer-sub { font-size: 12px; color: var(--slate-light); line-height: 1.5; }
+    .act-drawer-arrow { font-size: 12px; color: var(--hunter-green); font-weight: 500; flex-shrink: 0; white-space: nowrap; }
+
     /* ── CTA / FOOTER ── */
     .landing-cta-block { background: var(--ink); padding: 80px 48px; text-align: center; }
     .landing-cta-block h2 { font-family: var(--serif); font-size: 34px; font-weight: 500; color: #fff; margin: 0 0 12px; }
@@ -847,7 +861,7 @@
             <span class="pulse-dot"></span>
             Start Session
           </button>
-          <button class="btn-outline" onclick="openAddLesson()">+ Assign Activity</button>
+          <button class="btn-outline" onclick="openActDrawer()">+ Assign Activity</button>
         </div>
       </div>
 
@@ -904,7 +918,7 @@
         <div id="tab-activities" class="tab-panel">
           <div class="section-head">
             <span class="section-head-title">Assigned Activities</span>
-            <button class="section-action" onclick="openAddLesson()">
+            <button class="section-action" onclick="openActDrawer()">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><line x1="5" y1="1" x2="5" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="5" x2="9" y2="5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               Assign
             </button>
@@ -1066,6 +1080,17 @@
         <div id="score-history" style="margin-top:16px;"></div>
       </div>
     </div>
+  </div>
+
+  <!-- Activity Assign Drawer -->
+  <div class="char-drawer-backdrop" id="act-backdrop" onclick="closeActDrawer()"></div>
+  <div class="char-drawer" id="act-drawer" style="width:460px;">
+    <div class="drawer-hero">
+      <div class="drawer-close"><button onclick="closeActDrawer()">&#215;</button></div>
+      <p class="drawer-name" style="font-size:17px;margin-bottom:4px;">Assign an activity</p>
+      <p style="font-size:13px;color:var(--slate-light);font-family:var(--sans);">to <span id="act-drawer-client-name" style="font-weight:500;color:var(--ink);"></span></p>
+    </div>
+    <div id="act-drawer-list" style="flex:1;padding:14px 16px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;"></div>
   </div>
 
   <!-- Character Drawer -->
@@ -1298,7 +1323,7 @@
       </div>
       ${sessionLine}
       <div class="client-card-footer">
-        <button class="client-foot-btn" onclick="event.stopPropagation();currentClient={id:'${c.id}',name:'${c.name}'};openAddLesson()">+ Assign</button>
+        <button class="client-foot-btn" onclick="event.stopPropagation();currentClient={id:'${c.id}',name:'${c.name}'};openActDrawer()">+ Assign</button>
         <button class="client-foot-btn primary" onclick="event.stopPropagation();openClient('${c.id}')">View profile</button>
       </div>
     </div>`;
@@ -1625,6 +1650,84 @@
     closeOverlay('add-lesson-overlay');
     await loadActivities();
     loadClientStats();
+  }
+
+  /* ─────────────────────────────────────────
+     ACTIVITY ASSIGN DRAWER
+  ───────────────────────────────────────── */
+  function openActDrawer() {
+    if (!currentClient) return;
+    document.getElementById('act-drawer-client-name').textContent = currentClient.name;
+
+    const list = document.getElementById('act-drawer-list');
+    list.innerHTML = ACTIVITY_TYPES.map(at => `
+      <button class="act-drawer-card" onclick="assignFromDrawer('${at.type}', event)">
+        <span class="act-drawer-icon">${at.icon}</span>
+        <div style="flex:1;min-width:0;">
+          <div class="act-drawer-label">${at.label}</div>
+          <div class="act-drawer-sub">${at.sub}</div>
+          ${at.type === 'custom' ? `
+            <div id="custom-input-wrap" style="display:none;margin-top:10px;" onclick="event.stopPropagation()">
+              <input id="act-drawer-custom-name" type="text" placeholder="Activity name…" maxlength="60"
+                style="width:100%;border:0.5px solid var(--border);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;"
+                onkeydown="if(event.key==='Enter')doAssignCustom()">
+              <button onclick="doAssignCustom()"
+                style="margin-top:6px;width:100%;background:var(--hunter-green);color:#fff;border:none;border-radius:4px;padding:8px;font-size:13px;font-family:var(--sans);cursor:pointer;font-weight:500;">
+                Assign →
+              </button>
+            </div>` : ''}
+        </div>
+        <span class="act-drawer-arrow">${at.type !== 'custom' ? 'Assign →' : '+ Custom'}</span>
+      </button>
+    `).join('');
+
+    document.getElementById('act-backdrop').classList.add('open');
+    document.getElementById('act-drawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  async function assignFromDrawer(type, e) {
+    if (type === 'custom') {
+      const wrap = document.getElementById('custom-input-wrap');
+      if (wrap && wrap.style.display === 'none') {
+        wrap.style.display = 'block';
+        setTimeout(() => document.getElementById('act-drawer-custom-name')?.focus(), 50);
+      }
+      return;
+    }
+    await doAssign(type, null);
+  }
+
+  async function doAssignCustom() {
+    const name = document.getElementById('act-drawer-custom-name')?.value.trim();
+    if (!name) { document.getElementById('act-drawer-custom-name')?.focus(); return; }
+    await doAssign('custom', name);
+  }
+
+  async function doAssign(type, customName) {
+    if (!currentClient) return;
+    const m  = ACTIVITY_META[type] || ACTIVITY_META.custom;
+    const at = ACTIVITY_TYPES.find(t => t.type === type);
+    const name = customName || m.label;
+
+    const { error } = await db.from('activities').insert({
+      client_id:     currentClient.id,
+      activity_type: type,
+      activity_icon: type !== 'custom' ? (at?.icon || m.icon) : null,
+      name,
+      done: false,
+    });
+
+    if (error) { console.error('assign error:', error); return; }
+    closeActDrawer();
+    await loadActivities();
+    loadClientStats();
+  }
+
+  function closeActDrawer() {
+    document.getElementById('act-backdrop').classList.remove('open');
+    document.getElementById('act-drawer').classList.remove('open');
+    document.body.style.overflow = '';
   }
 
   /* ─────────────────────────────────────────
