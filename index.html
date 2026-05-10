@@ -1472,6 +1472,10 @@
   const { createClient } = supabase;
   const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (session) window.location.replace('/therapist-dashboard.html');
+  });
+
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
