@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev":     "vite",
-    "build":   "vite build",
+    "build":   "vite build && cp therapist-dashboard.html dist/ && cp signup.html dist/ && cp characters.html dist/ && mkdir -p dist/src && cp -r src/activities dist/src/ && cp -r src/assets dist/src/",
     "preview": "vite preview"
   },
   "dependencies": {

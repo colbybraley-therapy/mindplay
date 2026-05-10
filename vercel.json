@@ -1,0 +1,9 @@
+{
+  "outputDirectory": "dist",
+  "buildCommand": "npm run build",
+  "rewrites": [
+    { "source": "/therapist-dashboard", "destination": "/therapist-dashboard.html" },
+    { "source": "/signup", "destination": "/signup.html" },
+    { "source": "/characters", "destination": "/characters.html" }
+  ]
+}
