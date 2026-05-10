@@ -196,7 +196,6 @@
     .btn-save:hover { background: var(--green-dark); }
     .field-sublabel { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); margin: 16px 0 8px; }
     .av-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-    .activity-type-picker { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
 
     /* ═══════════════════════════════════════════════════════
        CLIENT PROFILE — FULL REDESIGN
@@ -537,18 +536,6 @@
     .char-name { font-family: var(--serif); font-size: 15px; font-weight: 500; color: var(--ink); }
     .char-archetype { font-size: 11px; color: var(--slate-light); font-style: italic; margin-top: 2px; }
 
-    /* ── Activity type selector ── */
-    .activity-type-btn {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px; border: 0.5px solid var(--border); border-radius: 6px;
-      cursor: pointer; transition: border-color 0.15s, background 0.15s;
-      background: #fff;
-    }
-    .activity-type-btn:hover { border-color: var(--border-strong); background: var(--green-faint); }
-    .activity-type-btn.selected { border-color: var(--hunter-green); background: var(--green-light); }
-    .activity-type-btn .at-icon { font-size: 20px; width: 32px; text-align: center; }
-    .activity-type-btn .at-label { font-size: 13px; font-weight: 500; color: var(--ink); }
-    .activity-type-btn .at-sub { font-size: 11px; color: var(--slate-light); }
 
     /* ── ROSTER REDESIGN ── */
     #pg-app { min-height: 100vh; }
@@ -1006,21 +993,6 @@
       </div>
     </div>
 
-    <!-- Assign Activity Modal -->
-    <div class="overlay" id="add-lesson-overlay" onclick="closeBg(event,'add-lesson-overlay')">
-      <div class="modal" style="width:420px;">
-        <p class="modal-title">Assign an activity</p>
-        <div class="activity-type-picker" id="activity-picker"></div>
-        <div class="field" id="custom-name-field" style="display:none;">
-          <label>Activity name</label>
-          <input type="text" id="ls-name" placeholder="e.g. Module 1 — Introduction" maxlength="60" />
-        </div>
-        <div class="modal-row">
-          <button class="btn-cancel" onclick="closeOverlay('add-lesson-overlay')">Cancel</button>
-          <button class="btn-save" onclick="saveLesson()">Assign</button>
-        </div>
-      </div>
-    </div>
 
     <!-- Add Homework Modal -->
     <div class="overlay" id="add-homework-overlay" onclick="closeBg(event,'add-homework-overlay')">
@@ -1592,11 +1564,6 @@
     loadClientStats();
   }
 
-  /* ─────────────────────────────────────────
-     ASSIGN ACTIVITY MODAL
-  ───────────────────────────────────────── */
-  let selectedActivityType = null;
-
   const ACTIVITY_TYPES = [
     { type:'quiz',      icon:'🧠', label:'Coping Skills Quiz',   sub:'Test knowledge with guided questions' },
     { type:'breathing', icon:'🌬️', label:'Breathing Garden',     sub:'Guided breathwork exercises' },
@@ -1605,52 +1572,6 @@
     { type:'custom',                icon:'✏️', label:'Custom Activity',            sub:'Add your own activity' },
     { type:'willowmere_boundaries', icon:'🌲', label:'Willowmere · Boundaries',    sub:'Boundary-setting adventure in a story world' },
   ];
-
-  function openAddLesson() {
-    selectedActivityType = null;
-    document.getElementById('custom-name-field').style.display = 'none';
-    const picker = document.getElementById('activity-picker');
-    picker.innerHTML = ACTIVITY_TYPES.map(at => `
-      <div class="activity-type-btn" id="atbtn-${at.type}" onclick="selectActivityType('${at.type}')">
-        <span class="at-icon">${at.icon}</span>
-        <div>
-          <div class="at-label">${at.label}</div>
-          <div class="at-sub">${at.sub}</div>
-        </div>
-      </div>`).join('');
-    openOverlay('add-lesson-overlay');
-  }
-
-  function selectActivityType(type) {
-    selectedActivityType = type;
-    document.querySelectorAll('.activity-type-btn').forEach(b => b.classList.remove('selected'));
-    document.getElementById('atbtn-' + type)?.classList.add('selected');
-    const customField = document.getElementById('custom-name-field');
-    customField.style.display = type === 'custom' ? 'block' : 'none';
-  }
-
-  async function saveLesson() {
-    if (!selectedActivityType || !currentClient) return;
-
-    const m = ACTIVITY_META[selectedActivityType] || ACTIVITY_META.custom;
-    const at = ACTIVITY_TYPES.find(t => t.type === selectedActivityType);
-    const customName = document.getElementById('ls-name')?.value.trim();
-    const name = selectedActivityType === 'custom' && customName ? customName : m.label;
-
-    const { error } = await db.from('activities').insert({
-      client_id: currentClient.id,
-      activity_type: selectedActivityType,
-      activity_icon: selectedActivityType !== 'custom' ? (at?.icon || m.icon) : null,
-      name,
-      done: false,
-    });
-
-    if (error) { console.error('saveLesson error:', error); return; }
-
-    closeOverlay('add-lesson-overlay');
-    await loadActivities();
-    loadClientStats();
-  }
 
   /* ─────────────────────────────────────────
      ACTIVITY ASSIGN DRAWER
