@@ -1,6 +1,6 @@
 {
-  "outputDirectory": "dist",
-  "buildCommand": "npm run build",
+  "buildCommand": "",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/therapist-dashboard", "destination": "/therapist-dashboard.html" },
     { "source": "/signup", "destination": "/signup.html" },
