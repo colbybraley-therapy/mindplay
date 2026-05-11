@@ -81,7 +81,7 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  gap: 2vw;
+  gap: 1.5vw;
   padding: 0 4% 0 3%;
   pointer-events: none;
   z-index: 14;
@@ -89,9 +89,9 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
 #npc-wrap{
   position: relative !important;
   flex: 0 0 auto;
-  height: 85% !important;
-  width: auto !important;
-  max-width: none !important;
+  height: 85%;
+  width: auto;
+  max-width: none;
   align-self: flex-end;
   transform: translateX(-90px);
   opacity: 0;
@@ -112,10 +112,12 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
 /* ── DIALOGUE ── */
 #dialogue-wrap{
   position: relative;
-  flex: 1 1 auto;
-  max-width: 640px;
+  flex: 0 1 540px;
+  min-width: 280px;
+  max-width: 540px;
   align-self: flex-start;
-  margin-top: 14%;
+  margin-top: 8%;
+  margin-left: 1vw;
   padding: 0;
   opacity: 0;
   transform: translateY(18px);
