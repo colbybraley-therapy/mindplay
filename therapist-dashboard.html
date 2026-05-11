@@ -1020,20 +1020,20 @@
     </div>
 
     <!-- Willowmere Launch Modal -->
-    <div class="overlay" id="willowmere-overlay" onclick="closeBg(event,'willowmere-overlay')">
-      <div class="modal" style="width:440px;">
-        <p class="modal-title">🌲 Willowmere · Boundaries</p>
-        <p style="font-size:13px;color:var(--slate);margin-bottom:16px;line-height:1.6;">Your therapist view has opened in a new tab. Share the link below with your client to begin.</p>
-        <div style="background:var(--green-faint);border-radius:8px;border:0.5px solid var(--border);padding:14px 16px;margin-bottom:14px;">
-          <div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--slate-light);font-weight:500;margin-bottom:6px;">Client link</div>
-          <div id="wm-client-url" style="font-family:var(--mono);font-size:11px;color:var(--hunter-green);word-break:break-all;margin-bottom:8px;"></div>
-          <button id="wm-copy-btn" onclick="copyWillowmereUrl()" style="background:none;border:0.5px solid var(--border);border-radius:4px;padding:3px 12px;font-size:11px;cursor:pointer;color:var(--slate);font-family:var(--sans);">Copy link</button>
+    <!-- Willowmere full-screen panel (replaces new-tab therapist view) -->
+    <div id="willowmere-panel" style="display:none;position:fixed;inset:0;z-index:400;flex-direction:column;background:#fff;">
+      <div style="display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:0.5px solid var(--border);background:#fff;flex-shrink:0;">
+        <span style="font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;">🌲 Willowmere · Boundaries</span>
+        <div style="flex:1;"></div>
+        <div style="display:flex;align-items:center;gap:8px;background:var(--green-faint);border:0.5px solid var(--border);border-radius:6px;padding:6px 12px;min-width:0;">
+          <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--slate-light);font-weight:500;white-space:nowrap;">Client link</span>
+          <span id="wm-client-url" style="font-family:var(--mono);font-size:11px;color:var(--hunter-green);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:320px;"></span>
+          <button id="wm-copy-btn" onclick="copyWillowmereUrl()" style="background:#fff;border:0.5px solid var(--border);border-radius:4px;padding:3px 10px;font-size:11px;cursor:pointer;color:var(--slate);font-family:var(--sans);white-space:nowrap;flex-shrink:0;">Copy</button>
         </div>
-        <div id="wm-status" style="font-size:13px;color:var(--slate);font-style:italic;padding:10px 14px;background:var(--off-white);border:0.5px solid var(--border);border-radius:6px;margin-bottom:20px;">⏳ Waiting for client to begin…</div>
-        <div class="modal-row">
-          <button class="btn-cancel" onclick="closeWillowmereOverlay()">Close</button>
-        </div>
+        <span id="wm-status" style="font-size:12px;color:var(--slate);font-style:italic;white-space:nowrap;"></span>
+        <button onclick="closeWillowmereOverlay()" style="background:none;border:0.5px solid var(--border);border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer;color:var(--slate);font-family:var(--sans);white-space:nowrap;flex-shrink:0;">✕ End session</button>
       </div>
+      <iframe id="wm-therapist-frame" src="" style="flex:1;border:none;width:100%;height:100%;"></iframe>
     </div>
 
     <!-- Score Modal -->
@@ -1666,12 +1666,12 @@
     _wmClientUrl       = `${base}/src/activities/activity-boundaries.html?session=${sessionId}`;
     const therapistUrl = `${base}/src/activities/activity-boundaries-therapist.html?session=${sessionId}`;
 
-    window.open(therapistUrl, '_blank');
-
     document.getElementById('wm-client-url').textContent = _wmClientUrl;
-    document.getElementById('wm-status').textContent     = '⏳ Waiting for client to begin…';
-    document.getElementById('wm-copy-btn').textContent   = 'Copy link';
-    openOverlay('willowmere-overlay');
+    document.getElementById('wm-status').textContent     = '⏳ Waiting for client…';
+    document.getElementById('wm-copy-btn').textContent   = 'Copy';
+    document.getElementById('wm-therapist-frame').src    = therapistUrl;
+    const panel = document.getElementById('willowmere-panel');
+    panel.style.display = 'flex';
 
     if (_wmChannel) { db.removeChannel(_wmChannel); }
     _wmChannel = db.channel(`quest-${sessionId}`)
@@ -1700,7 +1700,8 @@
 
   function closeWillowmereOverlay() {
     if (_wmChannel) { db.removeChannel(_wmChannel); _wmChannel = null; }
-    closeOverlay('willowmere-overlay');
+    document.getElementById('wm-therapist-frame').src = '';
+    document.getElementById('willowmere-panel').style.display = 'none';
   }
 
   /* ─────────────────────────────────────────
