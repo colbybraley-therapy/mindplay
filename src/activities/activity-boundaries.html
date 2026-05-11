@@ -90,22 +90,28 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
 #npc-wrap{
   position: relative !important;
   flex: 0 0 auto;
-  height: 85%;
-  width: auto;
-  max-width: none;
+  height: 78vh !important;
+  width: auto !important;
+  max-width: none !important;
   align-self: flex-end;
-  transform: translateX(-90px);
   opacity: 0;
-  transition: transform .6s cubic-bezier(.34,1.06,.64,1), opacity .5s ease;
-  filter: drop-shadow(8px 0 32px rgba(0,0,0,.65));
+  transform: scale(0.94);
+  transform-origin: bottom left;
+  transition: transform .55s cubic-bezier(.34,1.06,.64,1), opacity .5s ease;
+  filter: drop-shadow(6px 0 24px rgba(0,0,0,.5));
   pointer-events: none;
 }
-#npc-wrap.in{ transform: translateX(0); opacity: 1; }
+#npc-wrap.in{
+  opacity: 1;
+  transform: scale(1);
+}
 #npc-img{
   height: 100% !important;
   width: auto !important;
-  display: block !important;
+  max-height: 100% !important;
   max-width: none !important;
+  min-width: 0 !important;
+  display: block !important;
   object-fit: contain;
 }
 #npc-shadow{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:65%;height:12px;background:radial-gradient(ellipse,rgba(0,0,0,.55) 0%,transparent 70%);border-radius:50%;}
