@@ -560,9 +560,11 @@ function enterScene(id) {
     sv.style.display = 'block';
     requestAnimationFrame(() => sv.classList.add('visible'));
 
-    document.getElementById('scene-bg').style.backgroundImage = `url('${n.scene}')`;
+    const sceneUrl = encodeURI(n.scene);
+    document.getElementById('scene-bg').style.backgroundImage = `url("${sceneUrl}")`;
+    console.log('[Willowmere] Loading scene:', n.scene);
     document.getElementById('scene-title-badge').textContent = n.loc;
-    document.getElementById('portrait-img').src = n.portrait;
+    document.getElementById('portrait-img').src = encodeURI(n.portrait);
     document.getElementById('portrait-img').alt = n.name;
     document.getElementById('npc-name-tag').textContent = n.name + ' · ' + n.loc;
     document.getElementById('speech-text').textContent = n.speech;
