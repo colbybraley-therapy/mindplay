@@ -76,24 +76,24 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
 
 /* ── NPC — visual novel character ── */
 #npc-wrap{
-  position: absolute;
-  bottom: 0;
-  left: 3%;
-  width: 28vw;
-  min-width: 380px;
-  max-width: 720px;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 3% !important;
+  width: 32vw !important;
+  min-width: 420px !important;
+  max-width: 760px !important;
   z-index: 15;
   transform: translateX(-90px);
   opacity: 0;
   transition: transform .6s cubic-bezier(.34,1.06,.64,1), opacity .5s ease;
   filter: drop-shadow(8px 0 32px rgba(0,0,0,.65));
 }
-#npc-wrap.in{transform:translateX(0);opacity:1;}
+#npc-wrap.in{ transform: translateX(0) !important; opacity: 1 !important; }
 #npc-img{
   width: 100% !important;
-  height: auto;
-  display: block;
-  max-width: none;
+  height: auto !important;
+  display: block !important;
+  max-width: none !important;
 }
 #npc-shadow{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:65%;height:12px;background:radial-gradient(ellipse,rgba(0,0,0,.55) 0%,transparent 70%);border-radius:50%;}
 
