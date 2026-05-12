@@ -358,6 +358,7 @@
     .activity-item.journal::before { background: var(--hunter-green); }
     .activity-item.emotions::before { background: #E67E22; }
     .activity-item.homework::before { background: #8B5E3C; }
+    .activity-item.character_builder::before { background: #7C6FE0; }
     .activity-item:hover { border-color: var(--border-strong); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
     .activity-item.done { opacity: 0.6; }
     .activity-icon {
@@ -1067,6 +1068,23 @@
   </div>
 
   <!-- Willowmere full-screen panel — outside all pages so position:fixed works correctly -->
+  <!-- CHARACTER BUILDER LAUNCH PANEL -->
+  <div id="char-builder-panel" style="display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,.55);">
+    <div style="background:#fff;border-radius:16px;padding:2.5rem;width:460px;max-width:90vw;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35);">
+      <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:6px;font-family:var(--sans);">⚔️ Character Builder</div>
+      <p style="font-size:13px;color:var(--slate);line-height:1.6;margin-bottom:1.75rem;">Share the adventure app link and this code with your client. They'll enter the code to start building their hero.</p>
+      <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--slate-light);font-weight:500;margin-bottom:6px;">Session Code</div>
+      <div id="cb-code-display" style="font-family:var(--mono);font-size:42px;font-weight:700;letter-spacing:10px;color:#7C6FE0;margin-bottom:1.5rem;"></div>
+      <div style="display:flex;align-items:center;gap:8px;background:var(--green-faint);border:0.5px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:1.5rem;">
+        <span style="font-size:11px;color:var(--slate-light);white-space:nowrap;">Adventure app:</span>
+        <span id="cb-client-url" style="font-family:var(--mono);font-size:11px;color:var(--hunter-green);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"></span>
+        <button id="cb-copy-btn" onclick="copyCbUrl()" style="background:#fff;border:0.5px solid var(--border);border-radius:4px;padding:3px 10px;font-size:11px;cursor:pointer;color:var(--slate);font-family:var(--sans);flex-shrink:0;">Copy</button>
+      </div>
+      <div id="cb-status" style="font-size:13px;color:var(--slate);font-style:italic;margin-bottom:1.75rem;min-height:20px;"></div>
+      <button onclick="closeCharBuilderPanel()" style="background:none;border:0.5px solid var(--border);border-radius:6px;padding:9px 24px;font-size:13px;cursor:pointer;color:var(--slate);font-family:var(--sans);">✕ Close</button>
+    </div>
+  </div>
+
   <div id="willowmere-panel" style="display:none;position:fixed;inset:0;z-index:400;flex-direction:column;background:#fff;">
     <div style="display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:0.5px solid var(--border);background:#fff;flex-shrink:0;">
       <span style="font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;">🌲 Willowmere · Boundaries</span>
@@ -1365,6 +1383,7 @@
     emotions:  { icon:'🎭', label:'Emotion Explorer',        color:'amber'  },
     custom:                { icon:'✏️', label:'Custom Activity',         color:'slate'  },
     willowmere_boundaries: { icon:'🌲', label:'Willowmere · Boundaries',  color:'green'  },
+    character_builder:     { icon:'⚔️', label:'Character Builder',        color:'purple' },
   };
 
   async function openClient(id) {
@@ -1548,9 +1567,13 @@
         </div>
         ${a.score !== null && a.score !== undefined ? `<span class="activity-score">${a.score}%</span>` : ''}
         <span class="activity-status ${statusClass}">${statusText}</span>
-        ${!a.done ? (a.activity_type === 'willowmere_boundaries'
-          ? `<button onclick="launchWillowmere('${a.id}', event)" style="margin-left:4px;background:var(--hunter-green);color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--sans);">▶ Launch</button>`
-          : `<button onclick="toggleDone('${a.id}', event)" style="margin-left:4px;background:none;border:0.5px solid var(--border);border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;color:var(--slate-light);">Mark done</button>`) : ''}
+        ${!a.done ? (
+          a.activity_type === 'willowmere_boundaries'
+            ? `<button onclick="launchWillowmere('${a.id}', event)" style="margin-left:4px;background:var(--hunter-green);color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--sans);">▶ Launch</button>`
+            : a.activity_type === 'character_builder'
+            ? `<button onclick="launchCharacterBuilder('${a.id}', event)" style="margin-left:4px;background:#7C6FE0;color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--sans);">▶ Launch</button>`
+            : `<button onclick="toggleDone('${a.id}', event)" style="margin-left:4px;background:none;border:0.5px solid var(--border);border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;color:var(--slate-light);">Mark done</button>`
+        ) : ''}
         <button onclick="deleteActivity('${a.id}', event)" title="Remove activity" style="margin-left:4px;background:none;border:none;padding:4px 6px;font-size:13px;cursor:pointer;color:var(--slate-light);line-height:1;border-radius:4px;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='var(--slate-light)'">×</button>
       </div>`;
     }).join('');
@@ -1577,6 +1600,7 @@
     { type:'emotions',  icon:'🎭', label:'Emotion Explorer',     sub:'Name feelings and find coping tools' },
     { type:'custom',                icon:'✏️', label:'Custom Activity',            sub:'Add your own activity' },
     { type:'willowmere_boundaries', icon:'🌲', label:'Willowmere · Boundaries',    sub:'Boundary-setting adventure in a story world' },
+    { type:'character_builder',     icon:'⚔️', label:'Character Builder',           sub:'Build a hero identity in the adventure app' },
   ];
 
   /* ─────────────────────────────────────────
@@ -1651,6 +1675,81 @@
     document.getElementById('act-backdrop').classList.remove('open');
     document.getElementById('act-drawer').classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  /* ─────────────────────────────────────────
+     CHARACTER BUILDER LAUNCH
+  ───────────────────────────────────────── */
+  let _cbActivityId = null;
+  let _cbSessionId  = null;
+  let _cbChannel    = null;
+  let _cbClientUrl  = '';
+
+  async function launchCharacterBuilder(actId, e) {
+    e.stopPropagation();
+    _cbActivityId = actId;
+
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const base = window.location.origin;
+    _cbClientUrl = base + '/adventure/index.html';
+
+    const { data: session, error } = await db.from('sessions').insert({
+      client_id:     currentClient.id,
+      code,
+      status:        'waiting',
+      activity_type: 'home',
+    }).select().single();
+
+    if (error || !session) { console.error('character_builder session error:', error); return; }
+    _cbSessionId = session.id;
+
+    document.getElementById('cb-code-display').textContent = code;
+    document.getElementById('cb-client-url').textContent   = _cbClientUrl;
+    document.getElementById('cb-status').textContent       = '⏳ Waiting for client to join…';
+    document.getElementById('cb-copy-btn').textContent     = 'Copy';
+    document.getElementById('char-builder-panel').style.display = 'flex';
+
+    if (_cbChannel) db.removeChannel(_cbChannel);
+    _cbChannel = db.channel('cb-' + session.id)
+      .on('postgres_changes', {
+        event:  'INSERT',
+        schema: 'public',
+        table:  'session_responses',
+        filter: `session_id=eq.${session.id}`,
+      }, async payload => {
+        if (payload.new.step_index === -1) {
+          document.getElementById('cb-status').textContent = '✅ Character built! Marking activity done…';
+          if (_cbActivityId) {
+            await db.from('activities')
+              .update({ done: true, completed_at: new Date().toISOString() })
+              .eq('id', _cbActivityId);
+            _cbActivityId = null;
+            loadActivities();
+            loadClientStats();
+            document.getElementById('cb-status').textContent = '✅ Activity marked complete.';
+          }
+        } else {
+          document.getElementById('cb-status').textContent = '✅ Client is active — building their hero…';
+        }
+      })
+      .subscribe();
+  }
+
+  function copyCbUrl() {
+    navigator.clipboard.writeText(_cbClientUrl).then(() => {
+      const btn = document.getElementById('cb-copy-btn');
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+
+  async function closeCharBuilderPanel() {
+    if (_cbChannel) { db.removeChannel(_cbChannel); _cbChannel = null; }
+    if (_cbSessionId) {
+      await db.from('sessions').update({ status: 'completed' }).eq('id', _cbSessionId);
+      _cbSessionId = null;
+    }
+    document.getElementById('char-builder-panel').style.display = 'none';
   }
 
   /* ─────────────────────────────────────────
