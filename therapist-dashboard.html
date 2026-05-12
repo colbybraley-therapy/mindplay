@@ -1666,8 +1666,8 @@
 
     const sessionId    = Math.random().toString(36).substring(2, 10).toUpperCase();
     const base         = window.location.origin;
-    _wmClientUrl       = `${base}/src/activities/activity-boundaries.html?session=${sessionId}`;
-    const therapistUrl = `${base}/src/activities/activity-boundaries-therapist.html?session=${sessionId}`;
+    _wmClientUrl       = `${base}/src/activities/adventures/willowmere-boundaries.html?session=${sessionId}`;
+    const therapistUrl = `${base}/src/activities/adventures/willowmere-boundaries-therapist.html?session=${sessionId}`;
 
     document.getElementById('wm-client-url').textContent = _wmClientUrl;
     document.getElementById('wm-status').textContent     = '⏳ Waiting for client…';
