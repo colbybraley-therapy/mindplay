@@ -423,6 +423,9 @@ const channel = db.channel(`quest-${SESSION_ID}`);
 channel.on('broadcast', { event: 'unlock' }, ({ payload }) => {
   if (payload.npc_id === currentNPC) unlockContinue();
 });
+channel.on('broadcast', { event: 'end_session' }, () => {
+  endSessionFromTherapist();
+});
 
 // ── NPC DATA ──
 const NPC = {
@@ -670,6 +673,25 @@ async function notifyComplete() {
   await pushComplete();
   document.getElementById('complete-screen').classList.remove('show');
   setStatus('Session complete. Your therapist has the full summary.');
+}
+
+function endSessionFromTherapist() {
+  clearTimeout(nudgeTimer);
+  document.getElementById('back-btn').style.display = '';
+  const sv = document.getElementById('scene-view');
+  if (sv.classList.contains('visible')) {
+    document.getElementById('reaction').classList.remove('in');
+    document.getElementById('dialogue-wrap').classList.remove('in');
+    document.getElementById('npc-wrap').classList.remove('in');
+    sv.classList.remove('visible');
+    setTimeout(() => {
+      sv.style.display = 'none';
+      document.getElementById('map-view').style.display = 'flex';
+      document.getElementById('complete-screen').classList.add('show');
+    }, 500);
+  } else {
+    document.getElementById('complete-screen').classList.add('show');
+  }
 }
 
 function unlockContinue(){

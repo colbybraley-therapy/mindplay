@@ -27,6 +27,9 @@
   #live-dot{width:7px;height:7px;border-radius:50%;background:#ccc;transition:background .3s;}
   #live-dot.on{background:#8BC34A;box-shadow:0 0 6px #8BC34A;}
   #session-info{font-size:.78rem;color:rgba(255,255,255,.55);}
+  #end-session-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;padding:5px 14px;border-radius:20px;cursor:pointer;transition:background .15s;}
+  #end-session-btn:hover{background:rgba(255,80,80,.35);border-color:rgba(255,120,120,.5);}
+  #end-session-btn:disabled{opacity:.4;cursor:default;}
 
   /* Body */
   #body{display:grid;grid-template-columns:1fr 320px;overflow:hidden;}
@@ -134,6 +137,7 @@
     </div>
     <div style="display:flex;align-items:center;gap:12px;">
       <span id="session-info">Session: —</span>
+      <button id="end-session-btn" onclick="endSession()" disabled>End Session</button>
       <div id="live-badge"><div id="live-dot"></div><span id="live-label">Connecting…</span></div>
     </div>
   </div>
@@ -195,6 +199,7 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 const CHOICE_COLORS = ['#1D9E75','#7F77DD','#C4520A'];
 const CHOICE_BG     = ['#E1F5EE','#EEEDFE','#FAECE7'];
 
+let channel;
 let encounterCount = 0;
 
 // ─────────────────────────────────────────
@@ -211,7 +216,7 @@ window.addEventListener('load', () => {
   loadExisting();
 
   // Subscribe to live broadcast
-  const channel = db.channel(`quest-${SESSION_ID}`);
+  channel = db.channel(`quest-${SESSION_ID}`);
   channel
     .on('broadcast', { event: 'encounter' }, ({ payload }) => handleEncounter(payload))
     .on('broadcast', { event: 'session_complete' }, () => handleComplete())
@@ -229,6 +234,7 @@ window.addEventListener('load', () => {
       if (status === 'SUBSCRIBED') {
         dot.classList.add('on');
         label.textContent = 'Live';
+        document.getElementById('end-session-btn').disabled = false;
       } else {
         dot.classList.remove('on');
         label.textContent = status;
@@ -387,6 +393,18 @@ async function releaseNPC(npcId){
     event: 'unlock',
     payload: { npc_id: npcId, timestamp: new Date().toISOString() }
   });
+}
+
+async function endSession() {
+  const btn = document.getElementById('end-session-btn');
+  btn.disabled = true;
+  btn.textContent = 'Session ended';
+  await channel.send({
+    type: 'broadcast',
+    event: 'end_session',
+    payload: { timestamp: new Date().toISOString() }
+  });
+  document.getElementById('summary-banner').classList.add('show');
 }
 
 // Fallback prompts if not sent in broadcast payload
