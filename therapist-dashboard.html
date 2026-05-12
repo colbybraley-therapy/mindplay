@@ -1701,8 +1701,12 @@
     });
   }
 
-  function closeWillowmereOverlay() {
-    if (_wmChannel) { db.removeChannel(_wmChannel); _wmChannel = null; }
+  async function closeWillowmereOverlay() {
+    if (_wmChannel) {
+      await _wmChannel.send({ type: 'broadcast', event: 'end_session', payload: { timestamp: new Date().toISOString() } });
+      db.removeChannel(_wmChannel);
+      _wmChannel = null;
+    }
     document.getElementById('wm-therapist-frame').src = '';
     document.getElementById('willowmere-panel').style.display = 'none';
   }
