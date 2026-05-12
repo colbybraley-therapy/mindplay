@@ -91,6 +91,10 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
   justify-content: flex-end;
   padding: 0 2% 0 0;
 }
+#scene-stage[data-side="center"]{
+  justify-content: center;
+  padding: 0;
+}
 #npc-wrap{
   position: relative;
   flex: 0 0 auto;
@@ -108,6 +112,10 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
 }
 #scene-stage[data-side="right"] #npc-wrap{
   transform-origin: bottom right;
+  transform: scale(0.94);
+}
+#scene-stage[data-side="center"] #npc-wrap{
+  transform-origin: bottom center;
   transform: scale(0.94);
 }
 #npc-wrap.in{
@@ -144,6 +152,15 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
 #scene-stage[data-side="right"] #dialogue-wrap{
   right: 105%;
   left: auto;
+}
+#scene-stage[data-side="center"] #dialogue-wrap{
+  left: 50%;
+  right: auto;
+  top: -8%;
+  transform: translateX(-50%) translateY(18px);
+}
+#scene-stage[data-side="center"] #dialogue-wrap.in{
+  transform: translateX(-50%) translateY(0);
 }
 #dialogue-wrap.in{ opacity: 1; transform: translateY(0); }
 
@@ -185,6 +202,22 @@ html,body{width:100%;height:100%;background:#0e1f06;font-family:'Crimson Pro',Ge
   border-left: 12px solid rgba(245,237,216,0.97);
   border-right: 0;
   filter: drop-shadow(2px 0 2px rgba(0,0,0,0.15));
+}
+#scene-stage[data-side="center"] #speech-bubble::before{
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: auto;
+  bottom: -10px;
+  right: auto;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid rgba(245,237,216,0.97);
+  border-bottom: 0;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15));
 }
 
 #speech-text{font-family:'Crimson Pro',serif;font-style:italic;font-size:1rem;color:var(--ink);line-height:1.65;min-height:1.65em;}
@@ -419,7 +452,7 @@ channel.on('broadcast', { event: 'unlock' }, ({ payload }) => {
 // ── NPC DATA ──
 const NPC = {
   ember:{name:'Ember',side:'left',loc:'The Mill',portrait:'../assets/portraits/Ember.png',scene:'../assets/landscapes/Willowmere/The Mill.png',mapX:18,mapY:26,boundary:'Saying no to a favour',speech:'"You\'re so strong — can you carry my grain sacks all the way to the storehouse? It\'ll only take a minute. I\'d do it myself but… you\'re just so much better at it."',opts:[{label:'Set a limit',color:'#1D9E75',text:'"I can help with one bag, but not all of them."'},{label:'Say no',color:'#7F77DD',text:'"I don\'t have time for that today — I hope you find someone to help."'},{label:'Say yes',color:'#C4520A',text:'"Sure, I\'ll do it." (carries all the bags)'}],reactions:['Ember looks surprised, then nods. "Fair enough." She finds another villager to help.','Ember looks put out — but asks someone else. She manages just fine without you.','Ember waves cheerfully. But the next time you pass the mill, she asks again.'],titles:['You set a limit.','You said no.','You said yes.'],prompts:[['What made you decide to offer just one bag?','Has there been a time when someone asked too much of you?','What did it feel like to set that limit?'],['That took courage — what helped you say no?','How did it feel watching Ember figure it out on her own?','Is saying no usually easy or hard for you?'],['What made you say yes even though it was a lot?','How did you feel carrying all those bags?','Do you often say yes when you wish you could say no?']]},
-  maren:{name:'Sage Maren',side:'right',loc:'The Herbalist\'s Hut',portrait:'../assets/portraits/Sage Maren.png',scene:'../assets/landscapes/Willowmere/The Herbalists Hut.png',mapX:46,mapY:20,boundary:'Privacy',speech:'"I know everything about everyone in this village — did you hear what happened to the Baker\'s son? Now tell me, what\'s going on with you? You can trust me… I share everything with my friends."',opts:[{label:'Keep it private',color:'#1D9E75',text:'"I\'d rather not share — some things are just for me."'},{label:'Redirect',color:'#7F77DD',text:'"I\'m not comfortable with how you share others\' stories."'},{label:'Share',color:'#C4520A',text:'"Okay… well, lately I\'ve been feeling…"'}],reactions:['"A wise keeper guards their own garden." Maren tilts her head — and seems to respect you.','Maren goes quiet. Something shifts in her expression. A seed of change planted.','Maren smiles warmly. But later, you hear your story being told to someone else.'],titles:['You kept it private.','You redirected her.','You shared.'],prompts:[['What told you this wasn\'t a safe place to share?','How do you decide who gets to know your private things?','What does it feel like to keep something just for yourself?'],['That was perceptive — how did you notice something felt off?','Has anyone ever shared your private things without asking?','What do you wish Maren understood?'],['What made you decide to trust her?','How did it feel finding out she told others?','Do you find it hard to say no when someone seems warm and friendly?']]},
+  maren:{name:'Sage Maren',side:'center',loc:'The Herbalist\'s Hut',portrait:'../assets/portraits/Sage Maren.png',scene:'../assets/landscapes/Willowmere/The Herbalists Hut.png',mapX:46,mapY:20,boundary:'Privacy',speech:'"I know everything about everyone in this village — did you hear what happened to the Baker\'s son? Now tell me, what\'s going on with you? You can trust me… I share everything with my friends."',opts:[{label:'Keep it private',color:'#1D9E75',text:'"I\'d rather not share — some things are just for me."'},{label:'Redirect',color:'#7F77DD',text:'"I\'m not comfortable with how you share others\' stories."'},{label:'Share',color:'#C4520A',text:'"Okay… well, lately I\'ve been feeling…"'}],reactions:['"A wise keeper guards their own garden." Maren tilts her head — and seems to respect you.','Maren goes quiet. Something shifts in her expression. A seed of change planted.','Maren smiles warmly. But later, you hear your story being told to someone else.'],titles:['You kept it private.','You redirected her.','You shared.'],prompts:[['What told you this wasn\'t a safe place to share?','How do you decide who gets to know your private things?','What does it feel like to keep something just for yourself?'],['That was perceptive — how did you notice something felt off?','Has anyone ever shared your private things without asking?','What do you wish Maren understood?'],['What made you decide to trust her?','How did it feel finding out she told others?','Do you find it hard to say no when someone seems warm and friendly?']]},
   kids:{name:'The River Kids',side:'left',loc:'The Old Bridge',portrait:'../assets/portraits/River Kids.png',scene:'../assets/landscapes/Willowmere/The Old Bridge.png',mapX:79,mapY:22,boundary:'Peer pressure',speech:'"Everyone\'s jumping off the bridge into the river! Come on — don\'t be scared. If you don\'t do it, you can\'t hang out with us anymore. It\'s just a bit of water."',opts:[{label:'Hold firm',color:'#1D9E75',text:'"I don\'t want to jump — and I shouldn\'t have to to be your friend."'},{label:'Walk away',color:'#7F77DD',text:'"If that\'s the rule, I\'ll find somewhere else to be today."'},{label:'Give in',color:'#C4520A',text:'"Okay… I\'ll try it." (jumps despite not wanting to)'}],reactions:['One kid shrugs. Another says quietly: "Actually… that\'s kind of brave."','You find a quiet part of the forest — and something unexpected waiting there.','The kids cheer. Walking home, something feels off inside.'],titles:['You held firm.','You walked away.','You gave in.'],prompts:[['What gave you the strength to hold your ground?','How do you feel when friends use friendship as a condition?','Has something like this happened to you before?'],['Walking away is hard — what made you do it?','Do you think those kids were real friends?','What did it feel like to choose yourself over the group?'],['What was going through your mind when you jumped?','What does that feeling on the walk home tell you?','Is it hard for you to say no to friends specifically?']]},
   pip:{name:'Pip',side:'left',loc:'The Meadow',portrait:'../assets/portraits/Pip.png',scene:'../assets/landscapes/Willowmere/The Meadow.png',mapX:14,mapY:54,boundary:'Emotional limits',speech:'"You\'re the only one who understands me. I need you to stay and listen — please don\'t go. If you leave I\'ll just be alone again. You\'re the only friend I have."',opts:[{label:'Be honest',color:'#1D9E75',text:'"I care about you, but I can\'t be your only person — I have to go now."'},{label:'Offer less',color:'#7F77DD',text:'"I can stay a little while, but then I need to go."'},{label:'Stay',color:'#C4520A',text:'"Okay, I\'ll stay." (gives up your own plans)'}],reactions:['Pip looks sad at first — then slowly starts talking to another shepherd nearby.','Pip smiles. "Okay — that helps." You both feel a little lighter.','Pip is relieved. But somewhere else in the village, something has changed without you.'],titles:['You were honest.','You offered less.','You stayed.'],prompts:[['That was kind and honest — how did that feel?','Do you ever worry about hurting someone by being honest?','What do you think Pip needed to hear?'],['Offering something smaller is a real skill — how did you figure that out?','Do you find it hard to give less than what someone asks for?','How did you feel leaving knowing Pip was okay?'],['What made you give up your plans?','Do you find it hard when someone says you\'re their only person?','How do you handle it when someone needs more than you can give?']]},
   voss:{name:'Elder Voss',side:'left',loc:'The Village Hall',portrait:'../assets/portraits/Elder Voss.png',scene:'../assets/landscapes/Willowmere/The Village Hall.png',mapX:49,mapY:50,boundary:'Saying no to authority',speech:'"The festival is tomorrow and we need everyone to help decorate. I don\'t care that you\'re tired — this is what villagers do. You don\'t have a choice in this."',opts:[{label:'Speak up',color:'#1D9E75',text:'"I\'m genuinely exhausted — I can help for one hour, not the whole day."'},{label:'Ask a question',color:'#7F77DD',text:'"What would happen if I took care of myself first and helped when I\'m rested?"'},{label:'Comply',color:'#C4520A',text:'"Yes, Elder." (works all day despite being worn out)'}],reactions:['Elder Voss pauses. "…One hour is acceptable." A small moment of real change.','Voss doesn\'t have an answer. Your character stands just a little taller.','The festival looks beautiful. But you sit alone at the end, completely exhausted.'],titles:['You spoke up.','You asked a question.','You complied.'],prompts:[['Speaking up to authority is hard — what made you do it?','How did it feel when Voss actually listened?','Are there people in your life it\'s especially hard to speak up to?'],['That question flipped the whole conversation — how did that feel?','Do you think you have the right to take care of yourself first sometimes?','What do adults in your life say when you put yourself first?'],['What stopped you from speaking up?','How do you feel after giving everything to someone who didn\'t ask how you were?','Is it hard to say no to people who seem to be in charge?']]},
