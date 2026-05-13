@@ -494,8 +494,11 @@ async function initSession() {
     .upsert({ id: SESSION_ID, status: 'active' }, { onConflict: 'id', ignoreDuplicates: true });
   channel.subscribe(status => {
     const dot = document.getElementById('sync-dot');
-    if (status === 'SUBSCRIBED') { dot.classList.add('live'); setLoadingStatus('Connected ✓'); }
-    else { dot.classList.remove('live'); dot.classList.add('error'); }
+    if (status === 'SUBSCRIBED') {
+      dot.classList.add('live');
+      setLoadingStatus('Connected ✓');
+      channel.send({ type: 'broadcast', event: 'willowmere_started', payload: { timestamp: new Date().toISOString() } });
+    } else { dot.classList.remove('live'); dot.classList.add('error'); }
   });
   finishLoading();
 }

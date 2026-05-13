@@ -1852,12 +1852,11 @@
         filter: `id=eq.${session.id}`,
       }, payload => {
         if (payload.new.status === 'active') {
-          // Switch from code modal to full-screen therapist view
-          document.getElementById('willowmere-panel').style.display = 'none';
-          const therapistUrl = `${_wmBase}/src/activities/adventures/willowmere-boundaries-therapist.html?session=${_wmSessionId}`;
-          document.getElementById('wm-therapist-frame').src = therapistUrl;
-          document.getElementById('wm-session-status').textContent = '✅ Client active';
-          document.getElementById('willowmere-session-panel').style.display = 'flex';
+          // Dismiss the code modal — therapist view opens when client starts Willowmere
+          document.getElementById('wm-status').textContent = '✅ Client joined — waiting for them to start Willowmere…';
+          setTimeout(() => {
+            document.getElementById('willowmere-panel').style.display = 'none';
+          }, 1500);
         }
       })
       .subscribe();
@@ -1865,17 +1864,24 @@
     // Watch for in-adventure activity broadcasts
     if (_wmChannel) db.removeChannel(_wmChannel);
     _wmChannel = db.channel(`quest-${session.id}`)
+      .on('broadcast', { event: 'willowmere_started' }, () => {
+        // Client has launched the Willowmere activity — open full-screen therapist view
+        document.getElementById('willowmere-panel').style.display = 'none';
+        const therapistUrl = `${_wmBase}/src/activities/adventures/willowmere-boundaries-therapist.html?session=${_wmSessionId}`;
+        document.getElementById('wm-therapist-frame').src = therapistUrl;
+        document.getElementById('wm-session-status').textContent = '✅ Client active';
+        document.getElementById('willowmere-session-panel').style.display = 'flex';
+      })
       .on('broadcast', { event: 'encounter' }, () => {
-        document.getElementById('wm-status').textContent = '✅ Client is active — working through Willowmere…';
+        document.getElementById('wm-session-status').textContent = '✅ Client is in a scene…';
       })
       .on('broadcast', { event: 'session_complete' }, async () => {
-        document.getElementById('wm-status').textContent = '✅ Session complete — marking activity done…';
+        document.getElementById('wm-session-status').textContent = '✅ Session complete — marking done…';
         if (_wmActivityId) {
           await db.from('activities').update({ done: true, completed_at: new Date().toISOString() }).eq('id', _wmActivityId);
           _wmActivityId = null;
           loadActivities();
           loadClientStats();
-          document.getElementById('wm-status').textContent = '✅ Activity marked complete.';
         }
       })
       .subscribe();
