@@ -1700,11 +1700,12 @@
     document.getElementById('cb-copy-btn').textContent     = 'Copy';
     document.getElementById('char-builder-panel').style.display = 'flex';
 
-    // Insert session (same pattern as createSession — no .select() chain)
+    // Insert session
     const { error: insertError } = await db.from('sessions').insert({
-      client_id: currentClient.id,
+      client_id:    currentClient.id,
+      therapist_id: currentUser?.id,
       code,
-      status:    'waiting',
+      status:       'waiting',
     });
 
     if (insertError) {
@@ -1997,7 +1998,7 @@
     btn.textContent = 'Creating…';
 
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const { error } = await db.from('sessions').insert({ client_id: currentClient.id, code, status: 'waiting' });
+    const { error } = await db.from('sessions').insert({ client_id: currentClient.id, therapist_id: currentUser?.id, code, status: 'waiting' });
 
     if (error) {
       document.getElementById('session-status-text').textContent = 'Error creating session. Try again.';
