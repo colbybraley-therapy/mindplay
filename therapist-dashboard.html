@@ -1101,6 +1101,16 @@
     </div>
   </div>
 
+  <div id="willowmere-session-panel" style="display:none;position:fixed;inset:0;z-index:401;flex-direction:column;background:#fff;">
+    <div style="display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:0.5px solid var(--border);background:#fff;flex-shrink:0;">
+      <span style="font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;">🌲 Willowmere · Boundaries</span>
+      <div style="flex:1;"></div>
+      <span id="wm-session-status" style="font-size:12px;color:var(--slate);font-style:italic;white-space:nowrap;"></span>
+      <button onclick="closeWillowmereOverlay()" style="background:none;border:0.5px solid var(--border);border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer;color:var(--slate);font-family:var(--sans);white-space:nowrap;flex-shrink:0;">✕ End session</button>
+    </div>
+    <iframe id="wm-therapist-frame" src="" style="flex:1;border:none;width:100%;height:100%;"></iframe>
+  </div>
+
   <!-- ══════════════════════════════════════════
        JAVASCRIPT
   ══════════════════════════════════════════ -->
@@ -1796,14 +1806,16 @@
   let _wmChannel         = null;
   let _wmSessionChannel  = null;
   let _wmClientUrl       = '';
+  let _wmSessionId       = null;
+  let _wmBase            = '';
 
   async function launchWillowmere(actId, e) {
     e.stopPropagation();
     _wmActivityId = actId;
 
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const base = window.location.origin;
-    _wmClientUrl = base + '/adventure/index.html';
+    _wmBase = window.location.origin;
+    _wmClientUrl = _wmBase + '/adventure/index.html';
 
     document.getElementById('wm-code-display').textContent = code;
     document.getElementById('wm-client-url').textContent   = _wmClientUrl;
@@ -1827,9 +1839,10 @@
     const { data: session } = await db.from('sessions').select('id').eq('code', code).single();
     if (!session) { document.getElementById('wm-status').textContent = '⚠️ Could not retrieve session. Try again.'; return; }
 
+    _wmSessionId = session.id;
     document.getElementById('wm-status').textContent = '⏳ Waiting for client to join…';
 
-    // Watch for client joining
+    // Watch for client joining — transition to full therapist view
     if (_wmSessionChannel) db.removeChannel(_wmSessionChannel);
     _wmSessionChannel = db.channel('wm-session-' + session.id)
       .on('postgres_changes', {
@@ -1839,7 +1852,12 @@
         filter: `id=eq.${session.id}`,
       }, payload => {
         if (payload.new.status === 'active') {
-          document.getElementById('wm-status').textContent = '✅ Client joined — starting Willowmere…';
+          // Switch from code modal to full-screen therapist view
+          document.getElementById('willowmere-panel').style.display = 'none';
+          const therapistUrl = `${_wmBase}/src/activities/adventures/willowmere-boundaries-therapist.html?session=${_wmSessionId}`;
+          document.getElementById('wm-therapist-frame').src = therapistUrl;
+          document.getElementById('wm-session-status').textContent = '✅ Client active';
+          document.getElementById('willowmere-session-panel').style.display = 'flex';
         }
       })
       .subscribe();
@@ -1888,6 +1906,9 @@
       loadClientStats();
     }
     document.getElementById('willowmere-panel').style.display = 'none';
+    document.getElementById('wm-therapist-frame').src = '';
+    document.getElementById('willowmere-session-panel').style.display = 'none';
+    _wmSessionId = null;
   }
 
   /* ─────────────────────────────────────────
