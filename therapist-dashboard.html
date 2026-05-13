@@ -1725,6 +1725,16 @@
     if (_cbChannel) db.removeChannel(_cbChannel);
     _cbChannel = db.channel('cb-' + session.id)
       .on('postgres_changes', {
+        event:  'UPDATE',
+        schema: 'public',
+        table:  'sessions',
+        filter: `id=eq.${session.id}`,
+      }, payload => {
+        if (payload.new.status === 'active') {
+          document.getElementById('cb-status').textContent = '✅ Client joined — building their hero…';
+        }
+      })
+      .on('postgres_changes', {
         event:  'INSERT',
         schema: 'public',
         table:  'session_responses',
