@@ -2026,9 +2026,19 @@
         </div>
         ${a.score !== null && a.score !== undefined ? `<span class="activity-score">${a.score}%</span>` : ''}
         <span class="activity-status ${statusClass}">${statusText}</span>
-        ${!a.done ? `<button onclick="toggleDone('${a.id}', event)" style="margin-left:4px;background:none;border:0.5px solid var(--border);border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;color:var(--slate-light);">Mark done</button>` : ''}
+        ${!a.done ? (
+          a.activity_type === 'journal'
+            ? `<button onclick="launchJournal('${a.id}', event)" style="margin-left:4px;background:var(--hunter-green);color:#fff;border:none;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:var(--sans);">▶ Launch</button>`
+            : `<button onclick="toggleDone('${a.id}', event)" style="margin-left:4px;background:none;border:0.5px solid var(--border);border-radius:4px;padding:4px 8px;font-size:11px;cursor:pointer;color:var(--slate-light);">Mark done</button>`
+        ) : ''}
       </div>`;
     }).join('');
+  }
+
+  function launchJournal(actId, e) {
+    e.stopPropagation();
+    const url = `${window.location.origin}/src/activities/practices/reflection-journal/therapist.html?client_id=${currentClient.id}`;
+    window.open(url, '_blank');
   }
 
   async function toggleDone(actId, e) {
