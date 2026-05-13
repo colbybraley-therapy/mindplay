@@ -1470,7 +1470,9 @@
   const SUPABASE_URL = 'https://vfpxovpwwabisfjjqkpm.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_-cIPFr0xt1CfC8fwh0e_ew_Q6LIbcX5';
   const { createClient } = supabase;
-  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const db = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { storageKey: 'therapist-dashboard-session' }
+  });
 
   db.auth.getSession().then(({ data: { session } }) => {
     // If URL has auth tokens it's a magic-link callback — don't redirect here
@@ -1515,7 +1517,7 @@
     err.textContent = '';
     const { error } = await db.auth.signInWithPassword({ email, password: pass });
     if (error) { err.textContent = error.message; return; }
-    loadApp();
+    window.location.replace('/therapist-dashboard.html');
   }
 
   async function doSignInWithGoogle() {
@@ -1528,13 +1530,8 @@
   }
 
   db.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN' && session?.user && !currentUser) {
-      currentUser = session.user;
-      loadApp();
-    }
-    if (event === 'SIGNED_OUT') {
-      currentUser = null;
-      showPage('pg-landing');
+    if (event === 'SIGNED_IN' && session?.user) {
+      window.location.replace('/therapist-dashboard.html');
     }
   });
 
