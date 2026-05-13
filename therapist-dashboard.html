@@ -1243,7 +1243,9 @@
   const SUPABASE_URL = 'https://vfpxovpwwabisfjjqkpm.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_-cIPFr0xt1CfC8fwh0e_ew_Q6LIbcX5';
   const { createClient } = supabase;
-  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const db = createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { storageKey: 'therapist-dashboard-session' }
+  });
   // Isolated client for sending OTPs — no session, no storage, won't touch therapist auth
   const otpClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
