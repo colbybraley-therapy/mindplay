@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reflection Journal — Therapist View Â· Cypress Mind</title>
+<title>Reflection Journal — Therapist View · Cypress Mind</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -391,7 +391,7 @@
     <div class="sidebar-wordmark">Cypress Mind</div>
     <div class="sidebar-label">Clients · Journal</div>
     <div id="client-list">
-      <div style="padding:8px 20px; font-size:12px; color:rgba(255,255,255,0.3);">Loadingâ¦</div>
+      <div style="padding:8px 20px; font-size:12px; color:rgba(255,255,255,0.3);">Loading…</div>
     </div>
 
     <div class="sidebar-footer">
@@ -454,7 +454,7 @@
       <div class="topbar-avatar">JM</div>
       <div>
         <div class="topbar-name">Jordan M.</div>
-        <div class="topbar-sub">Reflection Journal Â· Last entry today</div>
+        <div class="topbar-sub">Reflection Journal · Last entry today</div>
       </div>
     </div>
     <div class="privacy-pill">
@@ -515,7 +515,7 @@
         <div class="card">
           <div class="card-title">Top words this week</div>
           <div id="word-bars">
-            <div style="font-size:13px;color:var(--text-tertiary);padding:8px 0;">Loadingâ¦</div>
+            <div style="font-size:13px;color:var(--text-tertiary);padding:8px 0;">Loading…</div>
           </div>
         </div>
       </div>
@@ -533,10 +533,10 @@
     <div class="panel" id="tab-1">
       <div style="font-size:12px; color:var(--text-tertiary); margin-bottom:16px; display:flex; align-items:center; gap:6px;" id="entries-summary-line">
         <div style="width:6px;height:6px;border-radius:50%;background:var(--green-mid);"></div>
-        Loading entriesâ¦
+        Loading entries…
       </div>
       <div id="entries-list">
-        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loadingâ¦</div>
+        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loading…</div>
       </div>
     </div>
 
@@ -545,7 +545,7 @@
     ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
     <div class="panel" id="tab-2">
       <div id="session-prep-content">
-        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loadingâ¦</div>
+        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loading…</div>
       </div>
     </div>
 
@@ -598,7 +598,7 @@ async function sendClientInvite() {
     return;
   }
 
-  btn.textContent = 'Sendingâ¦';
+  btn.textContent = 'Sending…';
   btn.disabled    = true;
 
   // Send the client a magic link OTP
@@ -694,13 +694,13 @@ function formatDate(iso) {
   const time = d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
   if (diff === 0) return `Today, ${time}`;
   if (diff === 1) return `Yesterday, ${time}`;
-  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }) + ` Â· ${time}`;
+  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }) + ` · ${time}`;
 }
 
 function formatPathway(e) {
   if (!e.pathway || e.pathway === 'skip') return '';
   if (e.pathway === 'themed' && e.theme)
-    return `Themed Â· ${e.theme.charAt(0).toUpperCase() + e.theme.slice(1)}`;
+    return `Themed · ${e.theme.charAt(0).toUpperCase() + e.theme.slice(1)}`;
   return e.pathway.charAt(0).toUpperCase() + e.pathway.slice(1);
 }
 
@@ -962,7 +962,7 @@ function renderEntries(entries) {
 
   document.getElementById('entries-summary-line').innerHTML = `
     <div style="width:6px;height:6px;border-radius:50%;background:var(--green-mid);"></div>
-    ${thisWeek.length} entries this week Â· ${sharedCount} shared or flagged · ${privateCount} private — private entries show mood check-in only`;
+    ${thisWeek.length} entries this week · ${sharedCount} shared or flagged · ${privateCount} private — private entries show mood check-in only`;
 
   if (!entries.length) {
     document.getElementById('entries-list').innerHTML =
@@ -1016,7 +1016,7 @@ function renderSessionPrep(entries) {
   // Suggested entry points (rule-based)
   const entryPoints = [];
   if (flagged.length > 0) {
-    const excerpt = flagged[0].entry_text ? flagged[0].entry_text.slice(0,80) + 'â¦' : 'flagged entry';
+    const excerpt = flagged[0].entry_text ? flagged[0].entry_text.slice(0,80) + '…' : 'flagged entry';
     entryPoints.push(`What the client flagged: "${excerpt}"`);
   }
   if (topWords.length >= 2) {
@@ -1032,7 +1032,7 @@ function renderSessionPrep(entries) {
     ${flagged.length ? flagged.map(e => `
       <div class="flag-card">
         <div class="flag-title">"I want to talk about this" — ${formatDate(e.created_at)}</div>
-        ${e.entry_text ? `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">"${e.entry_text.slice(0,120)}â¦"</div>` : ''}
+        ${e.entry_text ? `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">"${e.entry_text.slice(0,120)}…"</div>` : ''}
         <div class="mood-chips">${(e.mood_words||[]).map(m=>`<span class="mood-chip">${m}</span>`).join('')}</div>
       </div>`).join('') :
       '<p style="font-size:13px;color:var(--text-tertiary);margin-bottom:16px;">Nothing flagged this week.</p>'
@@ -1044,7 +1044,7 @@ function renderSessionPrep(entries) {
     ${topWords.length ? `
       <div class="flag-card green">
         <div class="flag-title">${topFamilies.map(f=>f.charAt(0).toUpperCase()+f.slice(1)).join(' + ')} ${topFamilies.length > 1 ? 'families' : 'family'} dominant</div>
-        <div class="flag-sub">${topWords.map(([w,c])=>`${w} (${c}Ã)`).join(', ')}</div>
+        <div class="flag-sub">${topWords.map(([w,c])=>`${w} (${c}×)`).join(', ')}</div>
       </div>` :
       '<p style="font-size:13px;color:var(--text-tertiary);margin-bottom:16px;">No mood data this week.</p>'
     }
