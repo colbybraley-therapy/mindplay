@@ -604,9 +604,7 @@ async function sendClientInvite() {
   const { error: otpError } = await db.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo:
-        window.location.origin +
-        '/src/activities/practices/reflection-journal/client.html',
+      emailRedirectTo: window.location.origin + '/journal',
     }
   });
 

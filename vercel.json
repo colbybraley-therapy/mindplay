@@ -4,8 +4,9 @@
     { "src": "**/*", "use": "@vercel/static" }
   ],
   "routes": [
-{ "src": "/therapist-dashboard", "dest": "/therapist-dashboard.html" },
+    { "src": "/therapist-dashboard", "dest": "/therapist-dashboard.html" },
     { "src": "/signup", "dest": "/signup.html" },
-    { "src": "/characters", "dest": "/characters.html" }
+    { "src": "/characters", "dest": "/characters.html" },
+    { "src": "/journal", "dest": "/src/activities/practices/reflection-journal/client.html" }
   ]
 }
