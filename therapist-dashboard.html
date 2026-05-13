@@ -1797,7 +1797,8 @@
         filter: `id=eq.${session.id}`,
       }, payload => {
         if (payload.new.status === 'active') {
-          document.getElementById('cb-status').textContent = '✅ Client joined — building their hero…';
+          document.getElementById('char-builder-panel').style.display = 'none';
+          if (currentClient) showPage('pg-client');
         }
       })
       .on('postgres_changes', {
@@ -1912,12 +1913,8 @@
         filter: `id=eq.${session.id}`,
       }, payload => {
         if (payload.new.status === 'active') {
-          // Dismiss the code modal — therapist view opens when client starts Willowmere
-          document.getElementById('wm-status').textContent = '✅ Client joined — waiting for them to start Willowmere…';
-          setTimeout(() => {
-            document.getElementById('willowmere-panel').style.display = 'none';
-            if (currentClient) showPage('pg-client');
-          }, 1500);
+          document.getElementById('willowmere-panel').style.display = 'none';
+          if (currentClient) showPage('pg-client');
         }
       })
       .subscribe();
