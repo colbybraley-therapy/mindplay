@@ -995,14 +995,20 @@
         <div id="tab-journal" class="tab-panel" style="display:none; padding:18px 20px;">
 
           <!-- Send sign-in link row -->
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+          <div style="margin-bottom:14px;">
             <span style="font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--slate-light);" id="j-client-label">Reflection Journal</span>
-            <button id="j-send-link-btn" onclick="jSendMagicLink()"
-              style="font-family:var(--sans); font-size:12px; font-weight:500; color:var(--hunter-green);
-              background:var(--green-light); border:0.5px solid var(--hunter-green); border-radius:6px;
-              padding:5px 12px; cursor:pointer;">
-              ✉ Send sign-in link
-            </button>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
+              <input id="j-email-input" type="email" placeholder="Client email address"
+                oninput="jClientEmail=this.value.trim()"
+                style="flex:1; font-family:var(--sans); font-size:12px; padding:6px 10px;
+                border:1px solid #ddd; border-radius:6px; outline:none; color:var(--ink);" />
+              <button id="j-send-link-btn" onclick="jSendMagicLink()"
+                style="font-family:var(--sans); font-size:12px; font-weight:500; color:var(--hunter-green);
+                background:var(--green-light); border:0.5px solid var(--hunter-green); border-radius:6px;
+                padding:6px 12px; cursor:pointer; white-space:nowrap;">
+                ✉ Send sign-in link
+              </button>
+            </div>
           </div>
           <div id="j-link-status" style="display:none; font-size:12px; padding:8px 12px; border-radius:6px; margin-bottom:12px;"></div>
 
@@ -2440,7 +2446,12 @@
     const labelEl = document.getElementById('j-client-label');
     if (labelEl) labelEl.textContent = `${currentClient.name}'s Journal`;
 
-    jClientEmail = currentClient.email || null;
+    // Preserve any email the therapist already typed; fall back to saved email
+    const emailInput = document.getElementById('j-email-input');
+    const savedEmail = emailInput?.value.trim() || currentClient.email || null;
+    jClientEmail = savedEmail;
+    if (emailInput && !emailInput.value && savedEmail) emailInput.value = savedEmail;
+
     jClientAuthId = null;
 
     // Journal entries are keyed by the client's Supabase auth UID, not the clients-table row ID.
@@ -2461,6 +2472,15 @@
       jRenderEntries([]);
       jRenderSessionPrep([]);
       if (jRealtimeChannel) { db.removeChannel(jRealtimeChannel); jRealtimeChannel = null; }
+      // Show a helpful status message
+      if (statusEl) {
+        statusEl.textContent = jClientEmail
+          ? `Enter the client's email above and click Send sign-in link. Once they log in, entries will appear here.`
+          : `Enter the client's email above to connect their journal.`;
+        statusEl.style.background = '#f5f5f0';
+        statusEl.style.color = 'var(--slate-light)';
+        statusEl.style.display = 'block';
+      }
       return;
     }
 
