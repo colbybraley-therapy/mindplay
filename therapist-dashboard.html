@@ -1702,10 +1702,9 @@
 
     // Insert session (same pattern as createSession — no .select() chain)
     const { error: insertError } = await db.from('sessions').insert({
-      client_id:     currentClient.id,
+      client_id: currentClient.id,
       code,
-      status:        'waiting',
-      activity_type: 'home',
+      status:    'waiting',
     });
 
     if (insertError) {

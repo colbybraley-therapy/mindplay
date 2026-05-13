@@ -2051,7 +2051,7 @@ function finishWizard() {
 
   setCharBg(true);
   document.getElementById('character-builder').classList.remove('active');
-  if (currentSession) { go(currentSession.activity_type); }
+  if (currentSession) { go(currentSession.activity_type || 'home'); }
   else                { document.getElementById('home').classList.add('active'); }
 }
 
