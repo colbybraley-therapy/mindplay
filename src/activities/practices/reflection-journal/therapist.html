@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reflection Journal — Therapist View · Cypress Mind</title>
+<title>Reflection Journal â Therapist View Â· Cypress Mind</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -47,7 +47,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Layout ───────────────────────────────────────────────── */
+  /* ââ Layout âââââââââââââââââââââââââââââââââââââââââââââââââ */
   .app {
     display: grid;
     grid-template-columns: var(--sidebar-w) 1fr;
@@ -55,7 +55,7 @@
     min-height: 100vh;
   }
 
-  /* ── Sidebar ──────────────────────────────────────────────── */
+  /* ââ Sidebar ââââââââââââââââââââââââââââââââââââââââââââââââ */
   .sidebar {
     grid-row: 1 / 3;
     background: var(--green-dark);
@@ -127,7 +127,7 @@
     line-height: 1.5;
   }
 
-  /* ── Top bar ──────────────────────────────────────────────── */
+  /* ââ Top bar ââââââââââââââââââââââââââââââââââââââââââââââââ */
   .topbar {
     background: var(--surface);
     border-bottom: 0.5px solid var(--border);
@@ -178,14 +178,14 @@
     flex-shrink: 0;
   }
 
-  /* ── Main content ─────────────────────────────────────────── */
+  /* ââ Main content âââââââââââââââââââââââââââââââââââââââââââ */
   .main {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
   }
 
-  /* ── Tabs ─────────────────────────────────────────────────── */
+  /* ââ Tabs âââââââââââââââââââââââââââââââââââââââââââââââââââ */
   .tabs {
     display: flex;
     gap: 0;
@@ -212,7 +212,7 @@
   }
   .tab:hover:not(.active) { color: var(--text-primary); }
 
-  /* ── Tab panel ────────────────────────────────────────────── */
+  /* ââ Tab panel ââââââââââââââââââââââââââââââââââââââââââââââ */
   .panel {
     display: none;
     padding: 24px 28px;
@@ -222,7 +222,7 @@
   .panel.active { display: block; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* ── Section label ────────────────────────────────────────── */
+  /* ââ Section label ââââââââââââââââââââââââââââââââââââââââââ */
   .section-label {
     font-size: 11px;
     text-transform: uppercase;
@@ -231,7 +231,7 @@
     margin-bottom: 12px;
   }
 
-  /* ── Stat grid ────────────────────────────────────────────── */
+  /* ââ Stat grid ââââââââââââââââââââââââââââââââââââââââââââââ */
   .stat-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -249,7 +249,7 @@
   .stat-sub   { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
   .stat-card.flagged .stat-value { color: var(--amber); }
 
-  /* ── Two-col grid ─────────────────────────────────────────── */
+  /* ââ Two-col grid âââââââââââââââââââââââââââââââââââââââââââ */
   .two-col {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
@@ -257,7 +257,7 @@
     margin-bottom: 24px;
   }
 
-  /* ── Card ─────────────────────────────────────────────────── */
+  /* ââ Card âââââââââââââââââââââââââââââââââââââââââââââââââââ */
   .card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -271,7 +271,7 @@
     margin-bottom: 14px;
   }
 
-  /* ── Word frequency bars ──────────────────────────────────── */
+  /* ââ Word frequency bars ââââââââââââââââââââââââââââââââââââ */
   .word-row {
     display: flex;
     align-items: center;
@@ -285,7 +285,7 @@
   .word-bar   { height: 5px; border-radius: 3px; transition: width 0.6s ease; }
   .word-count { font-size: 12px; color: var(--text-tertiary); min-width: 16px; text-align: right; }
 
-  /* ── Adventure pill ───────────────────────────────────────── */
+  /* ââ Adventure pill âââââââââââââââââââââââââââââââââââââââââ */
   .adventure-pill {
     display: inline-flex;
     align-items: center;
@@ -298,7 +298,7 @@
     border: 0.5px solid var(--green-mid);
   }
 
-  /* ── Entry card ───────────────────────────────────────────── */
+  /* ââ Entry card âââââââââââââââââââââââââââââââââââââââââââââ */
   .entry-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -336,7 +336,7 @@
   .entry-private { font-size: 13px; color: var(--text-tertiary); font-style: italic; }
   .entry-pathway { font-size: 11px; color: var(--text-tertiary); margin-top: 8px; }
 
-  /* ── Flag card (session prep) ─────────────────────────────── */
+  /* ââ Flag card (session prep) âââââââââââââââââââââââââââââââ */
   .flag-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -350,7 +350,7 @@
   .flag-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 5px; }
   .flag-sub   { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-  /* ── Entry point rows ─────────────────────────────────────── */
+  /* ââ Entry point rows âââââââââââââââââââââââââââââââââââââââ */
   .entry-point {
     display: flex;
     gap: 12px;
@@ -370,10 +370,10 @@
     margin-top: 1px;
   }
 
-  /* ── Divider ──────────────────────────────────────────────── */
+  /* ââ Divider ââââââââââââââââââââââââââââââââââââââââââââââââ */
   .divider { height: 0.5px; background: var(--border); margin: 20px 0; }
 
-  /* ── Responsive fallback ──────────────────────────────────── */
+  /* ââ Responsive fallback ââââââââââââââââââââââââââââââââââââ */
   @media (max-width: 800px) {
     .app { grid-template-columns: 1fr; }
     .sidebar { display: none; }
@@ -386,10 +386,10 @@
 
 <div class="app">
 
-  <!-- ── Sidebar ─────────────────────────────────────────────── -->
+  <!-- ââ Sidebar âââââââââââââââââââââââââââââââââââââââââââââââ -->
   <aside class="sidebar">
     <div class="sidebar-wordmark">Cypress Mind</div>
-    <div class="sidebar-label">Clients — Journal</div>
+    <div class="sidebar-label">Clients â Journal</div>
 
     <div class="client-item active" onclick="selectClient('jordan')">
       <div class="client-avatar">JM</div>
@@ -406,18 +406,66 @@
     </div>
 
     <div class="sidebar-footer">
-      Reflection Journal<br>
-      Therapist view
+      <button onclick="showInviteModal()" style="
+        display:block; width:100%; padding:9px 14px;
+        background:rgba(255,255,255,0.1); border:0.5px solid rgba(255,255,255,0.2);
+        border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px;
+        color:rgba(255,255,255,0.8); cursor:pointer; text-align:left;
+        margin-bottom:12px; transition:background 0.15s;">
+        + Invite client
+      </button>
+      <div style="font-size:11px; color:rgba(255,255,255,0.3); line-height:1.5;">
+        Reflection Journal<br>Therapist view
+      </div>
     </div>
   </aside>
 
-  <!-- ── Top bar ─────────────────────────────────────────────── -->
+  <!-- ââ Invite client modal âââââââââââââââââââââââââââââââââââ -->
+  <div id="invite-modal" style="
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4);
+    z-index:200; align-items:center; justify-content:center; padding:24px;">
+    <div style="background:white; border-radius:var(--radius-lg); padding:28px;
+      max-width:400px; width:100%; box-shadow:0 8px 32px rgba(0,0,0,0.12);">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+        <h2 style="font-family:'Playfair Display',serif; font-size:20px; font-weight:400;">
+          Invite client to journal
+        </h2>
+        <button onclick="closeInviteModal()" style="background:none;border:none;cursor:pointer;
+          font-size:18px; color:var(--text-tertiary); line-height:1;">â</button>
+      </div>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px;">
+        Enter your client's email. They'll receive a private link to their journal â no password needed.
+      </p>
+      <input type="email" id="invite-email-input" placeholder="client@email.com"
+        style="width:100%; padding:13px 16px; border:0.5px solid var(--border-mid);
+        border-radius:var(--radius-md); font-family:'DM Sans',sans-serif; font-size:14px;
+        background:var(--off-white); outline:none; margin-bottom:10px;"
+        autocomplete="off" />
+      <div id="invite-error" style="font-size:12px; color:#b04040; min-height:18px; margin-bottom:10px;"></div>
+      <button onclick="sendClientInvite()" id="invite-send-btn"
+        style="width:100%; padding:13px; background:var(--green); color:white;
+        border:none; border-radius:var(--radius-md); font-family:'DM Sans',sans-serif;
+        font-size:14px; font-weight:500; cursor:pointer; margin-bottom:10px;">
+        Send invite
+      </button>
+      <div id="invite-sent-msg" style="display:none; font-size:13px; color:var(--green);
+        text-align:center; padding:10px; background:var(--green-light);
+        border-radius:var(--radius-sm); line-height:1.5;">
+        â Invite sent. Your client will receive a sign-in link shortly.
+      </div>
+      <p style="font-size:11px; color:var(--text-tertiary); text-align:center; margin-top:10px; line-height:1.5;">
+        The link is single-use and expires in 1 hour. You can resend at any time.
+      </p>
+    </div>
+  </div>
+
+  <!-- ââ Top bar âââââââââââââââââââââââââââââââââââââââââââââââ -->
   <header class="topbar">
     <div class="topbar-left">
       <div class="topbar-avatar">JM</div>
       <div>
         <div class="topbar-name">Jordan M.</div>
-        <div class="topbar-sub">Reflection Journal · Last entry today</div>
+        <div class="topbar-sub">Reflection Journal Â· Last entry today</div>
       </div>
     </div>
     <div class="privacy-pill">
@@ -426,7 +474,7 @@
     </div>
   </header>
 
-  <!-- ── Main ────────────────────────────────────────────────── -->
+  <!-- ââ Main ââââââââââââââââââââââââââââââââââââââââââââââââââ -->
   <main class="main">
 
     <div class="tabs">
@@ -435,21 +483,21 @@
       <button class="tab" onclick="setTab(2)">Session prep</button>
     </div>
 
-    <!-- ────────────────────────────────────────────────────────
-         TAB 0 — OVERVIEW
-    ──────────────────────────────────────────────────────── -->
+    <!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+         TAB 0 â OVERVIEW
+    ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
     <div class="panel active" id="tab-0">
 
       <div class="stat-grid" id="stat-grid">
-        <div class="stat-card"><div class="stat-label">Last entry</div><div class="stat-value" style="font-size:18px;">—</div></div>
-        <div class="stat-card"><div class="stat-label">Entries this week</div><div class="stat-value">—</div></div>
-        <div class="stat-card"><div class="stat-label">Shared with you</div><div class="stat-value">—</div></div>
-        <div class="stat-card"><div class="stat-label">Flagged for session</div><div class="stat-value">—</div></div>
+        <div class="stat-card"><div class="stat-label">Last entry</div><div class="stat-value" style="font-size:18px;">â</div></div>
+        <div class="stat-card"><div class="stat-label">Entries this week</div><div class="stat-value">â</div></div>
+        <div class="stat-card"><div class="stat-label">Shared with you</div><div class="stat-value">â</div></div>
+        <div class="stat-card"><div class="stat-label">Flagged for session</div><div class="stat-value">â</div></div>
       </div>
 
       <div class="two-col">
         <div class="card">
-          <div class="card-title">Mood family frequency — last 4 weeks</div>
+          <div class="card-title">Mood family frequency â last 4 weeks</div>
           <div style="position:relative; height:180px;">
             <canvas id="moodChart" aria-label="Stacked bar chart of mood family frequency over 4 weeks"></canvas>
           </div>
@@ -478,7 +526,7 @@
         <div class="card">
           <div class="card-title">Top words this week</div>
           <div id="word-bars">
-            <div style="font-size:13px;color:var(--text-tertiary);padding:8px 0;">Loading…</div>
+            <div style="font-size:13px;color:var(--text-tertiary);padding:8px 0;">Loadingâ¦</div>
           </div>
         </div>
       </div>
@@ -490,25 +538,25 @@
 
     </div>
 
-    <!-- ────────────────────────────────────────────────────────
-         TAB 1 — SHARED ENTRIES
-    ──────────────────────────────────────────────────────── -->
+    <!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+         TAB 1 â SHARED ENTRIES
+    ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
     <div class="panel" id="tab-1">
       <div style="font-size:12px; color:var(--text-tertiary); margin-bottom:16px; display:flex; align-items:center; gap:6px;" id="entries-summary-line">
         <div style="width:6px;height:6px;border-radius:50%;background:var(--green-mid);"></div>
-        Loading entries…
+        Loading entriesâ¦
       </div>
       <div id="entries-list">
-        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loading…</div>
+        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loadingâ¦</div>
       </div>
     </div>
 
-    <!-- ────────────────────────────────────────────────────────
-         TAB 2 — SESSION PREP
-    ──────────────────────────────────────────────────────── -->
+    <!-- ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+         TAB 2 â SESSION PREP
+    ââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
     <div class="panel" id="tab-2">
       <div id="session-prep-content">
-        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loading…</div>
+        <div style="font-size:14px;color:var(--text-tertiary);padding:24px 0;text-align:center;">Loadingâ¦</div>
       </div>
     </div>
 
@@ -516,26 +564,100 @@
 </div>
 
 <script>
-/* ── Supabase init ──────────────────────────────────────────
+/* ââ Supabase init ââââââââââââââââââââââââââââââââââââââââââ
    CDN pattern: const { createClient } = supabase
-────────────────────────────────────────────────────────── */
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 const SUPABASE_URL = 'https://vfpxovpwwabisfjjqkpm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_-cIPFr0xt1CfC8fwh0e_ew_Q6LIbcX5';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* ── URL params ───────────────────────────────────────────── */
+/* ââ URL params âââââââââââââââââââââââââââââââââââââââââââ */
 const params = new URLSearchParams(window.location.search);
-let CLIENT_ID = params.get('client_id') || null;
+let CLIENT_ID    = params.get('client_id') || null;
+let THERAPIST_ID = null;  // set from session on auth
 
-/* ── Client roster (mirrors sidebar) ─────────────────────── */
-const CLIENTS = {
-  jordan: { initials: 'JM', name: 'Jordan M.' },
-  alex:   { initials: 'AR', name: 'Alex R.'   },
-  sam:    { initials: 'SC', name: 'Sam C.'    },
-};
+/* ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââ */
+async function init() {
+  // Therapist is already authenticated via the main Cypress Mind dashboard.
+  // Just read the existing session â don't prompt for login here.
+  const { data: { session } } = await db.auth.getSession();
 
-/* ── Word → Plutchik family map (mirrors client.html) ──────── */
+  if (session) {
+    THERAPIST_ID = session.user.id;
+    loadClientData();
+  } else {
+    // Session expired or direct URL access â redirect to main sign-in
+    // TODO: replace with actual sign-in page URL when auth is fully wired
+    window.location.href = '/signin.html';
+  }
+}
+
+init();
+function showInviteModal() {
+  const modal = document.getElementById('invite-modal');
+  modal.style.display = 'flex';
+  document.getElementById('invite-email-input').value = '';
+  document.getElementById('invite-error').textContent  = '';
+  document.getElementById('invite-sent-msg').style.display = 'none';
+  const btn = document.getElementById('invite-send-btn');
+  btn.textContent = 'Send invite';
+  btn.disabled    = false;
+}
+
+function closeInviteModal() {
+  document.getElementById('invite-modal').style.display = 'none';
+}
+
+// Close modal on backdrop click
+document.getElementById('invite-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('invite-modal')) closeInviteModal();
+});
+
+async function sendClientInvite() {
+  const email = document.getElementById('invite-email-input').value.trim();
+  const errEl = document.getElementById('invite-error');
+  const btn   = document.getElementById('invite-send-btn');
+  errEl.textContent = '';
+
+  if (!email || !email.includes('@')) {
+    errEl.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  btn.textContent = 'Sendingâ¦';
+  btn.disabled    = true;
+
+  // Send the client a magic link OTP
+  const { error: otpError } = await db.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo:
+        window.location.origin +
+        '/src/activities/practices/reflection-journal/client.html',
+    }
+  });
+
+  if (otpError) {
+    errEl.textContent = 'Could not send invite. Please try again.';
+    btn.textContent   = 'Send invite';
+    btn.disabled      = false;
+    return;
+  }
+
+  // Record invite in therapist_clients table
+  if (THERAPIST_ID) {
+    await db.from('therapist_clients').upsert({
+      therapist_id: THERAPIST_ID,
+      client_email: email,
+    }, { onConflict: 'therapist_id,client_email' });
+  }
+
+  document.getElementById('invite-sent-msg').style.display = 'block';
+  btn.style.display = 'none';
+}
+
+/* ââ Word â Plutchik family map (mirrors client.html) âââââ */
 const WORD_FAMILY_MAP = {
   // Joy
   content:'joy', peaceful:'joy', grateful:'joy', happy:'joy',
@@ -587,26 +709,26 @@ const WORD_COLORS = {
   anger:'#b55a3a', anticipation:'#b5893a', other:'#888780'
 };
 
-/* ── State ────────────────────────────────────────────────── */
+/* ââ State ââââââââââââââââââââââââââââââââââââââââââââââââ */
 let allEntries = [];
 let chartInstance = null;
 
-/* ── Helpers ──────────────────────────────────────────────── */
+/* ââ Helpers ââââââââââââââââââââââââââââââââââââââââââââââ */
 function formatDate(iso) {
-  if (!iso) return '—';
+  if (!iso) return 'â';
   const d = new Date(iso);
   const now = new Date();
   const diff = Math.floor((now - d) / 86400000);
   const time = d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
   if (diff === 0) return `Today, ${time}`;
   if (diff === 1) return `Yesterday, ${time}`;
-  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }) + ` · ${time}`;
+  return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }) + ` Â· ${time}`;
 }
 
 function formatPathway(e) {
   if (!e.pathway || e.pathway === 'skip') return '';
   if (e.pathway === 'themed' && e.theme)
-    return `Themed · ${e.theme.charAt(0).toUpperCase() + e.theme.slice(1)}`;
+    return `Themed Â· ${e.theme.charAt(0).toUpperCase() + e.theme.slice(1)}`;
   return e.pathway.charAt(0).toUpperCase() + e.pathway.slice(1);
 }
 
@@ -627,27 +749,21 @@ function isThisWeek(iso) {
   return d >= startOfWeek;
 }
 
-/* ── Tab switching ────────────────────────────────────────── */
+/* ââ Tab switching ââââââââââââââââââââââââââââââââââââââââ */
 function setTab(i) {
   document.querySelectorAll('.tab').forEach((t, idx) => t.classList.toggle('active', idx === i));
   document.querySelectorAll('.panel').forEach((p, idx) => p.classList.toggle('active', idx === i));
 }
 
-/* ── Sidebar client switching ─────────────────────────────── */
+/* ââ Sidebar client switching âââââââââââââââââââââââââââââ */
 function selectClient(id) {
   document.querySelectorAll('.client-item').forEach(el => el.classList.remove('active'));
   event.currentTarget.classList.add('active');
   CLIENT_ID = id;
-  const c = CLIENTS[id];
-  if (c) {
-    document.querySelector('.topbar-avatar').textContent = c.initials;
-    document.querySelector('.topbar-name').textContent   = c.name;
-    document.querySelector('.topbar-sub').textContent    = 'Reflection Journal · Loading…';
-  }
   loadClientData();
 }
 
-/* ── Main data load ───────────────────────────────────────── */
+/* ââ Main data load âââââââââââââââââââââââââââââââââââââââ */
 async function loadClientData() {
   if (!CLIENT_ID) return;
 
@@ -676,7 +792,7 @@ async function loadClientData() {
     .subscribe();
 }
 
-/* ── Render: Overview ─────────────────────────────────────── */
+/* ââ Render: Overview âââââââââââââââââââââââââââââââââââââ */
 function renderOverview(entries) {
   const thisWeek   = entries.filter(e => isThisWeek(e.created_at));
   const withMood   = thisWeek.filter(e => e.mood_words && e.mood_words.length > 0);
@@ -684,20 +800,12 @@ function renderOverview(entries) {
   const flagged    = thisWeek.filter(e => e.flagged_for_session);
   const latest     = entries[0];
 
-  // Update topbar subtitle with last-entry date
-  const topbarSub = document.querySelector('.topbar-sub');
-  if (topbarSub) {
-    topbarSub.textContent = latest
-      ? `Reflection Journal · Last entry ${formatDate(latest.created_at).split(',')[0].toLowerCase()}`
-      : 'Reflection Journal · No entries yet';
-  }
-
   // Stat cards
   const grid = document.getElementById('stat-grid');
   grid.innerHTML = `
     <div class="stat-card">
       <div class="stat-label">Last entry</div>
-      <div class="stat-value" style="font-size:18px;">${latest ? formatDate(latest.created_at).split(',')[0] : '—'}</div>
+      <div class="stat-value" style="font-size:18px;">${latest ? formatDate(latest.created_at).split(',')[0] : 'â'}</div>
       <div class="stat-sub">${latest ? formatDate(latest.created_at).split(', ')[1] || '' : ''}</div>
     </div>
     <div class="stat-card">
@@ -793,14 +901,14 @@ function renderOverview(entries) {
     }
   });
 
-  // Adventure activity — query session_activity for this client
+  // Adventure activity â query session_activity for this client
   // TODO: join session_activity when adventures are integrated
   // For now show placeholder
   document.getElementById('adventure-card').innerHTML =
     `<span style="font-size:13px;color:var(--text-tertiary);">Adventure data loads from session_activity table. Wire after adventures integration.</span>`;
 }
 
-/* ── Render: Shared entries ───────────────────────────────── */
+/* ââ Render: Shared entries âââââââââââââââââââââââââââââââ */
 function renderEntries(entries) {
   const thisWeek = entries.filter(e => isThisWeek(e.created_at));
   const sharedCount  = thisWeek.filter(e => e.shared || e.flagged_for_session).length;
@@ -808,7 +916,7 @@ function renderEntries(entries) {
 
   document.getElementById('entries-summary-line').innerHTML = `
     <div style="width:6px;height:6px;border-radius:50%;background:var(--green-mid);"></div>
-    ${thisWeek.length} entries this week · ${sharedCount} shared or flagged · ${privateCount} private — private entries show mood check-in only`;
+    ${thisWeek.length} entries this week Â· ${sharedCount} shared or flagged Â· ${privateCount} private â private entries show mood check-in only`;
 
   if (!entries.length) {
     document.getElementById('entries-list').innerHTML =
@@ -822,8 +930,8 @@ function renderEntries(entries) {
     return `<div class="entry-card">
       <div class="entry-meta">
         <span class="entry-date">${formatDate(e.created_at)}</span>
-        ${e.flagged_for_session ? '<span class="entry-badge badge-flagged">⚑ I want to talk about this</span>' : ''}
-        ${e.shared && !e.flagged_for_session ? '<span class="entry-badge badge-shared">↗ Shared</span>' : ''}
+        ${e.flagged_for_session ? '<span class="entry-badge badge-flagged">â I want to talk about this</span>' : ''}
+        ${e.shared && !e.flagged_for_session ? '<span class="entry-badge badge-shared">â Shared</span>' : ''}
         ${!e.shared && !e.flagged_for_session ? '<span class="entry-badge badge-private">Private</span>' : ''}
       </div>
       ${(e.mood_words && e.mood_words.length) ? `
@@ -838,7 +946,7 @@ function renderEntries(entries) {
   }).join('');
 }
 
-/* ── Render: Session prep ─────────────────────────────────── */
+/* ââ Render: Session prep âââââââââââââââââââââââââââââââââ */
 function renderSessionPrep(entries) {
   const thisWeek = entries.filter(e => isThisWeek(e.created_at));
   const flagged  = entries.filter(e => e.flagged_for_session);
@@ -862,14 +970,14 @@ function renderSessionPrep(entries) {
   // Suggested entry points (rule-based)
   const entryPoints = [];
   if (flagged.length > 0) {
-    const excerpt = flagged[0].entry_text ? flagged[0].entry_text.slice(0,80) + '…' : 'flagged entry';
+    const excerpt = flagged[0].entry_text ? flagged[0].entry_text.slice(0,80) + 'â¦' : 'flagged entry';
     entryPoints.push(`What the client flagged: "${excerpt}"`);
   }
   if (topWords.length >= 2) {
-    entryPoints.push(`The co-occurrence of "${topWords[0][0]}" and "${topWords[1][0]}" this week — what's connecting them`);
+    entryPoints.push(`The co-occurrence of "${topWords[0][0]}" and "${topWords[1][0]}" this week â what's connecting them`);
   }
   if (topFamilies.length > 0) {
-    entryPoints.push(`The ${topFamilies[0]} family has been most present this week — where it's showing up and what it's connected to`);
+    entryPoints.push(`The ${topFamilies[0]} family has been most present this week â where it's showing up and what it's connected to`);
   }
 
   const el = document.getElementById('session-prep-content');
@@ -877,8 +985,8 @@ function renderSessionPrep(entries) {
     <div class="section-label" style="margin-bottom:12px;">Flagged for discussion</div>
     ${flagged.length ? flagged.map(e => `
       <div class="flag-card">
-        <div class="flag-title">"I want to talk about this" — ${formatDate(e.created_at)}</div>
-        ${e.entry_text ? `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">"${e.entry_text.slice(0,120)}…"</div>` : ''}
+        <div class="flag-title">"I want to talk about this" â ${formatDate(e.created_at)}</div>
+        ${e.entry_text ? `<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px;">"${e.entry_text.slice(0,120)}â¦"</div>` : ''}
         <div class="mood-chips">${(e.mood_words||[]).map(m=>`<span class="mood-chip">${m}</span>`).join('')}</div>
       </div>`).join('') :
       '<p style="font-size:13px;color:var(--text-tertiary);margin-bottom:16px;">Nothing flagged this week.</p>'
@@ -890,7 +998,7 @@ function renderSessionPrep(entries) {
     ${topWords.length ? `
       <div class="flag-card green">
         <div class="flag-title">${topFamilies.map(f=>f.charAt(0).toUpperCase()+f.slice(1)).join(' + ')} ${topFamilies.length > 1 ? 'families' : 'family'} dominant</div>
-        <div class="flag-sub">${topWords.map(([w,c])=>`${w} (${c}×)`).join(', ')}</div>
+        <div class="flag-sub">${topWords.map(([w,c])=>`${w} (${c}Ã)`).join(', ')}</div>
       </div>` :
       '<p style="font-size:13px;color:var(--text-tertiary);margin-bottom:16px;">No mood data this week.</p>'
     }
@@ -909,8 +1017,23 @@ function renderSessionPrep(entries) {
     </p>`;
 }
 
-/* ── Init ─────────────────────────────────────────────────── */
-loadClientData();
+/* ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââ */
+async function init() {
+  // Therapist is already authenticated via the main Cypress Mind dashboard.
+  // Just read the existing Supabase session â no separate login here.
+  const { data: { session } } = await db.auth.getSession();
+
+  if (session) {
+    THERAPIST_ID = session.user.id;
+    loadClientData();
+  } else {
+    // Session expired or direct URL access â redirect to main sign-in
+    // TODO: update path when sign-in page is deployed
+    window.location.href = '/signin.html';
+  }
+}
+
+init();
 </script>
 </body>
 </html>

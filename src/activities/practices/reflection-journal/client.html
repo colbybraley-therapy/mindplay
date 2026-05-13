@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reflection Journal — Cypress Mind</title>
+<title>Reflection Journal â Cypress Mind</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-  /* ── Reset & base ─────────────────────────────────────────── */
+  /* ââ Reset & base âââââââââââââââââââââââââââââââââââââââââââ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -43,7 +43,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Screen system ────────────────────────────────────────── */
+  /* ââ Screen system ââââââââââââââââââââââââââââââââââââââââââ */
   .screen {
     display: none;
     flex-direction: column;
@@ -69,7 +69,7 @@
     flex-direction: column;
   }
 
-  /* ── Header ───────────────────────────────────────────────── */
+  /* ââ Header âââââââââââââââââââââââââââââââââââââââââââââââââ */
   .top-bar {
     display: flex;
     align-items: center;
@@ -99,7 +99,7 @@
   }
   .top-btn:hover { color: var(--green); }
 
-  /* ── Typography ───────────────────────────────────────────── */
+  /* ââ Typography âââââââââââââââââââââââââââââââââââââââââââââ */
   h1 {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
@@ -130,7 +130,7 @@
     margin-bottom: 16px;
   }
 
-  /* ── Buttons ──────────────────────────────────────────────── */
+  /* ââ Buttons ââââââââââââââââââââââââââââââââââââââââââââââââ */
   .btn-primary {
     display: block;
     width: 100%;
@@ -181,7 +181,7 @@
 
   .btn-stack { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding-top: 24px; }
 
-  /* ── Cards ────────────────────────────────────────────────── */
+  /* ââ Cards ââââââââââââââââââââââââââââââââââââââââââââââââââ */
   .card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -189,7 +189,7 @@
     padding: 18px 20px;
   }
 
-  /* ── Mood check-in ────────────────────────────────────────── */
+  /* ââ Mood check-in ââââââââââââââââââââââââââââââââââââââââââ */
   .family-tabs {
     display: flex;
     gap: 6px;
@@ -297,7 +297,7 @@
   }
   .add-own-btn:hover { background: var(--green); color: white; }
 
-  /* ── Pathway cards ────────────────────────────────────────── */
+  /* ââ Pathway cards ââââââââââââââââââââââââââââââââââââââââââ */
   .pathway-card {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -330,7 +330,7 @@
   }
   .pathway-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
 
-  /* ── Adventure bridge card ────────────────────────────────── */
+  /* ââ Adventure bridge card ââââââââââââââââââââââââââââââââââ */
   .bridge-card {
     background: var(--surface);
     border: 0.5px solid var(--green-mid);
@@ -373,7 +373,7 @@
     width: 100%;
   }
 
-  /* ── Writing area ─────────────────────────────────────────── */
+  /* ââ Writing area âââââââââââââââââââââââââââââââââââââââââââ */
   .prompt-display {
     font-family: 'Playfair Display', serif;
     font-size: 17px;
@@ -412,7 +412,7 @@
     margin-bottom: 20px;
   }
 
-  /* ── Affirmation / save ───────────────────────────────────── */
+  /* ââ Affirmation / save âââââââââââââââââââââââââââââââââââââ */
   .affirmation {
     font-family: 'Playfair Display', serif;
     font-size: 26px;
@@ -466,7 +466,7 @@
     border-color: var(--green);
   }
 
-  /* ── Past entries ─────────────────────────────────────────── */
+  /* ââ Past entries âââââââââââââââââââââââââââââââââââââââââââ */
   .entry-item {
     background: var(--surface);
     border: 0.5px solid var(--border);
@@ -502,7 +502,7 @@
   .entry-excerpt { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
   .entry-pathway { font-size: 11px; color: var(--text-tertiary); margin-top: 8px; }
 
-  /* ── Privacy notice ───────────────────────────────────────── */
+  /* ââ Privacy notice âââââââââââââââââââââââââââââââââââââââââ */
   .privacy-line {
     display: flex;
     align-items: center;
@@ -519,10 +519,45 @@
     flex-shrink: 0;
   }
 
-  /* ── Divider ──────────────────────────────────────────────── */
+  /* ââ Divider ââââââââââââââââââââââââââââââââââââââââââââââââ */
   .divider { height: 0.5px; background: var(--border); margin: 20px 0; }
 
-  /* ── Guided prompts (multi) ───────────────────────────────── */
+  /* ââ Auth screen ââââââââââââââââââââââââââââââââââââââââââââ */
+  .auth-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 0.5px solid var(--border-mid);
+    border-radius: var(--radius-md);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    background: var(--surface);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 12px;
+  }
+  .auth-input:focus { border-color: var(--green); }
+  .auth-input::placeholder { color: var(--text-tertiary); }
+  .auth-error {
+    font-size: 13px;
+    color: #b04040;
+    text-align: center;
+    min-height: 20px;
+    margin-bottom: 8px;
+  }
+  .auth-sent-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 20px;
+  }
+
+  /* ââ Guided prompts (multi) âââââââââââââââââââââââââââââââââ */
   .prompt-set {
     display: flex;
     flex-direction: column;
@@ -554,14 +589,62 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 1 — WELCOME
-═══════════════════════════════════════════════════════════ -->
-<div id="screen-welcome" class="screen active">
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 0 â AUTH (magic link)
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+<div id="screen-auth" class="screen active">
+  <div class="top-bar">
+    <span class="wordmark">Cypress Mind</span>
+  </div>
+  <div class="screen-inner" style="justify-content:center;">
+
+    <!-- Email input state -->
+    <div id="auth-form">
+      <div class="eyebrow">Reflection Journal</div>
+      <h1 style="font-size:26px; margin-bottom:10px;">Access your journal</h1>
+      <p class="sub">Enter the email address your therapist used to invite you. We'll send you a sign-in link.</p>
+      <input
+        class="auth-input"
+        type="email"
+        id="auth-email"
+        placeholder="your@email.com"
+        autocomplete="email"
+      />
+      <div class="auth-error" id="auth-error"></div>
+      <button class="btn-primary" id="auth-submit-btn" onclick="sendMagicLink()">
+        Send me a link
+      </button>
+      <div style="margin-top:16px; text-align:center;">
+        <span style="font-size:12px; color:var(--text-tertiary);">
+          First time? Your therapist will have shared this link with you.
+        </span>
+      </div>
+    </div>
+
+    <!-- Check email state -->
+    <div id="auth-sent" style="display:none; text-align:center;">
+      <div class="auth-sent-icon">â</div>
+      <h2 style="margin-bottom:10px;">Check your email</h2>
+      <p class="sub">We sent a sign-in link to <strong id="auth-sent-email"></strong>.</p>
+      <p style="font-size:13px; color:var(--text-tertiary); line-height:1.6;">
+        The link expires in 1 hour. You can close this tab and open the link from any device.
+      </p>
+      <button class="btn-text" style="margin-top:24px;" onclick="resetAuthForm()">
+        Use a different email
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 1 â WELCOME
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+<div id="screen-welcome" class="screen">
   <div class="top-bar">
     <span class="wordmark">Cypress Mind</span>
     <button class="top-btn" onclick="showScreen('screen-entries')">
-      Past entries →
+      Past entries â
     </button>
   </div>
   <div class="screen-inner">
@@ -580,22 +663,22 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 2 — MOOD CHECK-IN
-═══════════════════════════════════════════════════════════ -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 2 â MOOD CHECK-IN
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <div id="screen-moodcheckin" class="screen">
   <div class="top-bar">
-    <button class="top-btn" onclick="showScreen('screen-welcome')">← Back</button>
+    <button class="top-btn" onclick="showScreen('screen-welcome')">â Back</button>
   </div>
   <div class="screen-inner">
 
     <div class="todo-banner">
-      ⚠️ TODO: Stub library — currently 3 families (Joy, Fear, Sadness). Expand to all 8 families + Other tab before launch. Full 84-word library in Phase 1 content artifacts.
+      â ï¸ TODO: Stub library â currently 3 families (Joy, Fear, Sadness). Expand to all 8 families + Other tab before launch. Full 84-word library in Phase 1 content artifacts.
     </div>
 
     <div class="eyebrow">Mood check-in</div>
     <h2>How are you feeling right now?</h2>
-    <p class="sub" style="margin-bottom:16px;">Pick as many as feel true — or just one.</p>
+    <p class="sub" style="margin-bottom:16px;">Pick as many as feel true â or just one.</p>
 
     <div class="selected-summary" id="selected-summary">
       <span class="selected-summary-empty" id="summary-empty">Nothing selected yet</span>
@@ -617,46 +700,46 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 3 — PATHWAY PICKER
-═══════════════════════════════════════════════════════════ -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 3 â PATHWAY PICKER
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <div id="screen-pathways" class="screen">
   <div class="top-bar">
-    <button class="top-btn" onclick="showScreen('screen-moodcheckin')">← Back</button>
+    <button class="top-btn" onclick="showScreen('screen-moodcheckin')">â Back</button>
   </div>
   <div class="screen-inner">
     <div class="eyebrow">How would you like to write?</div>
     <h2 id="pathway-greeting">Got it.</h2>
-    <p class="sub">Now — how do you want to write today?</p>
+    <p class="sub">Now â how do you want to write today?</p>
 
     <!-- Adventure bridge card (hidden by default, shown if session match) -->
     <div id="bridge-card" style="display:none;">
       <div class="bridge-card">
         <span class="bridge-text" id="bridge-text">You explored boundaries in Willowmere today. Want to keep going?</span>
-        <button class="bridge-cta" onclick="chooseBridgeTheme()">Write about it →</button>
+        <button class="bridge-cta" onclick="chooseBridgeTheme()">Write about it â</button>
       </div>
       <button class="bridge-dismiss" onclick="dismissBridge()">Maybe later</button>
     </div>
 
     <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:auto;">
       <div class="pathway-card" onclick="choosePathway('guided')">
-        <div class="pathway-icon">✦</div>
+        <div class="pathway-icon">â¦</div>
         <div class="pathway-info">
           <div class="pathway-title">Guided</div>
-          <div class="pathway-desc">A question to write toward. We'll offer a prompt — you take it wherever it leads.</div>
+          <div class="pathway-desc">A question to write toward. We'll offer a prompt â you take it wherever it leads.</div>
         </div>
       </div>
 
       <div class="pathway-card" onclick="choosePathway('themed')">
-        <div class="pathway-icon">◎</div>
+        <div class="pathway-icon">â</div>
         <div class="pathway-info">
           <div class="pathway-title">Themed</div>
-          <div class="pathway-desc">A topic that matters to you — boundaries, relationships, identity, and more.</div>
+          <div class="pathway-desc">A topic that matters to you â boundaries, relationships, identity, and more.</div>
         </div>
       </div>
 
       <div class="pathway-card" onclick="choosePathway('free')">
-        <div class="pathway-icon">○</div>
+        <div class="pathway-icon">â</div>
         <div class="pathway-info">
           <div class="pathway-title">Free</div>
           <div class="pathway-desc">No prompt, no direction. Just you and the page.</div>
@@ -665,17 +748,17 @@
     </div>
 
     <div class="btn-stack">
-      <button class="btn-text" onclick="choosePathway('skip')">Not today — <span style="font-size:12px;">your check-in is still saved</span></button>
+      <button class="btn-text" onclick="choosePathway('skip')">Not today â <span style="font-size:12px;">your check-in is still saved</span></button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 3b — THEME PICKER (for Themed pathway)
-═══════════════════════════════════════════════════════════ -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 3b â THEME PICKER (for Themed pathway)
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <div id="screen-themes" class="screen">
   <div class="top-bar">
-    <button class="top-btn" onclick="showScreen('screen-pathways')">← Back</button>
+    <button class="top-btn" onclick="showScreen('screen-pathways')">â Back</button>
   </div>
   <div class="screen-inner">
     <div class="eyebrow">Choose a theme</div>
@@ -684,7 +767,7 @@
 
     <div style="display:flex; flex-direction:column; gap:10px;">
       <div class="pathway-card" onclick="chooseTheme('boundaries')">
-        <div class="pathway-icon">⬡</div>
+        <div class="pathway-icon">â¬¡</div>
         <div class="pathway-info">
           <div class="pathway-title">Boundaries</div>
           <div class="pathway-desc">What feels like too much, what feels safe, and what you're figuring out.</div>
@@ -692,7 +775,7 @@
       </div>
       <!-- TODO: Add more themes as they're built (self-worth, friendships, family) -->
       <div class="pathway-card" style="opacity:0.4; cursor:default;">
-        <div class="pathway-icon" style="opacity:0.5;">○</div>
+        <div class="pathway-icon" style="opacity:0.5;">â</div>
         <div class="pathway-info">
           <div class="pathway-title" style="color:var(--text-tertiary);">More themes coming</div>
           <div class="pathway-desc">Self-worth, friendships, family, and more.</div>
@@ -702,12 +785,12 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 4 — WRITING
-═══════════════════════════════════════════════════════════ -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 4 â WRITING
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <div id="screen-writing" class="screen">
   <div class="top-bar">
-    <button class="top-btn" onclick="showScreen('screen-pathways')">← Back</button>
+    <button class="top-btn" onclick="showScreen('screen-pathways')">â Back</button>
     <span style="font-size:12px; color:var(--text-tertiary);" id="write-pathway-label"></span>
   </div>
   <div class="screen-inner" style="padding-bottom:24px;">
@@ -715,7 +798,7 @@
     <textarea
       class="write-area"
       id="write-area"
-      placeholder="Start anywhere…"
+      placeholder="Start anywhereâ¦"
       oninput="updateWordCount()"
     ></textarea>
     <div class="word-count-label" id="word-count">0 words</div>
@@ -723,9 +806,9 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 5 — SAVE / AFFIRMATION
-═══════════════════════════════════════════════════════════ -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 5 â SAVE / AFFIRMATION
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <div id="screen-save" class="screen">
   <div class="top-bar">
     <span class="wordmark">Cypress Mind</span>
@@ -737,7 +820,7 @@
 
       <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
         <div class="share-option" id="share-opt-therapist" onclick="toggleShare('therapist')">
-          <div class="share-option-icon">↗</div>
+          <div class="share-option-icon">â</div>
           <div class="share-option-text">
             <div class="share-option-title">Share with my therapist</div>
             <div class="share-option-sub">They'll be able to read this entry.</div>
@@ -746,7 +829,7 @@
         </div>
 
         <div class="share-option" id="share-opt-flag" onclick="toggleShare('flag')">
-          <div class="share-option-icon">⚑</div>
+          <div class="share-option-icon">â</div>
           <div class="share-option-text">
             <div class="share-option-title">I want to talk about this</div>
             <div class="share-option-sub">Flagged for your next session.</div>
@@ -755,7 +838,7 @@
         </div>
 
         <div class="share-option" id="share-opt-week" onclick="toggleShare('week')">
-          <div class="share-option-icon">◷</div>
+          <div class="share-option-icon">â·</div>
           <div class="share-option-text">
             <div class="share-option-title">Share my week with my therapist</div>
             <div class="share-option-sub">A summary of this week's entries.</div>
@@ -771,12 +854,12 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 6 — PAST ENTRIES
-═══════════════════════════════════════════════════════════ -->
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 6 â PAST ENTRIES
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <div id="screen-entries" class="screen">
   <div class="top-bar">
-    <button class="top-btn" onclick="showScreen('screen-welcome')">← Back</button>
+    <button class="top-btn" onclick="showScreen('screen-welcome')">â Back</button>
     <span class="wordmark">Cypress Mind</span>
   </div>
   <div class="screen-inner">
@@ -787,87 +870,37 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SCREEN 7 — ENTRY DETAIL
-═══════════════════════════════════════════════════════════ -->
-<div id="screen-entry-detail" class="screen">
-  <div class="top-bar">
-    <button class="top-btn" onclick="showScreen('screen-entries')">← Back</button>
-    <span class="top-btn" id="detail-pathway-label" style="cursor:default;"></span>
-  </div>
-  <div class="screen-inner">
 
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
-      <span class="eyebrow" style="margin-bottom:0;" id="detail-date"></span>
-      <span class="entry-badge" id="detail-badge"></span>
-    </div>
-
-    <div class="entry-mood-chips" id="detail-mood-chips" style="margin-bottom:16px;"></div>
-
-    <div id="detail-prompts" style="display:none; margin-bottom:14px;"></div>
-
-    <div id="detail-text"
-      style="font-size:15px; color:var(--text-primary); line-height:1.8; white-space:pre-wrap; flex:1; margin-bottom:24px;">
-    </div>
-
-    <!-- Share options — hidden if entry already shared/flagged -->
-    <div id="detail-share-section">
-      <div class="divider"></div>
-      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">Want to do anything with this entry?</p>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <div class="share-option" id="detail-opt-therapist" onclick="detailToggleShare('therapist')">
-          <div class="share-option-icon">↗</div>
-          <div class="share-option-text">
-            <div class="share-option-title">Share with my therapist</div>
-            <div class="share-option-sub">They'll be able to read this entry.</div>
-          </div>
-          <div class="share-option-check" id="detail-check-therapist"></div>
-        </div>
-        <div class="share-option" id="detail-opt-flag" onclick="detailToggleShare('flag')">
-          <div class="share-option-icon">⚑</div>
-          <div class="share-option-text">
-            <div class="share-option-title">I want to talk about this</div>
-            <div class="share-option-sub">Flagged for your next session.</div>
-          </div>
-          <div class="share-option-check" id="detail-check-flag"></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- ═══════════════════════════════════════════════════════════
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
      JAVASCRIPT
-═══════════════════════════════════════════════════════════ -->
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
 <script>
-/* ── Supabase init ──────────────────────────────────────────
+/* ââ Supabase init ââââââââââââââââââââââââââââââââââââââââââ
    CDN pattern: always use const { createClient } = supabase
-   NOT supabase.createClient() — that fails in browser CDN.
-────────────────────────────────────────────────────────── */
+   NOT supabase.createClient() â that fails in browser CDN.
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 const SUPABASE_URL = 'https://vfpxovpwwabisfjjqkpm.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_-cIPFr0xt1CfC8fwh0e_ew_Q6LIbcX5';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-/* ── URL params (session context) ─────────────────────────── */
+/* ââ URL params (session context) âââââââââââââââââââââââââââ */
 const params = new URLSearchParams(window.location.search);
 const SESSION_ID  = params.get('session_id')  || null;
-const CLIENT_ID   = params.get('client_id')   || 'demo';
-const ADVENTURE   = params.get('adventure')   || null;   // e.g. 'willowmere'
-const THEME_TAG   = params.get('theme')       || null;   // e.g. 'boundaries'
+let   CLIENT_ID   = params.get('client_id')   || null;  // overridden by auth.uid() on login
+const ADVENTURE   = params.get('adventure')   || null;
+const THEME_TAG   = params.get('theme')       || null;
 
-/* ─────────────────────────────────────────────────────────────
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    PLUTCHIK WORD LIBRARY
-   ──────────────────────────────────────────────────────────
+   ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    TODO: Expand to full 84-word library before launch.
    Full library (8 families + Other) is in Phase 1 content
    design artifacts. Currently stubbed to 3 families.
 
    Structure per word: { word, intensity (1-3), stretch? }
    Intensity: 1 = low, 2 = mid, 3 = high
-───────────────────────────────────────────────────────────── */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 const WORD_LIBRARY = {
   all: null, // computed below
   joy: {
@@ -901,7 +934,7 @@ const WORD_LIBRARY = {
     ]
   }
   /*
-  TODO — add remaining families:
+  TODO â add remaining families:
   trust, surprise, disgust, anger, anticipation, other
   */
 };
@@ -913,13 +946,13 @@ WORD_LIBRARY.all = {
     .flatMap(([, v]) => v.words)
 };
 
-/* ── Guided prompts — tagged by mood family ───────────────────
+/* ââ Guided prompts â tagged by mood family âââââââââââââââââââ
    families: which Plutchik families this prompt fits best.
    'all' = always eligible regardless of mood selection.
    Scoring: prompts are ranked by how many selected words'
    families appear in the prompt's families array.
    Highest scorer wins; ties broken randomly.
-────────────────────────────────────────────────────────────── */
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 const GUIDED_PROMPTS = [
   {
     text: "Where do you notice your feelings most in your body right now?",
@@ -942,7 +975,7 @@ const GUIDED_PROMPTS = [
     families: ['sadness', 'trust', 'joy']
   },
   {
-    text: "What's something you're hoping for — even a small thing?",
+    text: "What's something you're hoping for â even a small thing?",
     families: ['sadness', 'fear', 'anticipation']
   },
   {
@@ -962,7 +995,7 @@ const GUIDED_PROMPTS = [
     families: ['trust', 'anger', 'sadness', 'anticipation']
   },
   {
-    text: "What does it feel like when something is going right — even a small thing?",
+    text: "What does it feel like when something is going right â even a small thing?",
     families: ['joy', 'trust', 'anticipation']
   },
   {
@@ -971,14 +1004,14 @@ const GUIDED_PROMPTS = [
   }
 ];
 
-/* ── Build a word → family reverse lookup ─────────────────── */
+/* ââ Build a word â family reverse lookup âââââââââââââââââââ */
 const WORD_FAMILY_MAP = {};
 Object.entries(WORD_LIBRARY).forEach(([family, data]) => {
   if (family === 'all') return;
   data.words.forEach(w => { WORD_FAMILY_MAP[w.word] = family; });
 });
 
-/* ── Pick top 3 mood-matched prompts ──────────────────────── */
+/* ââ Pick top 3 mood-matched prompts ââââââââââââââââââââââââ */
 function getPromptsForMoods() {
   const selectedFamilies = new Set(
     state.selectedWords.map(w => WORD_FAMILY_MAP[w]).filter(Boolean)
@@ -997,20 +1030,20 @@ function getPromptsForMoods() {
   return scored.slice(0, 3).map(s => s.prompt.text);
 }
 
-/* ── Themed prompts ─────────────────────────────────────────── */
+/* ââ Themed prompts âââââââââââââââââââââââââââââââââââââââââââ */
 const THEMED_PROMPTS = {
   boundaries: [
-    "Is there something in your life right now that feels like too much — something you wish you could say no to but haven't?",
+    "Is there something in your life right now that feels like too much â something you wish you could say no to but haven't?",
     "When did you last feel uncomfortable about something someone asked of you? What happened?",
     "Is there something you keep doing even though part of you doesn't want to? What keeps you doing it?",
-    "What does it feel like in your body when something crosses a line for you — even before your brain figures it out?",
+    "What does it feel like in your body when something crosses a line for you â even before your brain figures it out?",
     "Think about someone you feel comfortable around. What is it about them that makes it feel safe to be yourself?",
-    "Have you ever said yes to something and felt worse afterward — not because of what you did, but because you didn't really want to do it?",
+    "Have you ever said yes to something and felt worse afterward â not because of what you did, but because you didn't really want to do it?",
     "If there's one thing you wish you could change about how you handle a situation with someone in your life, what would it be?"
   ]
 };
 
-/* ── Affirmations (rotated randomly) ─────────────────────── */
+/* ââ Affirmations (rotated randomly) âââââââââââââââââââââââ */
 const AFFIRMATIONS = [
   "Saved.",
   "Written and kept.",
@@ -1020,7 +1053,7 @@ const AFFIRMATIONS = [
   "Saved. Come back whenever."
 ];
 
-/* ── App state ────────────────────────────────────────────── */
+/* ââ App state ââââââââââââââââââââââââââââââââââââââââââââââ */
 let state = {
   selectedWords:    [],
   customWords:      [],
@@ -1035,12 +1068,12 @@ let state = {
   activeFamily:     'all',
 };
 
-/* ── Entry cache — populated by loadEntries() ─────────────── */
+/* ââ Entry cache â populated by loadEntries() âââââââââââââââ */
 let ENTRIES_CACHE = [];
 
-/* ══════════════════════════════════════════════════════════
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    SCREEN NAVIGATION
-══════════════════════════════════════════════════════════ */
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => {
     s.classList.remove('active');
@@ -1056,9 +1089,9 @@ function showScreen(id) {
   if (id === 'screen-entries')     renderEntries();
 }
 
-/* ══════════════════════════════════════════════════════════
-   SCREEN 2 — MOOD CHECK-IN
-══════════════════════════════════════════════════════════ */
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SCREEN 2 â MOOD CHECK-IN
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function setupMoodCheckin() {
   renderFamilyTabs();
   renderWords();
@@ -1148,9 +1181,9 @@ function skipMoodCheckin() {
   showScreen('screen-pathways');
 }
 
-/* ══════════════════════════════════════════════════════════
-   SCREEN 3 — PATHWAY PICKER
-══════════════════════════════════════════════════════════ */
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SCREEN 3 â PATHWAY PICKER
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function setupPathways() {
   // Set greeting based on mood selection
   const greeting = state.selectedWords.length > 0 ? 'Got it.' : 'Let\'s write.';
@@ -1175,11 +1208,10 @@ function chooseBridgeTheme() {
   showScreen('screen-writing');
 }
 
-// Fix #5: removed dead getElementById('bridge-dismiss') — button has a class, not an ID,
-// and hiding bridge-card already hides everything inside it.
 function dismissBridge() {
   state.bridgeDismissed = true;
   document.getElementById('bridge-card').style.display = 'none';
+  document.getElementById('bridge-dismiss') && (document.getElementById('bridge-dismiss').style.display = 'none');
 }
 
 function choosePathway(pathway) {
@@ -1219,9 +1251,9 @@ function loadThemePrompt(theme) {
   setupWritingScreen();
 }
 
-/* ══════════════════════════════════════════════════════════
-   SCREEN 4 — WRITING
-══════════════════════════════════════════════════════════ */
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SCREEN 4 â WRITING
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function setupWritingScreen() {
   const promptSetEl = document.getElementById('prompt-set');
   const labelEl     = document.getElementById('write-pathway-label');
@@ -1242,7 +1274,7 @@ function setupWritingScreen() {
     promptSetEl.style.display = 'none';
   }
 
-  const labels = { guided: 'Guided', themed: 'Themed · ' + (state.theme || ''), free: 'Free' };
+  const labels = { guided: 'Guided', themed: 'Themed Â· ' + (state.theme || ''), free: 'Free' };
   labelEl.textContent = labels[state.pathway] || '';
 }
 
@@ -1257,9 +1289,9 @@ function saveEntry() {
   showSaveScreen();
 }
 
-/* ══════════════════════════════════════════════════════════
-   SCREEN 5 — SAVE / AFFIRMATION
-══════════════════════════════════════════════════════════ */
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SCREEN 5 â SAVE / AFFIRMATION
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function showSaveScreen() {
   // Reset share state
   state.shared    = false;
@@ -1289,7 +1321,7 @@ function toggleShare(type) {
 
   if (state[mapping[type]]) {
     el.classList.add('selected');
-    chk.textContent = '✓';
+    chk.textContent = 'â';
   } else {
     el.classList.remove('selected');
     chk.textContent = '';
@@ -1297,6 +1329,10 @@ function toggleShare(type) {
 }
 
 async function finalizeAndReturn() {
+  const pathwayLabel = state.theme
+    ? `themed Â· ${state.theme}`
+    : state.pathway;
+
   const { error } = await db.from('journal_entries').insert({
     client_id:           CLIENT_ID,
     session_id:          SESSION_ID,
@@ -1312,9 +1348,8 @@ async function finalizeAndReturn() {
 
   if (error) console.error('Error saving entry:', error);
 
-  // Fix #3: reset customWords alongside all other state
+  // Reset state for next entry
   state.selectedWords   = [];
-  state.customWords     = [];
   state.pathway         = null;
   state.theme           = null;
   state.prompt          = null;
@@ -1349,18 +1384,18 @@ function formatEntryDate(isoString) {
   const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   if (days === 0) return `Today, ${time}`;
   if (days === 1) return `Yesterday, ${time}`;
-  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ` · ${time}`;
+  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ` Â· ${time}`;
 }
 
 function formatPathwayLabel(entry) {
   if (!entry.pathway || entry.pathway === 'skip') return '';
-  if (entry.pathway === 'themed' && entry.theme) return `Themed · ${entry.theme}`;
+  if (entry.pathway === 'themed' && entry.theme) return `Themed Â· ${entry.theme}`;
   return entry.pathway.charAt(0).toUpperCase() + entry.pathway.slice(1);
 }
 
 async function renderEntries() {
   const el = document.getElementById('entries-list');
-  el.innerHTML = '<p style="font-size:14px; color:var(--text-tertiary); text-align:center; padding:24px 0;">Loading…</p>';
+  el.innerHTML = '<p style="font-size:14px; color:var(--text-tertiary); text-align:center; padding:24px 0;">Loadingâ¦</p>';
 
   const { data, error } = await db
     .from('journal_entries')
@@ -1377,18 +1412,18 @@ async function renderEntries() {
   ENTRIES_CACHE = data || [];
 
   if (!ENTRIES_CACHE.length) {
-    el.innerHTML = '<p style="font-size:14px; color:var(--text-tertiary); text-align:center; padding:24px 0;">Nothing yet — your first entry will live here.</p>';
+    el.innerHTML = '<p style="font-size:14px; color:var(--text-tertiary); text-align:center; padding:24px 0;">Nothing yet â your first entry will live here.</p>';
     return;
   }
 
   el.innerHTML = ENTRIES_CACHE.map(e => {
-    const excerpt = e.entry_text ? e.entry_text.slice(0, 120) + (e.entry_text.length > 120 ? '…' : '') : null;
+    const excerpt = e.entry_text ? e.entry_text.slice(0, 120) + (e.entry_text.length > 120 ? 'â¦' : '') : null;
     return `
       <div class="entry-item" onclick="openEntry('${e.id}')">
         <div class="entry-meta-row">
           <span class="entry-date">${formatEntryDate(e.created_at)}</span>
           <span class="entry-badge ${e.flagged_for_session ? 'badge-flagged' : e.shared ? 'badge-shared' : ''}">
-            ${e.flagged_for_session ? '⚑ Talk about this' : e.shared ? '↗ Shared' : ''}
+            ${e.flagged_for_session ? 'â Talk about this' : e.shared ? 'â Shared' : ''}
           </span>
         </div>
         ${e.mood_words && e.mood_words.length ? `
@@ -1413,10 +1448,10 @@ function openEntry(id) {
   const badge = document.getElementById('detail-badge');
   if (entry.flagged_for_session) {
     badge.className = 'entry-badge badge-flagged';
-    badge.textContent = '⚑ Talk about this';
+    badge.textContent = 'â Talk about this';
   } else if (entry.shared) {
     badge.className = 'entry-badge badge-shared';
-    badge.textContent = '↗ Shared';
+    badge.textContent = 'â Shared';
   } else {
     badge.className = '';
     badge.textContent = '';
@@ -1445,7 +1480,7 @@ function openEntry(id) {
     const optEl   = document.getElementById(`detail-opt-${type}`);
     const checkEl = document.getElementById(`detail-check-${type}`);
     optEl.classList.toggle('selected', isActive);
-    checkEl.textContent  = isActive ? '✓' : '';
+    checkEl.textContent  = isActive ? 'â' : '';
     optEl.style.opacity  = isActive ? '0.5' : '1';
     optEl.style.cursor   = isActive ? 'default' : 'pointer';
     optEl.onclick        = isActive ? null : () => detailToggleShare(type);
@@ -1465,7 +1500,7 @@ async function detailToggleShare(type) {
   const optEl   = document.getElementById(`detail-opt-${type}`);
   const checkEl = document.getElementById(`detail-check-${type}`);
   optEl.classList.toggle('selected', isActive);
-  checkEl.textContent  = isActive ? '✓' : '';
+  checkEl.textContent  = isActive ? 'â' : '';
   optEl.style.opacity  = isActive ? '0.5' : '1';
   optEl.style.cursor   = isActive ? 'default' : 'pointer';
   optEl.onclick        = isActive ? null : () => detailToggleShare(type);
@@ -1481,25 +1516,143 @@ async function detailToggleShare(type) {
   if (error) console.error('Error updating entry:', error);
 }
 
-/* ══════════════════════════════════════════════════════════
-   INIT
-══════════════════════════════════════════════════════════ */
-async function init() {
-  // Check for prior entries to set returning-user welcome copy
-  const { data } = await db
-    .from('journal_entries')
-    .select('id')
-    .eq('client_id', CLIENT_ID)
-    .limit(1);
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   AUTH â magic link flow
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+async function sendMagicLink() {
+  const email   = document.getElementById('auth-email').value.trim();
+  const errEl   = document.getElementById('auth-error');
+  const btn     = document.getElementById('auth-submit-btn');
+  errEl.textContent = '';
 
-  if (data && data.length > 0) {
-    document.getElementById('welcome-headline').textContent = 'Welcome back.';
-    document.getElementById('welcome-sub').textContent = 'Your journal is here when you\'re ready.';
+  if (!email || !email.includes('@')) {
+    errEl.textContent = 'Please enter a valid email address.';
+    return;
   }
+
+  btn.textContent = 'Sendingâ¦';
+  btn.disabled = true;
+
+  const { error } = await db.auth.signInWithOtp({
+    email,
+    options: {
+      // Must match a URL in Supabase Auth â URL Configuration â Redirect URLs
+      emailRedirectTo: window.location.origin + window.location.pathname,
+    }
+  });
+
+  if (error) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+    btn.textContent = 'Send me a link';
+    btn.disabled = false;
+    console.error('OTP error:', error);
+    return;
+  }
+
+  document.getElementById('auth-sent-email').textContent = email;
+  document.getElementById('auth-form').style.display = 'none';
+  document.getElementById('auth-sent').style.display  = 'block';
+}
+
+function resetAuthForm() {
+  document.getElementById('auth-form').style.display  = 'block';
+  document.getElementById('auth-sent').style.display  = 'none';
+  document.getElementById('auth-email').value         = '';
+  document.getElementById('auth-error').textContent   = '';
+  const btn = document.getElementById('auth-submit-btn');
+  btn.textContent = 'Send me a link';
+  btn.disabled    = false;
+}
+
+function proceedToJournal(session) {
+  // Override CLIENT_ID with real auth UUID
+  window.CLIENT_ID = session.user.id;
+
+  // Set returning-user welcome copy
+  db.from('journal_entries')
+    .select('id')
+    .eq('client_id', session.user.id)
+    .limit(1)
+    .then(({ data }) => {
+      if (data && data.length > 0) {
+        document.getElementById('welcome-headline').textContent = 'Welcome back.';
+        document.getElementById('welcome-sub').textContent = 'Your journal is here when you\'re ready.';
+      }
+    });
+
+  showScreen('screen-welcome');
+}
+
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   INIT
+ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+async function init() {
+  // Listen for auth state changes â fires when magic link is clicked
+  db.auth.onAuthStateChange((event, session) => {
+    if (session) {
+      proceedToJournal(session);
+    }
+  });
+
+  // Check for existing session (returning user, or magic link just clicked)
+  const { data: { session } } = await db.auth.getSession();
+  if (session) {
+    proceedToJournal(session);
+  }
+  // No session â auth screen stays visible (already active by default)
 }
 
 init();
 </script>
+<!-- âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+     SCREEN 7 â ENTRY DETAIL
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
+<div id="screen-entry-detail" class="screen">
+  <div class="top-bar">
+    <button class="top-btn" onclick="showScreen('screen-entries')">â Back</button>
+    <span class="top-btn" id="detail-pathway-label" style="cursor:default;"></span>
+  </div>
+  <div class="screen-inner">
+
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+      <span class="eyebrow" style="margin-bottom:0;" id="detail-date"></span>
+      <span class="entry-badge" id="detail-badge"></span>
+    </div>
+
+    <div class="entry-mood-chips" id="detail-mood-chips" style="margin-bottom:16px;"></div>
+
+    <div id="detail-prompts" style="display:none; margin-bottom:14px;"></div>
+
+    <div id="detail-text"
+      style="font-size:15px; color:var(--text-primary); line-height:1.8; white-space:pre-wrap; flex:1; margin-bottom:24px;">
+    </div>
+
+    <!-- Share options â hidden if entry already shared/flagged -->
+    <div id="detail-share-section">
+      <div class="divider"></div>
+      <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">Want to do anything with this entry?</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <div class="share-option" id="detail-opt-therapist" onclick="detailToggleShare('therapist')">
+          <div class="share-option-icon">â</div>
+          <div class="share-option-text">
+            <div class="share-option-title">Share with my therapist</div>
+            <div class="share-option-sub">They'll be able to read this entry.</div>
+          </div>
+          <div class="share-option-check" id="detail-check-therapist"></div>
+        </div>
+        <div class="share-option" id="detail-opt-flag" onclick="detailToggleShare('flag')">
+          <div class="share-option-icon">â</div>
+          <div class="share-option-text">
+            <div class="share-option-title">I want to talk about this</div>
+            <div class="share-option-sub">Flagged for your next session.</div>
+          </div>
+          <div class="share-option-check" id="detail-check-flag"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
