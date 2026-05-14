@@ -2454,33 +2454,47 @@
 
     jClientAuthId = null;
 
-    // Journal entries are keyed by the client's Supabase auth UID, not the clients-table row ID.
-    // Resolve it via therapist_clients using the client's email.
-    if (jClientEmail) {
-      const { data: tc } = await db
-        .from('therapist_clients')
-        .select('client_id')
-        .eq('client_email', jClientEmail)
-        .not('client_id', 'is', null)
-        .maybeSingle();
-      jClientAuthId = tc?.client_id || null;
+    function jShowStatus(msg, isError) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.style.background = isError ? '#fdecea' : '#f5f5f0';
+      statusEl.style.color = isError ? '#b04040' : 'var(--slate-light)';
+      statusEl.style.display = 'block';
     }
 
-    if (!jClientAuthId) {
-      jAllEntries = [];
-      jRenderOverview([]);
-      jRenderEntries([]);
-      jRenderSessionPrep([]);
+    if (!jClientEmail) {
+      jShowStatus('Enter the client\'s email above to connect their journal.', false);
+      jRenderOverview([]); jRenderEntries([]); jRenderSessionPrep([]);
       if (jRealtimeChannel) { db.removeChannel(jRealtimeChannel); jRealtimeChannel = null; }
-      // Show a helpful status message
-      if (statusEl) {
-        statusEl.textContent = jClientEmail
-          ? `Enter the client's email above and click Send sign-in link. Once they log in, entries will appear here.`
-          : `Enter the client's email above to connect their journal.`;
-        statusEl.style.background = '#f5f5f0';
-        statusEl.style.color = 'var(--slate-light)';
-        statusEl.style.display = 'block';
-      }
+      return;
+    }
+
+    // Journal entries are keyed by the client's Supabase auth UID, not the clients-table row ID.
+    // Resolve it via therapist_clients using the client's email.
+    const { data: tc, error: tcError } = await db
+      .from('therapist_clients')
+      .select('client_id')
+      .eq('client_email', jClientEmail)
+      .maybeSingle();
+
+    if (tcError) {
+      jShowStatus(`DB error looking up client: ${tcError.message}`, true);
+      return;
+    }
+
+    if (!tc) {
+      jShowStatus(`No invite record found for ${jClientEmail}. Send the sign-in link first.`, false);
+      jRenderOverview([]); jRenderEntries([]); jRenderSessionPrep([]);
+      if (jRealtimeChannel) { db.removeChannel(jRealtimeChannel); jRealtimeChannel = null; }
+      return;
+    }
+
+    jClientAuthId = tc.client_id || null;
+
+    if (!jClientAuthId) {
+      jShowStatus(`Invite sent to ${jClientEmail} — waiting for them to log in for the first time.`, false);
+      jRenderOverview([]); jRenderEntries([]); jRenderSessionPrep([]);
+      if (jRealtimeChannel) { db.removeChannel(jRealtimeChannel); jRealtimeChannel = null; }
       return;
     }
 
@@ -2490,7 +2504,10 @@
       .eq('client_id', jClientAuthId)
       .order('created_at', { ascending: false });
 
-    if (error) { console.error('Journal load error:', error); return; }
+    if (error) {
+      jShowStatus(`Error loading entries: ${error.message}`, true);
+      return;
+    }
 
     jAllEntries = data || [];
     jRenderOverview(jAllEntries);
