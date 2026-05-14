@@ -1000,9 +1000,14 @@
             <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
               <input id="j-email-input" type="email" placeholder="Client email address"
                 oninput="jClientEmail=this.value.trim()"
-                onblur="if(this.value.trim()) loadJournalTab()"
                 style="flex:1; font-family:var(--sans); font-size:12px; padding:6px 10px;
                 border:1px solid #ddd; border-radius:6px; outline:none; color:var(--ink);" />
+              <button onclick="jClientEmail=document.getElementById('j-email-input').value.trim(); loadJournalTab()"
+                style="font-family:var(--sans); font-size:12px; font-weight:500; color:#555;
+                background:#f0f0eb; border:1px solid #ddd; border-radius:6px;
+                padding:6px 10px; cursor:pointer; white-space:nowrap;">
+                Load
+              </button>
               <button id="j-send-link-btn" onclick="jSendMagicLink()"
                 style="font-family:var(--sans); font-size:12px; font-weight:500; color:var(--hunter-green);
                 background:var(--green-light); border:0.5px solid var(--hunter-green); border-radius:6px;
