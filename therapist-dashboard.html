@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
@@ -645,40 +644,6 @@
     }
     .past-client-name { flex: 1; font-size: 13px; font-weight: 500; color: var(--ink); }
     .past-client-meta { font-size: 11px; color: var(--slate-light); }
-
-    /* ── Journal tab ── */
-    .j-stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:18px; }
-    .j-stat-card { background:#fff; border:0.5px solid var(--border); border-radius:10px; padding:14px 16px; }
-    .j-stat-card.flagged .j-stat-value { color:#B45309; }
-    .j-stat-label { font-size:11px; color:var(--slate-light); margin-bottom:4px; }
-    .j-stat-value { font-size:22px; font-weight:500; color:var(--ink); line-height:1; }
-    .j-stat-sub   { font-size:10px; color:var(--slate-light); margin-top:3px; }
-    .j-two-col { display:grid; grid-template-columns:1.6fr 1fr; gap:12px; margin-bottom:18px; }
-    .j-card { background:#fff; border:0.5px solid var(--border); border-radius:10px; padding:16px 18px; }
-    .j-card-title { font-size:12px; font-weight:500; color:var(--ink); margin-bottom:12px; }
-    .j-word-row { display:flex; align-items:center; gap:8px; padding:4px 0; border-bottom:0.5px solid var(--border); }
-    .j-word-row:last-child { border-bottom:none; }
-    .j-word-name  { font-size:12px; color:var(--ink); min-width:90px; }
-    .j-word-bar-bg { flex:1; height:4px; background:var(--border); border-radius:2px; }
-    .j-word-bar   { height:4px; border-radius:2px; transition:width .5s ease; }
-    .j-word-count { font-size:11px; color:var(--slate-light); min-width:14px; text-align:right; }
-    .j-section-label { font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--slate-light); margin-bottom:10px; margin-top:20px; }
-    .j-divider { height:0.5px; background:var(--border); margin:18px 0; }
-    .j-entry-card { background:#fff; border:0.5px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; }
-    .j-entry-card:hover { border-color:var(--border-strong); }
-    .j-mood-chips { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:8px; }
-    .j-mood-chip  { font-size:11px; padding:2px 8px; background:var(--green-light); color:var(--hunter-green); border-radius:8px; }
-    .j-badge { font-size:11px; padding:2px 7px; border-radius:8px; margin-left:4px; }
-    .j-badge-flagged { background:#FFF8E1; color:#B45309; }
-    .j-badge-shared  { background:#EBF3FB; color:#185FA5; }
-    .j-entry-text    { font-size:13px; color:var(--ink); line-height:1.65; white-space:pre-wrap; }
-    .j-entry-private { font-size:12px; color:var(--slate-light); font-style:italic; }
-    .j-flag-card { background:#fff; border:0.5px solid var(--border); border-left:3px solid #B45309; border-radius:0 10px 10px 0; padding:12px 14px; margin-bottom:8px; }
-    .j-flag-card.green { border-left-color:var(--hunter-green); }
-    .j-flag-title { font-size:13px; font-weight:500; color:var(--ink); margin-bottom:4px; }
-    .j-flag-sub   { font-size:12px; color:var(--slate); line-height:1.55; }
-    .j-entry-point { display:flex; gap:10px; align-items:flex-start; padding:10px 12px; background:var(--off-white); border-radius:8px; margin-bottom:6px; font-size:12px; color:var(--slate); line-height:1.5; }
-    .j-ep-num { font-size:10px; color:var(--slate-light); min-width:14px; margin-top:1px; }
   </style>
 </head>
 <body>
@@ -871,14 +836,7 @@
           <div class="client-av-wrap">
             <div class="client-av" id="cp-av"></div>
             <div class="client-name-block">
-              <div style="display:flex; align-items:center; gap:8px;">
-                <div class="client-name" id="cp-name"></div>
-                <button onclick="openClientEdit()" title="Edit client info"
-                  style="background:none; border:none; cursor:pointer; color:var(--slate-light);
-                  font-size:12px; padding:2px 4px; line-height:1; border-radius:4px;"
-                  onmouseover="this.style.color='var(--hunter-green)'"
-                  onmouseout="this.style.color='var(--slate-light)'">✏ Edit</button>
-              </div>
+              <div class="client-name" id="cp-name"></div>
               <div class="client-meta" id="cp-since"></div>
             </div>
           </div>
@@ -942,7 +900,6 @@
           <div class="tab" onclick="switchTab('tab-homework', this)">Outside Work</div>
           <div class="tab" onclick="switchTab('tab-responses', this)">Session Responses</div>
           <div class="tab" onclick="switchTab('tab-history', this)">Session History</div>
-          <div class="tab" onclick="switchTab('tab-journal', this); loadJournalTab()">Journal</div>
         </div>
 
         <!-- Activities Tab -->
@@ -989,69 +946,6 @@
             <span class="section-head-title">Session History</span>
           </div>
           <div id="session-history-list"></div>
-        </div>
-
-        <!-- Journal Tab -->
-        <div id="tab-journal" class="tab-panel" style="display:none; padding:18px 20px;">
-
-          <!-- Send sign-in link row -->
-          <div style="margin-bottom:14px;">
-            <span style="font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--slate-light);" id="j-client-label">Reflection Journal</span>
-            <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
-              <input id="j-email-input" type="email" placeholder="Client email address"
-                oninput="jClientEmail=this.value.trim()"
-                style="flex:1; font-family:var(--sans); font-size:12px; padding:6px 10px;
-                border:1px solid #ddd; border-radius:6px; outline:none; color:var(--ink);" />
-              <button onclick="jClientEmail=document.getElementById('j-email-input').value.trim(); loadJournalTab()"
-                style="font-family:var(--sans); font-size:12px; font-weight:500; color:#555;
-                background:#f0f0eb; border:1px solid #ddd; border-radius:6px;
-                padding:6px 10px; cursor:pointer; white-space:nowrap;">
-                Load
-              </button>
-              <button id="j-send-link-btn" onclick="jSendMagicLink()"
-                style="font-family:var(--sans); font-size:12px; font-weight:500; color:var(--hunter-green);
-                background:var(--green-light); border:0.5px solid var(--hunter-green); border-radius:6px;
-                padding:6px 12px; cursor:pointer; white-space:nowrap;">
-                ✉ Send sign-in link
-              </button>
-            </div>
-          </div>
-          <div id="j-link-status" style="display:none; font-size:12px; padding:8px 12px; border-radius:6px; margin-bottom:12px;"></div>
-
-          <!-- Stat cards -->
-          <div class="j-stat-grid" id="j-stat-grid">
-            <div class="j-stat-card"><div class="j-stat-label">Last entry</div><div class="j-stat-value" style="font-size:16px;">—</div></div>
-            <div class="j-stat-card"><div class="j-stat-label">Entries this week</div><div class="j-stat-value">—</div></div>
-            <div class="j-stat-card"><div class="j-stat-label">Shared with you</div><div class="j-stat-value">—</div></div>
-            <div class="j-stat-card"><div class="j-stat-label">Flagged for session</div><div class="j-stat-value">—</div></div>
-          </div>
-
-          <!-- Chart + top words -->
-          <div class="j-two-col">
-            <div class="j-card">
-              <div class="j-card-title">Mood family frequency — last 4 weeks</div>
-              <div style="position:relative; height:150px;">
-                <canvas id="j-mood-chart"></canvas>
-              </div>
-              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" id="j-chart-legend"></div>
-            </div>
-            <div class="j-card">
-              <div class="j-card-title">Top words this week</div>
-              <div id="j-word-bars"><div style="font-size:12px;color:var(--slate-light);padding:6px 0;">Loading…</div></div>
-            </div>
-          </div>
-
-          <!-- Shared entries -->
-          <div class="j-section-label">Shared entries</div>
-          <div id="j-entries-summary" style="font-size:11px; color:var(--slate-light); margin-bottom:10px;"></div>
-          <div id="j-entries-list"><div style="font-size:13px;color:var(--slate-light);padding:12px 0;">Loading…</div></div>
-
-          <div class="j-divider"></div>
-
-          <!-- Session prep -->
-          <div class="j-section-label">Session prep</div>
-          <div id="j-session-prep"><div style="font-size:13px;color:var(--slate-light);padding:12px 0;">Loading…</div></div>
-
         </div>
 
       </div>
@@ -1173,34 +1067,6 @@
     </div>
   </div>
 
-  <!-- Edit client info modal -->
-  <div id="client-edit-modal" onclick="if(event.target===this)closeClientEdit()"
-    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;align-items:center;justify-content:center;padding:24px;">
-    <div style="background:#fff;border-radius:16px;padding:28px;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.12);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-        <h2 style="font-family:var(--serif);font-size:18px;font-weight:400;color:var(--ink);">Edit client info</h2>
-        <button onclick="closeClientEdit()" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--slate-light);line-height:1;">×</button>
-      </div>
-      <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--slate-light);margin-bottom:6px;">Name</label>
-      <input id="cedit-name" type="text" placeholder="Client name"
-        style="width:100%;padding:11px 14px;border:0.5px solid var(--border-strong);border-radius:8px;
-        font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;margin-bottom:14px;"/>
-      <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--slate-light);margin-bottom:6px;">Email</label>
-      <input id="cedit-email" type="email" placeholder="client@email.com"
-        style="width:100%;padding:11px 14px;border:0.5px solid var(--border-strong);border-radius:8px;
-        font-family:var(--sans);font-size:14px;color:var(--ink);outline:none;margin-bottom:6px;"/>
-      <p style="font-size:11px;color:var(--slate-light);margin-bottom:18px;line-height:1.5;">
-        This email is used to send the client their journal sign-in link.
-      </p>
-      <div id="cedit-error" style="font-size:12px;color:#b04040;min-height:16px;margin-bottom:8px;"></div>
-      <button onclick="saveClientEdit()" id="cedit-save-btn"
-        style="width:100%;padding:12px;background:var(--hunter-green);color:#fff;border:none;
-        border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;">
-        Save
-      </button>
-    </div>
-  </div>
-
   <!-- Willowmere full-screen panel — outside all pages so position:fixed works correctly -->
   <!-- CHARACTER BUILDER LAUNCH PANEL -->
   <div id="char-builder-panel" style="display:none;position:fixed;inset:0;z-index:400;align-items:center;justify-content:center;background:rgba(0,0,0,.55);">
@@ -1255,13 +1121,7 @@
   const SUPABASE_URL = 'https://vfpxovpwwabisfjjqkpm.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_-cIPFr0xt1CfC8fwh0e_ew_Q6LIbcX5';
   const { createClient } = supabase;
-  const db = createClient(SUPABASE_URL, SUPABASE_KEY, {
-    auth: { storageKey: 'therapist-dashboard-session' }
-  });
-  // Isolated client for sending OTPs — no session, no storage, won't touch therapist auth
-  const otpClient = createClient(SUPABASE_URL, SUPABASE_KEY, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
-  });
+  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
   let currentUser = null;
 
   function esc(s) {
@@ -1310,11 +1170,7 @@
   }
 
   db.auth.onAuthStateChange((event, session) => {
-    if (!session) return;
-    // A client clicking their magic link in the same browser fires this event
-    // with the client's session. Ignore it if a different user just signed in.
-    if (currentUser && session.user.id !== currentUser.id) return;
-    loadApp();
+    if (session) loadApp();
   });
 
   /* ─────────────────────────────────────────
@@ -1597,10 +1453,6 @@
     const { data: client } = await db.from('clients').select('*').eq('id', id).single();
     if (!client) return;
     currentClient = client;
-    jClientEmail = client.email || null;
-    jClientAuthId = null;
-    const jei = document.getElementById('j-email-input');
-    if (jei) jei.value = client.email || '';
 
     document.getElementById('cp-av').textContent   = client.avatar || '🌿';
     document.getElementById('cp-name').textContent = client.name;
@@ -2014,7 +1866,8 @@
 
   function launchJournal(actId, e) {
     e.stopPropagation();
-    switchTabByName('tab-journal');
+    const url = `${window.location.origin}/src/activities/practices/reflection-journal/therapist.html?client_id=${currentClient.id}`;
+    window.open(url, '_blank');
   }
 
   async function launchWillowmere(actId, e) {
@@ -2343,10 +2196,9 @@
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     const panel = document.getElementById(panelId);
     if (panel) panel.style.display = 'block';
-    const idx = ['tab-activities','tab-homework','tab-responses','tab-history','tab-journal'].indexOf(panelId);
+    const idx = ['tab-activities','tab-homework','tab-responses','tab-history'].indexOf(panelId);
     const tabs = document.querySelectorAll('.tab');
     if (tabs[idx]) tabs[idx].classList.add('active');
-    if (panelId === 'tab-journal') loadJournalTab();
   }
 
   /* ─────────────────────────────────────────
@@ -2367,358 +2219,6 @@
   function formatDate(iso) {
     if (!iso) return '—';
     return new Date(iso).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-  }
-
-  /* ── Client edit modal ── */
-  function openClientEdit() {
-    if (!currentClient) return;
-    document.getElementById('cedit-name').value  = currentClient.name  || '';
-    document.getElementById('cedit-email').value = currentClient.email || '';
-    document.getElementById('cedit-error').textContent = '';
-    const btn = document.getElementById('cedit-save-btn');
-    btn.textContent = 'Save'; btn.disabled = false;
-    document.getElementById('client-edit-modal').style.display = 'flex';
-  }
-  function closeClientEdit() {
-    document.getElementById('client-edit-modal').style.display = 'none';
-  }
-  async function saveClientEdit() {
-    const name  = document.getElementById('cedit-name').value.trim();
-    const email = document.getElementById('cedit-email').value.trim();
-    const errEl = document.getElementById('cedit-error');
-    const btn   = document.getElementById('cedit-save-btn');
-    errEl.textContent = '';
-    if (!name) { errEl.textContent = 'Name is required.'; return; }
-    btn.textContent = 'Saving…'; btn.disabled = true;
-    const { error } = await db.from('clients')
-      .update({ name, email: email || null })
-      .eq('id', currentClient.id);
-    if (error) {
-      errEl.textContent = 'Could not save — please try again.';
-      btn.textContent = 'Save'; btn.disabled = false;
-      return;
-    }
-    currentClient.name  = name;
-    currentClient.email = email || null;
-    document.getElementById('cp-name').textContent = name;
-    closeClientEdit();
-  }
-
-  /* ─────────────────────────────────────────
-     JOURNAL TAB
-  ───────────────────────────────────────── */
-  const J_WORD_FAMILY_MAP = {
-    content:'joy',peaceful:'joy',grateful:'joy',happy:'joy',playful:'joy',relieved:'joy',joyful:'joy',excited:'joy',elated:'joy',blissful:'joy',
-    open:'trust',accepted:'trust',safe:'trust',supported:'trust',connected:'trust',valued:'trust',appreciated:'trust',belonging:'trust',admired:'trust',secure:'trust',unseen:'trust',
-    uneasy:'fear',unsure:'fear',nervous:'fear',worried:'fear',anxious:'fear',overwhelmed:'fear',scared:'fear',afraid:'fear',dread:'fear',terrified:'fear',
-    curious:'surprise',uncertain:'surprise',confused:'surprise',startled:'surprise','caught off guard':'surprise',disoriented:'surprise',shocked:'surprise',stunned:'surprise',astonished:'surprise',
-    pensive:'sadness',disappointed:'sadness',lonely:'sadness',hurt:'sadness',sad:'sadness',empty:'sadness',lost:'sadness',heartbroken:'sadness',grieving:'sadness',devastated:'sadness',hopeless:'sadness',
-    bored:'disgust',bothered:'disgust',uncomfortable:'disgust',unsettled:'disgust','grossed out':'disgust','turned off':'disgust',disgusted:'disgust',repulsed:'disgust',sick:'disgust',ashamed:'disgust',guilty:'disgust',
-    annoyed:'anger',irritated:'anger',frustrated:'anger',resentful:'anger',mad:'anger',betrayed:'anger',angry:'anger',furious:'anger',enraged:'anger',jealous:'anger',
-    interested:'anticipation',hopeful:'anticipation',eager:'anticipation',restless:'anticipation',impatient:'anticipation','anxious (excited)':'anticipation','on edge':'anticipation',alert:'anticipation',stuck:'anticipation',
-  };
-  const J_FAMILY_COLORS = { joy:'#F7D06B',trust:'#A8C87A',fear:'#AFA9EC',surprise:'#85C5EB',sadness:'#85B7EB',disgust:'#7aab80',anger:'#F0997B',anticipation:'#F5C07A',other:'#C5C5C5' };
-  const J_WORD_COLORS   = { joy:'#c49a14',trust:'#3b8a5c',fear:'#7a5a9e',surprise:'#3a87b5',sadness:'#5177b5',disgust:'#5c7a3a',anger:'#b55a3a',anticipation:'#b5893a',other:'#888780' };
-
-  let jAllEntries = [], jChartInstance = null, jRealtimeChannel = null, jClientEmail = null, jClientAuthId = null;
-
-  function jFormatDate(iso) {
-    if (!iso) return '—';
-    const d = new Date(iso), now = new Date();
-    const diff = Math.floor((now - d) / 86400000);
-    const time = d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
-    if (diff === 0) return `Today, ${time}`;
-    if (diff === 1) return `Yesterday, ${time}`;
-    return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }) + ` · ${time}`;
-  }
-  function jWeekStart(date) {
-    const d = new Date(date); d.setHours(0,0,0,0); d.setDate(d.getDate() - d.getDay());
-    return d.toISOString().slice(0,10);
-  }
-  function jIsThisWeek(iso) {
-    if (!iso) return false;
-    const d = new Date(iso), now = new Date();
-    const s = new Date(now); s.setDate(now.getDate() - now.getDay()); s.setHours(0,0,0,0);
-    return d >= s;
-  }
-  function jFormatPathway(e) {
-    if (!e.pathway || e.pathway === 'skip') return '';
-    if (e.pathway === 'themed' && e.theme) return `Themed · ${e.theme.charAt(0).toUpperCase() + e.theme.slice(1)}`;
-    return e.pathway.charAt(0).toUpperCase() + e.pathway.slice(1);
-  }
-
-  async function loadJournalTab() {
-    if (!currentClient) return;
-
-    // Reset send-link UI
-    const statusEl = document.getElementById('j-link-status');
-    if (statusEl) { statusEl.style.display = 'none'; statusEl.textContent = ''; }
-    const labelEl = document.getElementById('j-client-label');
-    if (labelEl) labelEl.textContent = `${currentClient.name}'s Journal`;
-
-    // Preserve any email the therapist already typed; fall back to saved email
-    const emailInput = document.getElementById('j-email-input');
-    const savedEmail = emailInput?.value.trim() || currentClient.email || null;
-    jClientEmail = savedEmail;
-    if (emailInput && !emailInput.value && savedEmail) emailInput.value = savedEmail;
-
-    jClientAuthId = null;
-
-    function jShowStatus(msg, isError) {
-      if (!statusEl) return;
-      statusEl.textContent = msg;
-      statusEl.style.background = isError ? '#fdecea' : '#f5f5f0';
-      statusEl.style.color = isError ? '#b04040' : 'var(--slate-light)';
-      statusEl.style.display = 'block';
-    }
-
-    if (!jClientEmail) {
-      jShowStatus('Enter the client\'s email above to connect their journal.', false);
-      jRenderOverview([]); jRenderEntries([]); jRenderSessionPrep([]);
-      if (jRealtimeChannel) { db.removeChannel(jRealtimeChannel); jRealtimeChannel = null; }
-      return;
-    }
-
-    // Look up the client's Supabase auth UID by email via a SECURITY DEFINER RPC
-    const { data: clientAuthId, error: rpcError } = await db.rpc('get_client_id_by_email', { p_email: jClientEmail });
-
-    if (rpcError) {
-      jShowStatus(`Error looking up client: ${rpcError.message}`, true);
-      return;
-    }
-
-    jClientAuthId = clientAuthId || null;
-
-    if (!jClientAuthId) {
-      jShowStatus(`${jClientEmail} hasn't logged in yet. Send the sign-in link and have them open it.`, false);
-      jRenderOverview([]); jRenderEntries([]); jRenderSessionPrep([]);
-      if (jRealtimeChannel) { db.removeChannel(jRealtimeChannel); jRealtimeChannel = null; }
-      return;
-    }
-
-    const { data, error } = await db
-      .from('journal_entries')
-      .select('*')
-      .eq('client_id', jClientAuthId)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      jShowStatus(`Error loading entries: ${error.message}`, true);
-      return;
-    }
-
-    jAllEntries = data || [];
-    jRenderOverview(jAllEntries);
-    jRenderEntries(jAllEntries);
-    jRenderSessionPrep(jAllEntries);
-
-    if (jRealtimeChannel) db.removeChannel(jRealtimeChannel);
-    jRealtimeChannel = db.channel(`jdash:${jClientAuthId}`)
-      .on('postgres_changes', { event:'*', schema:'public', table:'journal_entries', filter:`client_id=eq.${jClientAuthId}` },
-        () => loadJournalTab())
-      .subscribe();
-  }
-
-  async function jSendMagicLink() {
-    const btn    = document.getElementById('j-send-link-btn');
-    const status = document.getElementById('j-link-status');
-    if (!jClientEmail) {
-      status.textContent = 'No email on file for this client.';
-      status.style.background = '#fdecea'; status.style.color = '#b04040';
-      status.style.display = 'block';
-      return;
-    }
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    // Ensure therapist_clients record exists so client's login can link their auth UID
-    await db.from('therapist_clients').upsert({
-      therapist_id: currentUser.id,
-      client_email: jClientEmail,
-      client_name:  currentClient.name || null,
-    }, { onConflict: 'therapist_id,client_email' });
-
-    const { error } = await otpClient.auth.signInWithOtp({
-      email: jClientEmail,
-      options: { emailRedirectTo: 'https://cypressmind.com/journal' }
-    });
-    if (error) {
-      status.textContent = 'Could not send link — please try again.';
-      status.style.background = '#fdecea'; status.style.color = '#b04040';
-    } else {
-      status.textContent = `✓ Sign-in link sent to ${jClientEmail}`;
-      status.style.background = 'var(--green-light)'; status.style.color = 'var(--hunter-green)';
-      status.style.display = 'block';
-      loadJournalTab();
-    } else {
-      status.style.display = 'block';
-    }
-    btn.textContent = '✉ Send sign-in link';
-    btn.disabled = false;
-  }
-
-  function jRenderOverview(entries) {
-    const thisWeek = entries.filter(e => jIsThisWeek(e.created_at));
-    const shared   = thisWeek.filter(e => e.shared);
-    const flagged  = thisWeek.filter(e => e.flagged_for_session);
-    const latest   = entries[0];
-
-    document.getElementById('j-stat-grid').innerHTML = `
-      <div class="j-stat-card">
-        <div class="j-stat-label">Last entry</div>
-        <div class="j-stat-value" style="font-size:15px;">${latest ? jFormatDate(latest.created_at).split(',')[0] : '—'}</div>
-        <div class="j-stat-sub">${latest ? (jFormatDate(latest.created_at).split(', ')[1] || '') : 'No entries yet'}</div>
-      </div>
-      <div class="j-stat-card">
-        <div class="j-stat-label">Entries this week</div>
-        <div class="j-stat-value">${thisWeek.length}</div>
-        <div class="j-stat-sub">${thisWeek.filter(e => e.mood_words?.length).length} with mood check-in</div>
-      </div>
-      <div class="j-stat-card">
-        <div class="j-stat-label">Shared with you</div>
-        <div class="j-stat-value">${shared.length}</div>
-        <div class="j-stat-sub">this week</div>
-      </div>
-      <div class="j-stat-card${flagged.length > 0 ? ' flagged' : ''}">
-        <div class="j-stat-label">Flagged for session</div>
-        <div class="j-stat-value">${flagged.length}</div>
-        <div class="j-stat-sub">${flagged.length > 0 ? 'needs discussion' : 'none this week'}</div>
-      </div>`;
-
-    // Word bars
-    const wordCounts = {};
-    thisWeek.forEach(e => (e.mood_words || []).forEach(w => { wordCounts[w] = (wordCounts[w]||0)+1; }));
-    const topWords = Object.entries(wordCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
-    const maxCount = topWords[0] ? topWords[0][1] : 1;
-    document.getElementById('j-word-bars').innerHTML = topWords.length
-      ? topWords.map(([word, count]) => {
-          const family = J_WORD_FAMILY_MAP[word] || 'other';
-          const color  = J_WORD_COLORS[family] || '#888';
-          const pct    = Math.round((count / maxCount) * 95);
-          return `<div class="j-word-row">
-            <div class="j-word-name">${word}</div>
-            <div class="j-word-bar-bg"><div class="j-word-bar" style="width:${pct}%;background:${color};"></div></div>
-            <div class="j-word-count">${count}</div>
-          </div>`;
-        }).join('')
-      : '<div style="font-size:12px;color:var(--slate-light);padding:6px 0;">No mood data this week.</div>';
-
-    // Mood trend chart
-    const now = new Date();
-    const weeks = Array.from({ length:4 }, (_, i) => {
-      const d = new Date(now); d.setDate(d.getDate() - (3-i)*7); return jWeekStart(d);
-    });
-    const familyData = {};
-    Object.keys(J_FAMILY_COLORS).forEach(f => { familyData[f] = [0,0,0,0]; });
-    const cutoff = new Date(now); cutoff.setDate(cutoff.getDate()-28);
-    entries.filter(e => new Date(e.created_at) >= cutoff).forEach(e => {
-      const wi = weeks.indexOf(jWeekStart(e.created_at));
-      if (wi < 0) return;
-      (e.mood_words || []).forEach(w => {
-        const f = J_WORD_FAMILY_MAP[w] || 'other';
-        if (familyData[f]) familyData[f][wi]++;
-      });
-    });
-
-    if (jChartInstance) jChartInstance.destroy();
-    const ctx = document.getElementById('j-mood-chart');
-    if (!ctx) return;
-    const weekLabels = weeks.map((_, i) => i === 3 ? 'This week' : `Week ${i+1}`);
-    const datasets = Object.entries(familyData)
-      .filter(([,counts]) => counts.some(c => c > 0))
-      .map(([family, counts]) => ({
-        label: family.charAt(0).toUpperCase() + family.slice(1),
-        data: counts,
-        backgroundColor: J_FAMILY_COLORS[family],
-        borderWidth: 0, borderRadius: 2,
-      }));
-    jChartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: { labels: weekLabels, datasets },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend:{ display:false }, tooltip:{ callbacks:{ label: i => ` ${i.dataset.label}: ${i.raw}` } } },
-        scales: {
-          x: { stacked:true, grid:{ display:false }, ticks:{ font:{ size:10, family:'DM Sans' } } },
-          y: { stacked:true, grid:{ color:'rgba(53,94,59,0.06)' }, ticks:{ font:{ size:10, family:'DM Sans' }, stepSize:1 } }
-        }
-      }
-    });
-
-    // Legend
-    document.getElementById('j-chart-legend').innerHTML = datasets.map(d =>
-      `<div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--slate);">
-        <div style="width:8px;height:8px;border-radius:2px;background:${d.backgroundColor};"></div>${d.label}
-      </div>`
-    ).join('');
-  }
-
-  function jRenderEntries(entries) {
-    const thisWeek   = entries.filter(e => jIsThisWeek(e.created_at));
-    const sharedCount = thisWeek.filter(e => e.shared || e.flagged_for_session).length;
-    document.getElementById('j-entries-summary').textContent =
-      `${thisWeek.length} entries this week · ${sharedCount} shared or flagged · ${thisWeek.length - sharedCount} private`;
-
-    if (!entries.length) {
-      document.getElementById('j-entries-list').innerHTML =
-        '<p style="font-size:13px;color:var(--slate-light);padding:12px 0;">No entries yet.</p>';
-      return;
-    }
-    document.getElementById('j-entries-list').innerHTML = entries.map(e => {
-      const visible  = e.shared || e.flagged_for_session;
-      const pathway  = jFormatPathway(e);
-      return `<div class="j-entry-card">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
-          <span style="font-size:11px;color:var(--slate-light);">${jFormatDate(e.created_at)}</span>
-          ${e.flagged_for_session ? '<span class="j-badge j-badge-flagged">✓ I want to talk about this</span>' : ''}
-          ${e.shared && !e.flagged_for_session ? '<span class="j-badge j-badge-shared">✓ Shared</span>' : ''}
-          ${!e.shared && !e.flagged_for_session ? '<span style="font-size:11px;color:var(--slate-light);">Private</span>' : ''}
-        </div>
-        ${(e.mood_words?.length) ? `<div class="j-mood-chips">${e.mood_words.map(m=>`<span class="j-mood-chip">${m}</span>`).join('')}</div>` : ''}
-        ${visible && e.entry_text ? `<div class="j-entry-text">${e.entry_text}</div>` : `<div class="j-entry-private">Entry content is private.</div>`}
-        ${pathway ? `<div style="font-size:10px;color:var(--slate-light);margin-top:6px;">${pathway}</div>` : ''}
-      </div>`;
-    }).join('');
-  }
-
-  function jRenderSessionPrep(entries) {
-    const thisWeek = entries.filter(e => jIsThisWeek(e.created_at));
-    const flagged  = entries.filter(e => e.flagged_for_session);
-    const wordCounts = {};
-    thisWeek.forEach(e => (e.mood_words||[]).forEach(w => { wordCounts[w]=(wordCounts[w]||0)+1; }));
-    const topWords   = Object.entries(wordCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
-    const familyCounts = {};
-    topWords.forEach(([w]) => { const f=J_WORD_FAMILY_MAP[w]||'other'; familyCounts[f]=(familyCounts[f]||0)+(wordCounts[w]||0); });
-    const topFamilies = Object.entries(familyCounts).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([f])=>f);
-
-    const entryPoints = [];
-    if (flagged.length > 0) {
-      const excerpt = flagged[0].entry_text ? flagged[0].entry_text.slice(0,80)+'…' : 'flagged entry';
-      entryPoints.push(`What the client flagged: "${excerpt}"`);
-    }
-    if (topWords.length >= 2) entryPoints.push(`The co-occurrence of "${topWords[0][0]}" and "${topWords[1][0]}" this week — what's connecting them`);
-    if (topFamilies.length > 0) entryPoints.push(`The ${topFamilies[0]} family has been most present this week — where it's showing up and what it's connected to`);
-
-    document.getElementById('j-session-prep').innerHTML = `
-      <div style="margin-bottom:12px;">
-        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px;">Flagged for discussion</div>
-        ${flagged.length ? flagged.map(e => `
-          <div class="j-flag-card">
-            <div class="j-flag-title">"I want to talk about this" — ${jFormatDate(e.created_at)}</div>
-            ${e.entry_text ? `<div class="j-flag-sub">"${e.entry_text.slice(0,120)}…"</div>` : ''}
-            <div class="j-mood-chips" style="margin-top:6px;">${(e.mood_words||[]).map(m=>`<span class="j-mood-chip">${m}</span>`).join('')}</div>
-          </div>`).join('') :
-          '<p style="font-size:12px;color:var(--slate-light);margin-bottom:10px;">Nothing flagged this week.</p>'
-        }
-      </div>
-      ${topWords.length ? `
-        <div class="j-flag-card green" style="margin-bottom:12px;">
-          <div class="j-flag-title">${topFamilies.map(f=>f.charAt(0).toUpperCase()+f.slice(1)).join(' + ')} ${topFamilies.length>1?'families':'family'} dominant</div>
-          <div class="j-flag-sub">${topWords.map(([w,c])=>`${w} (${c}×)`).join(', ')}</div>
-        </div>` : ''}
-      ${entryPoints.length ? `
-        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:8px;">Suggested entry points</div>
-        ${entryPoints.map((pt,i) => `<div class="j-entry-point"><span class="j-ep-num">${i+1}</span>${pt}</div>`).join('')}
-        <p style="font-size:10px;color:var(--slate-light);font-style:italic;margin-top:6px;">Generated from shared entries and mood data. Client has not seen these.</p>` : ''}`;
   }
   </script>
 
