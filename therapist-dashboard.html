@@ -950,28 +950,48 @@
         </div>
 
         <!-- Journal Tab -->
-        <div id="tab-journal" class="tab-panel" style="display:none; padding:18px 20px;">
-          <div style="margin-bottom:14px;">
-            <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px;" id="j-client-label">Journal</div>
+        <div id="tab-journal" class="tab-panel" style="display:none; padding:20px 20px 28px;">
+
+          <!-- Client label + email row -->
+          <div style="margin-bottom:16px;">
+            <div id="j-client-label" style="font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--hunter-green);margin-bottom:10px;">Journal</div>
             <div style="display:flex;align-items:center;gap:8px;">
               <input id="j-email-input" type="email" placeholder="Client email address"
                 oninput="jClientEmail=this.value.trim()"
-                style="flex:1;font-family:var(--sans);font-size:12px;padding:6px 10px;border:1px solid #ddd;border-radius:6px;outline:none;color:var(--ink);" />
+                style="flex:1;font-family:var(--sans);font-size:12px;padding:7px 10px;border:0.5px solid var(--border);border-radius:6px;outline:none;color:var(--ink);background:#fff;" />
               <button onclick="jClientEmail=document.getElementById('j-email-input').value.trim();loadJournalTab()"
-                style="font-family:var(--sans);font-size:12px;font-weight:500;color:#555;background:#f0f0eb;border:1px solid #ddd;border-radius:6px;padding:6px 10px;cursor:pointer;white-space:nowrap;">Load</button>
+                style="font-family:var(--sans);font-size:12px;font-weight:500;color:var(--slate);background:var(--off-white);border:0.5px solid var(--border);border-radius:6px;padding:7px 10px;cursor:pointer;white-space:nowrap;">Load</button>
               <button id="j-send-btn" onclick="jSendMagicLink()"
-                style="font-family:var(--sans);font-size:12px;font-weight:500;color:var(--hunter-green);background:var(--green-light);border:0.5px solid var(--hunter-green);border-radius:6px;padding:6px 12px;cursor:pointer;white-space:nowrap;">✉ Send link</button>
+                style="font-family:var(--sans);font-size:12px;font-weight:500;color:#fff;background:var(--hunter-green);border:none;border-radius:6px;padding:7px 14px;cursor:pointer;white-space:nowrap;">Send invite</button>
             </div>
           </div>
-          <div id="j-status" style="display:none;font-size:12px;padding:8px 12px;border-radius:6px;margin-bottom:12px;"></div>
-          <div id="j-stat-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-            <div style="background:#f8f8f5;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:var(--slate-light);margin-bottom:4px;">Last shared</div><div id="j-s-last" style="font-size:14px;font-weight:600;color:var(--ink);">—</div></div>
-            <div style="background:#f8f8f5;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:var(--slate-light);margin-bottom:4px;">This week</div><div id="j-s-week" style="font-size:14px;font-weight:600;color:var(--ink);">—</div></div>
-            <div style="background:#f8f8f5;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:var(--slate-light);margin-bottom:4px;">Total shared</div><div id="j-s-shared" style="font-size:14px;font-weight:600;color:var(--ink);">—</div></div>
-            <div style="background:#f8f8f5;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;color:var(--slate-light);margin-bottom:4px;">Flagged</div><div id="j-s-flagged" style="font-size:14px;font-weight:600;color:var(--ink);">—</div></div>
+
+          <!-- Status message -->
+          <div id="j-status" style="display:none;font-size:12px;padding:9px 12px;border-radius:6px;margin-bottom:14px;"></div>
+
+          <!-- Stat cards -->
+          <div id="j-stat-grid" style="margin-bottom:16px;">
+            <div style="background:#fff;border:0.5px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-light);margin-bottom:4px;">Last shared</div>
+              <div id="j-s-last" style="font-family:var(--serif);font-size:15px;color:var(--ink);line-height:1.3;">—</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+              <div style="background:#fff;border:0.5px solid var(--border);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-light);margin-bottom:4px;">This week</div>
+                <div id="j-s-week" style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--hunter-green);">—</div>
+              </div>
+              <div style="background:#fff;border:0.5px solid var(--border);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-light);margin-bottom:4px;">Total</div>
+                <div id="j-s-shared" style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink);">—</div>
+              </div>
+              <div style="background:#fff;border:0.5px solid var(--border);border-radius:8px;padding:12px 14px;">
+                <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-light);margin-bottom:4px;">Flagged</div>
+                <div id="j-s-flagged" style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink);">—</div>
+              </div>
+            </div>
           </div>
-          <canvas id="j-chart" height="120" style="margin-bottom:14px;display:none;"></canvas>
-          <div id="j-words" style="margin-bottom:14px;"></div>
+
+          <div id="j-words" style="margin-bottom:16px;"></div>
           <div id="j-entries"></div>
           <div id="j-prep"></div>
         </div>
@@ -2363,15 +2383,18 @@
     } else {
       jShowStatus(`✓ Sign-in link sent to ${jClientEmail}`, false);
     }
-    btn.textContent = '✉ Send link'; btn.disabled = false;
+    btn.textContent = 'Send invite'; btn.disabled = false;
   }
 
   function jRenderStats(entries) {
     const week = entries.filter(e => jIsThisWeek(e.created_at));
+    const flaggedCount = entries.filter(e => e.flagged_for_session).length;
     document.getElementById('j-s-last').textContent    = entries.length ? jFmtDate(entries[0].created_at) : '—';
     document.getElementById('j-s-week').textContent    = week.length;
     document.getElementById('j-s-shared').textContent  = entries.length;
-    document.getElementById('j-s-flagged').textContent = entries.filter(e => e.flagged_for_session).length;
+    const flaggedEl = document.getElementById('j-s-flagged');
+    flaggedEl.textContent = flaggedCount;
+    flaggedEl.style.color = flaggedCount > 0 ? '#c2540a' : 'var(--ink)';
 
     // Word frequency
     const freq = {};
@@ -2379,51 +2402,71 @@
     const top = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,8);
     const maxF = top[0]?.[1] || 1;
     document.getElementById('j-words').innerHTML = top.length ? `
-      <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:6px;">Top words</div>
-      ${top.map(([w,c])=>`
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:11px;color:var(--ink);min-width:80px;">${esc(w)}</span>
-          <div style="flex:1;background:#eee;border-radius:3px;height:6px;">
-            <div style="width:${Math.round(c/maxF*100)}%;background:var(--hunter-green);height:6px;border-radius:3px;"></div>
+      <div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-light);margin-bottom:10px;">Mood words</div>
+      ${top.map(([w,c]) => `
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <span style="font-size:12px;color:var(--ink);min-width:90px;font-weight:500;">${esc(w)}</span>
+          <div style="flex:1;background:var(--border);border-radius:4px;height:7px;overflow:hidden;">
+            <div style="width:${Math.round(c/maxF*100)}%;background:var(--hunter-green);height:7px;border-radius:4px;"></div>
           </div>
-          <span style="font-size:10px;color:var(--slate-light);">${c}×</span>
+          <span style="font-size:11px;color:var(--slate-light);min-width:18px;text-align:right;">${c}</span>
         </div>`).join('')}` : '';
   }
 
   function jRenderEntries(entries) {
     const el = document.getElementById('j-entries');
-    if (!entries.length) { el.innerHTML = '<p style="font-size:12px;color:var(--slate-light);">No entries yet.</p>'; return; }
-    el.innerHTML = `<div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:8px;">${entries.length} entr${entries.length===1?'y':'ies'}</div>` +
-      entries.map(e => `
-        <div style="border:1px solid #e8e8e4;border-radius:8px;padding:10px 12px;margin-bottom:8px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-            <span style="font-size:11px;color:var(--slate-light);">${jFmtDate(e.created_at)}</span>
-            <div style="display:flex;gap:4px;">
-              ${e.shared ? '<span style="font-size:10px;background:var(--green-light);color:var(--hunter-green);padding:2px 6px;border-radius:10px;">Shared</span>' : ''}
-              ${e.flagged_for_session ? '<span style="font-size:10px;background:#fff3e0;color:#e65100;padding:2px 6px;border-radius:10px;">Flagged</span>' : ''}
+    if (!entries.length) {
+      el.innerHTML = `<div style="text-align:center;padding:32px 0;color:var(--slate-light);font-size:13px;">No shared entries yet.</div>`;
+      return;
+    }
+    el.innerHTML =
+      `<div style="font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate-light);margin-bottom:10px;">${entries.length} entr${entries.length===1?'y':'ies'}</div>` +
+      entries.map(e => {
+        const flagged = !!e.flagged_for_session;
+        const hasWords = (e.mood_words||[]).length > 0;
+        const hasText = !!e.entry_text;
+        return `
+          <div style="background:#fff;border:0.5px solid ${flagged ? '#fbbf24' : 'var(--border)'};border-left:3px solid ${flagged ? '#f59e0b' : 'var(--border)'};border-radius:8px;padding:12px 14px;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${hasWords||hasText?'8px':'0'};">
+              <span style="font-size:11px;color:var(--slate-light);">${jFmtDate(e.created_at)}</span>
+              ${flagged ? `<span style="font-size:10px;font-weight:500;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;">Flagged</span>` : ''}
             </div>
-          </div>
-          ${(e.mood_words||[]).length ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;">${e.mood_words.map(w=>`<span style="font-size:10px;background:#f0f0eb;color:var(--ink);padding:2px 7px;border-radius:10px;">${esc(w)}</span>`).join('')}</div>` : ''}
-          ${e.entry_text ? `<p style="font-size:12px;color:var(--ink);line-height:1.5;margin:0;">"${esc(e.entry_text.slice(0,200))}${e.entry_text.length>200?'…':''}"</p>` : ''}
-        </div>`).join('');
+            ${hasWords ? `
+              <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:${hasText?'8px':'0'};">
+                ${e.mood_words.map(w => `<span style="font-size:10px;font-weight:500;background:var(--green-light);color:var(--hunter-green);padding:3px 8px;border-radius:10px;">${esc(w)}</span>`).join('')}
+              </div>` : ''}
+            ${hasText ? `
+              <p style="font-size:12px;color:var(--ink);line-height:1.65;margin:0;padding-left:10px;border-left:2px solid var(--border);font-style:italic;">${esc(e.entry_text.slice(0,240))}${e.entry_text.length>240?'…':''}</p>` : ''}
+          </div>`;
+      }).join('');
   }
 
   function jRenderPrep(entries) {
     const flagged = entries.filter(e => e.flagged_for_session);
     const freq = {};
     entries.forEach(e => (e.mood_words||[]).forEach(w => { freq[w] = (freq[w]||0)+1; }));
-    const topWords = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,3);
+    const topWords = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,5);
     const el = document.getElementById('j-prep');
     if (!flagged.length && !topWords.length) { el.innerHTML = ''; return; }
     el.innerHTML = `
-      <div style="margin-top:14px;border-top:1px solid #e8e8e4;padding-top:14px;">
-        <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:8px;">Session prep</div>
-        ${flagged.length ? flagged.map(e=>`
-          <div style="background:#fff8f0;border:1px solid #ffe0b2;border-radius:8px;padding:10px 12px;margin-bottom:8px;">
-            <div style="font-size:10px;font-weight:500;color:#e65100;margin-bottom:4px;">Flagged · ${jFmtDate(e.created_at)}</div>
-            ${e.entry_text ? `<p style="font-size:12px;color:var(--ink);margin:0;">"${esc(e.entry_text.slice(0,150))}…"</p>` : ''}
-          </div>`).join('') : ''}
-        ${topWords.length ? `<div style="font-size:11px;color:var(--slate-light);">Most used words: ${topWords.map(([w,c])=>`<strong>${esc(w)}</strong> (${c}×)`).join(', ')}</div>` : ''}
+      <div style="margin-top:20px;border-top:0.5px solid var(--border);padding-top:20px;">
+        <div style="font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--hunter-green);margin-bottom:14px;">Session prep</div>
+        ${flagged.length ? `
+          <div style="margin-bottom:${topWords.length ? '16px' : '0'};">
+            <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:8px;">Flagged for discussion</div>
+            ${flagged.map(e => `
+              <div style="background:#fffbeb;border:0.5px solid #fde68a;border-left:3px solid #f59e0b;border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+                <div style="font-size:10px;font-weight:500;color:#92400e;margin-bottom:${e.entry_text?'6px':'0'};">${jFmtDate(e.created_at)}</div>
+                ${e.entry_text ? `<p style="font-size:12px;color:var(--ink);margin:0;line-height:1.6;font-style:italic;">"${esc(e.entry_text.slice(0,200))}${e.entry_text.length>200?'…':''}"</p>` : ''}
+              </div>`).join('')}
+          </div>` : ''}
+        ${topWords.length ? `
+          <div>
+            <div style="font-size:11px;font-weight:500;color:var(--ink);margin-bottom:8px;">Recurring mood words</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">
+              ${topWords.map(([w,c]) => `<span style="font-size:11px;font-weight:500;background:var(--green-light);color:var(--hunter-green);padding:5px 11px;border-radius:12px;">${esc(w)} <span style="opacity:0.6;font-weight:400;">${c}×</span></span>`).join('')}
+            </div>
+          </div>` : ''}
       </div>`;
   }
   </script>
