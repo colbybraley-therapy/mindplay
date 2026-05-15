@@ -900,7 +900,7 @@
           <div class="tab" onclick="switchTab('tab-homework', this)">Outside Work</div>
           <div class="tab" onclick="switchTab('tab-responses', this)">Session Responses</div>
           <div class="tab" onclick="switchTab('tab-history', this)">Session History</div>
-          <div class="tab" onclick="switchTab('tab-journal', this); loadJournalTab()">Journal</div>
+          <div class="tab" onclick="switchTab('tab-journal', this); loadJournalTab(true)">Journal</div>
         </div>
 
         <!-- Activities Tab -->
@@ -2303,7 +2303,7 @@
     if (el) el.style.display = 'none';
   }
 
-  async function loadJournalTab() {
+  async function loadJournalTab(autoLoad) {
     if (!currentClient) return;
     jHideStatus();
     document.getElementById('j-client-label').textContent = `${currentClient.name}'s Journal`;
@@ -2312,7 +2312,7 @@
     if (!jClientEmail && emailInput?.value.trim()) jClientEmail = emailInput.value.trim();
 
     if (!jClientEmail) {
-      jShowStatus('Enter the client\'s email above and click Load.', false);
+      if (!autoLoad) jShowStatus('Enter the client\'s email above and click Load.', false);
       return;
     }
     if (emailInput && !emailInput.value) emailInput.value = jClientEmail;
