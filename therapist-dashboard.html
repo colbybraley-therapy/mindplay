@@ -2326,10 +2326,7 @@
       return;
     }
 
-    const { data, error } = await db
-      .from('journal_entries').select('*')
-      .eq('client_id', jClientAuthId)
-      .order('created_at', { ascending: false });
+    const { data, error } = await db.rpc('get_journal_entries_for_client', { p_email: jClientEmail });
     if (error) { jShowStatus(`Error loading entries: ${error.message}`, true); return; }
 
     jAllEntries = data || [];
