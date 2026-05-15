@@ -1485,12 +1485,18 @@ async function renderAssignedActivities() {
 
   grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:1rem;color:var(--text-muted);font-size:13px;">Loading...</div>`;
 
-  const { data: activities } = await db
+  const { data: activities, error: actError } = await db
     .from('activities')
     .select('*')
     .eq('client_id', currentSession.client_id)
-    .eq('done', false)
+    .neq('done', true)
     .order('created_at', { ascending: true });
+
+  if (actError) {
+    console.error('Activities query error:', actError);
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:14px;">Could not load activities. (${actError.message})</div>`;
+    return;
+  }
 
   if (!activities?.length) {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:14px;">No activities assigned yet. Your therapist will add some soon.</div>`;
@@ -1775,11 +1781,7 @@ function openWizard() {
 
 function closeWizard() {
   document.getElementById('character-builder').classList.remove('active');
-  if (currentSession) {
-    go(currentSession.activity_type);
-  } else {
-    document.getElementById('home').classList.add('active');
-  }
+  go('home');
 }
 
 function wizardBack() {
@@ -2058,8 +2060,7 @@ function finishWizard() {
 
   setCharBg(true);
   document.getElementById('character-builder').classList.remove('active');
-  if (currentSession) { go(currentSession.activity_type || 'home'); }
-  else                { document.getElementById('home').classList.add('active'); }
+  go('home');
 }
 
 /* ── Notify therapist when client closes the window ── */
