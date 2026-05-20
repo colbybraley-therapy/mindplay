@@ -1494,8 +1494,12 @@ async function renderAssignedActivities() {
 
   console.log('[MindPlay] session:', currentSession);
   console.log('[MindPlay] client_id:', currentSession?.client_id);
-  console.log('[MindPlay] activities:', activities);
+  console.log('[MindPlay] activities (not done):', activities);
   console.log('[MindPlay] error:', actError);
+
+  // Extra check: query ALL activities for this client regardless of done status
+  const { data: allActs } = await db.from('activities').select('id, name, done, activity_type').eq('client_id', currentSession.client_id);
+  console.log('[MindPlay] ALL activities for client (any done status):', allActs);
 
   if (actError) {
     console.error('[MindPlay] Activities query error:', actError);
