@@ -1492,11 +1492,10 @@ async function renderAssignedActivities() {
     .neq('done', true)
     .order('created_at', { ascending: true });
 
-  console.log('[MindPlay] activities query:', {
-    client_id: currentSession.client_id,
-    data: activities,
-    error: actError,
-  });
+  console.log('[MindPlay] session:', currentSession);
+  console.log('[MindPlay] client_id:', currentSession?.client_id);
+  console.log('[MindPlay] activities:', activities);
+  console.log('[MindPlay] error:', actError);
 
   if (actError) {
     console.error('[MindPlay] Activities query error:', actError);
