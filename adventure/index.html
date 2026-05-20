@@ -1492,14 +1492,6 @@ async function renderAssignedActivities() {
     .neq('done', true)
     .order('created_at', { ascending: true });
 
-  console.log('[MindPlay] session:', currentSession);
-  console.log('[MindPlay] client_id:', currentSession?.client_id);
-  console.log('[MindPlay] activities (not done):', activities);
-  console.log('[MindPlay] error:', actError);
-
-  // Extra check: query ALL activities for this client regardless of done status
-  const { data: allActs } = await db.from('activities').select('id, name, done, activity_type').eq('client_id', currentSession.client_id);
-  console.log('[MindPlay] ALL activities for client (any done status):', allActs);
 
   if (actError) {
     console.error('[MindPlay] Activities query error:', actError);
@@ -1508,8 +1500,7 @@ async function renderAssignedActivities() {
   }
 
   if (!activities?.length) {
-    console.warn('[MindPlay] No activities returned — if client_id above looks correct, check Supabase RLS on the activities table.');
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:14px;">No activities assigned yet. Your therapist will add some soon.</div>`;
+grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:14px;">No activities assigned yet. Your therapist will add some soon.</div>`;
     return;
   }
 

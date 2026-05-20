@@ -1791,17 +1791,13 @@
     const at = ACTIVITY_TYPES.find(t => t.type === type);
     const name = customName || m.label;
 
-    const payload = {
+    const { error } = await db.from('activities').insert({
       client_id:     currentClient.id,
       activity_type: type,
       activity_icon: type !== 'custom' ? (at?.icon || m.icon) : null,
       name,
       done: false,
-    };
-    console.log('[doAssign] inserting:', payload);
-
-    const { data: inserted, error } = await db.from('activities').insert(payload).select();
-    console.log('[doAssign] result:', inserted, 'error:', error);
+    });
 
     if (error) { console.error('assign error:', error); return; }
     closeActDrawer();
